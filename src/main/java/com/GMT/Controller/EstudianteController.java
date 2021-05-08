@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.GMT.Entidad.Estudiante;
 import com.GMT.Services.EstudianteServiceImpl;
-import com.GMT.Services.IEstudianteService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
@@ -21,6 +20,7 @@ public class EstudianteController {
 	@Autowired
 	private EstudianteServiceImpl estudianteServiceImpl;	
 	
+	//LEER
 	@RequestMapping(value= {"/Listar"},method=RequestMethod.GET)
 	public String listar(Model model) {
 		
@@ -30,6 +30,7 @@ public class EstudianteController {
 		 return "fragments/layout";	 
 	}
 	
+	//CREAR
 	@RequestMapping(value= {"/Guardar"},method=RequestMethod.GET)
 	public String registro( Model model) {
 		
@@ -39,7 +40,7 @@ public class EstudianteController {
 		 model.addAttribute("template","registrarEstudiante");
 		 return "fragments/layout";	
 	}
-	
+	//ACTUALIZAR
 	@RequestMapping(value= {"/Editar/{dni}"},method=RequestMethod.GET)
 	public String registro( @PathVariable("dni") String dni, Model model) {
 		
@@ -61,12 +62,10 @@ public class EstudianteController {
 	public String guardar(Estudiante entity, Model model) {
 		
 		 estudianteServiceImpl.guardar(entity);
-		/* model.addAttribute("html","GestionarEstudiante/listarEstudiante");
-		 model.addAttribute("template","listarEstudiante");
-		 return "fragments/layout";	*/
 		 return "redirect:/Estudiante/Listar";
 	}
 	
+	//ELIMINAR
 	@RequestMapping(value= {"/Eliminar/{dni}"},method=RequestMethod.GET)
 	public String eliminar(@PathVariable("dni") String dni, Model model) {
 		

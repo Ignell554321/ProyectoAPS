@@ -1,0 +1,89 @@
+<div th:fragment="listarInstructor" id="listarInstructor">
+
+ 	   <!-- Page-header end -->
+        <div class="pcoded-inner-content">
+            <!-- Main-body start -->
+            <div class="main-body">
+                <div class="page-wrapper">
+                    <!-- Page-body start -->
+                    <div class="page-body">
+                        <!-- Basic table card start -->
+                                <div class="card">
+                                    <div class="card-header">
+                                        
+                                         <div class="btn-group " role="group" data-toggle="tooltip" data-placement="top" title="" >
+					                        <a th:href="@{/Instructor/Guardar}" type="button" class="btn btn-primary btn-sm waves-effect waves-light"><i class="ti-plus"></i> Nuevo</a>					                        
+					                    </div>
+                                        
+                                        <div class="card-header-right">
+                                            <ul class="list-unstyled card-option">
+                                                <li><i class="fa fa fa-wrench open-card-option"></i></li>
+                                                <li><i class="fa fa-window-maximize full-card"></i></li>
+                                                <li><i class="fa fa-minus minimize-card"></i></li>
+                                                <li><i class="fa fa-refresh reload-card"></i></li>
+                                                <li><i class="fa fa-trash close-card"></i></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="card-block table-border-style">
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>DNI</th>
+                                                        <th>Nombres</th>
+                                                        <th>Apellidos</th>
+                                                        <th>Especialidad</th>
+                                                        <th>Email</th>                                                      
+                                                        <th>Telefono</th>
+                                                        <th>Direccion</th>
+                                                        <th>Opciones</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr th:each="instructor: ${lista}">
+                                                    	<td th:text="${instructor.dni}"></td>
+                                                    	<td th:text="${instructor.nombres}"></td>
+                                                    	<td th:text="${instructor.apellidos}"></td>
+                                                    	<td th:text="${instructor.especialidad}"></td>
+                                                    	<td th:text="${instructor.correoElectronico}"></td>                                                    	
+                                                    	<td th:text="${instructor.telefono}"></td>
+                                                    	<td th:text="${instructor.direccion}"></td>
+                                                    	<td>
+                                                    	<a class="btn btn-sm btn-warning" th:href="@{/Instructor/Editar/{dni} (dni=${instructor.dni})}" ><i class="ti-pencil"></i></a>
+                                                    	<a class="btn btn-sm btn-danger" th:href="@{/Instructor/Eliminar/{dni} (dni=${instructor.dni})}"><i class="ti-trash"></i></a>
+                                                    	</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="card-footer">
+                                    
+                                     <div class="col-12">
+                                    
+                                    	<nav aria-label="Page navigation example">
+										  <ul class="pagination justify-content-end">
+										    <li class="page-item disabled">
+										      <a class="page-link" href="#" tabindex="-1">Previous</a>
+										    </li>
+										    <li class="page-item"><a class="page-link" href="#">1</a></li>
+										    <!-- <li class="page-item"><a class="page-link" href="#">2</a></li>
+										    <li class="page-item"><a class="page-link" href="#">3</a></li>-->
+										    <li class="page-item">
+										      <a class="page-link" href="#">Next</a>
+										    </li>
+										  </ul>
+										</nav>
+
+                                   	 </div>
+                                    
+                                    </div>
+                                   
+                               </div>
+                            </div>
+                       </div>
+                  </div>
+			</div>
+</div>
