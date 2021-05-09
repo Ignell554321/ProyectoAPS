@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -39,8 +41,12 @@ public abstract class GenericServiceImpl<T,ID extends Serializable > implements 
 		return returnList;
 	}
 
+	@Override
+	public Page<T>paginado(Pageable pageable){
+		return getDAO().findAll(pageable);
+	}
 	
-	public abstract CrudRepository<T,ID> getDAO();
+	public abstract JpaRepository<T,ID> getDAO();
 	
 
 }

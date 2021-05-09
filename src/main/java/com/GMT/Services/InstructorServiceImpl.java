@@ -1,7 +1,7 @@
 package com.GMT.Services;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 import com.GMT.Commons.GenericServiceImpl;
@@ -14,15 +14,18 @@ public class InstructorServiceImpl extends GenericServiceImpl<Instructor, String
 	@Autowired
 	private IInstructorDAO instructorDAO;
 
-	@Override
-	public CrudRepository<Instructor, String> getDAO() {
-		
-		return instructorDAO;
-	}
+
 	@Override
 	public Instructor buscarDni(String dni) {
 		// TODO Auto-generated method stub
 		return instructorDAO.findBydni(dni);
+	}
+
+
+	@Override
+	public JpaRepository<Instructor, String> getDAO() {
+		// TODO Auto-generated method stub
+		return instructorDAO;
 	}
 
 }

@@ -1,7 +1,7 @@
 package com.GMT.Services;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 import com.GMT.Commons.GenericServiceImpl;
@@ -15,10 +15,12 @@ public class InscripcionServiceImpl extends GenericServiceImpl<Inscripcion, Inte
 	private IInscripcionDAO inscripcionDAO;
 
 	@Override
-	public CrudRepository<Inscripcion, Integer> getDAO() {
+	public JpaRepository<Inscripcion, Integer> getDAO() {
 		// TODO Auto-generated method stub
 		return inscripcionDAO;
 	}
+
+
 
 
 }
