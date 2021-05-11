@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.GMT.Entidad.Curso;
+import com.GMT.Entidad.Estudiante;
 import com.GMT.Services.CursoServiceImpl;
 import com.GMT.Services.InstructorServiceImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -22,16 +23,26 @@ public class CursoController {
 	
 	ObjectMapper Obj = new ObjectMapper();
 	
-	@RequestMapping(value= {"/Guardar"},method=RequestMethod.GET)
-	public String listarCompra(Model model) {
+	@RequestMapping(value= {"/Listar"},method=RequestMethod.GET)
+	public String listar(Model model) {
 		
 		 model.addAttribute("listaDocentes",instructorServiceImpl.listar());
 		 model.addAttribute("curso",new Curso());
-		 model.addAttribute("html","GestionarCurso/registrarCurso");
-		 model.addAttribute("template","registrarCurso");
+		 model.addAttribute("html","GestionarCurso/listarCurso");
+		 model.addAttribute("template","listarCurso");
 		 return "fragments/layout";	
 	}
 	
+	//CREAR
+		@RequestMapping(value= {"/Guardar"},method=RequestMethod.GET)
+		public String registro( Model model) {
+			
+			
+			model.addAttribute("curso",new Curso());
+			 model.addAttribute("html","GestionarCurso/registrarCurso");
+			 model.addAttribute("template","registrarCurso");
+			 return "fragments/layout";	
+		}
 	
 	//CREAR
 	@RequestMapping(value= {"/Guardar"},method=RequestMethod.POST)
@@ -42,7 +53,7 @@ public class CursoController {
 		entity.getHorario().setPeriodo("3");
 		entity.getInstructor().setDni("78541236");
 		cursoServiceImpl.Insertar(entity);
-		 return "redirect:/Curso/Guardar";
+		return "redirect:/Curso/Listar";
 	}
 	
 }

@@ -1,6 +1,88 @@
-<h1>Probando</h1>
+<div th:fragment="listarCurso" id="listarCurso">
 
-<h2>Prueba2</h2>
-<h2>RAAAAA</h2>
-
-<a>asdasd</a>
+  	<!-- Page-header end -->
+     <div class="pcoded-inner-content">
+         <!-- Main-body start -->
+         <div class="main-body">
+             <div class="page-wrapper">
+                 <!-- Page-body start -->
+                 <div class="page-body">
+                     <!-- Basic table card start -->
+                     <div class="card">
+                         <div class="card-header">
+                             
+	                           <div class="btn-group " role="group" data-toggle="tooltip" data-placement="top" title="" data-original-title=".btn-xlg">
+					               <a th:href="@{/Curso/Guardar}" type="button" class="btn btn-primary btn-sm waves-effect waves-light"><i class="ti-plus"></i> Nuevo</a>
+					           </div>
+                                     
+                               <div class="card-header-right">
+                                   <ul class="list-unstyled card-option">
+                                       <li><i class="fa fa fa-wrench open-card-option"></i></li>
+                                       <li><i class="fa fa-window-maximize full-card"></i></li>
+                                       <li><i class="fa fa-minus minimize-card"></i></li>
+                                       <li><i class="fa fa-refresh reload-card"></i></li>
+                                       <li><i class="fa fa-trash close-card"></i></li>
+                                   </ul>
+                               </div>
+                       	 </div>
+                         <div class="card-block table-border-style">
+                         
+	                         
+	                         
+		                         <div class="table-responsive">
+	                                 <table class="table">
+	                                     <thead>
+	                                         <tr>                                                        
+	                                             <th>Nombre</th>
+	                                             <th>Nivel</th>
+	                                             <th>Horas</th>
+	                                             <th>Tipo de Curso</th>
+	                                             <th>Instructor</th>
+	                                             <th>Descripcion</th>
+	                                             <th>Horas</th>
+	                                         </tr>
+	                                     </thead>
+	                                     <tbody>
+	                                         <tr th:each="curso: ${lista}">
+	                                         	<td th:text="${curso.nombre}"></td>
+	                                         	<td th:text="${curso.nivel}"></td>
+	                                         	<td th:text="${curso.horas}"></td>
+	                                         	<td th:text="${curso.tipoDeCurso}"></td>
+	                                         	<td th:text="${curso.instructor}"></td>
+	                                         	<td th:text="${curso.descripcion}"></td>
+	                                         	<td th:text="${curso.horas}"></td>
+	                                         	<!--<td>
+	                                         	<a class="btn btn-sm btn-warning" th:href="@{/Curso/Editar/{dni} (dni=${curso.dni})}" ><i class="ti-pencil"></i></a>
+	                                         	<a class="btn btn-sm btn-danger" th:href="@{/Curso/Eliminar/{dni} (dni=${estudiante.dni})}"><i class="ti-trash"></i></a>
+	                                         	</td>-->
+	                                         </tr>
+	                                     </tbody>
+	                                 </table>
+		                          </div>
+	                         
+                         </div>
+                                 
+                         <div class="card-footer">
+                         
+	                     <div class="col-md-12 ">
+	                       	<nav aria-label="Pagination">
+							  <ul class="pagination justify-content-end">
+							   <li class="page-item" th:classappend="${prev == 0 ? 'disabled':''}">
+							   	    <a class="page-link" th:href="@{|?page=${prev}|}">Anterior</a>
+							   </li>
+							   <li class="page-item" th:each="page : ${pages}" th:classappend="${current == page ? 'active':''}">
+							    	<a class="page-link" th:href="@{|?page=${page}|}" th:text="${page}"></a>
+							   </li>
+							   <li class="page-item" th:classappend="${current == last ? 'disabled':''}">
+							   	    <a class="page-link" th:href="@{|?page=${next}|}">Siguiente</a>
+							   </li>  
+							  </ul>
+							</nav>	                                     
+	                     </div>
+                         </div>  
+                     </div>
+                  </div>
+             </div>
+        </div>
+	</div>
+</div>
