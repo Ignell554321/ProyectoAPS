@@ -2,24 +2,23 @@ package com.GMT.Services;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
+
+import com.GMT.Commons.GenericServiceImpl;
 import com.GMT.Entidad.Curso;
+import com.GMT.Entidad.Estudiante;
 import com.GMT.Persistencia.ICursoDAO;
 import com.GMT.Persistencia.IHorarioDAO;
 
 @Service
-public class CursoServiceImpl implements ICursoService {
+public class CursoServiceImpl extends GenericServiceImpl<Curso, Integer> implements ICursoService{
 
 	@Autowired
 	private ICursoDAO cursoDAO;
 	@Autowired
 	private IHorarioDAO horarioDAO;
 	
-	@Override
-	public List<Curso> Listar() {
-		// TODO Auto-generated method stub
-		return cursoDAO.findAll();
-	}
 
 	@Override
 	public void Insertar(Curso entity) {
@@ -28,16 +27,14 @@ public class CursoServiceImpl implements ICursoService {
 		cursoDAO.save(entity);
 	}
 
-	@Override
-	public void Editar(Curso entity) {
-		// TODO Auto-generated method stub
-		cursoDAO.save(entity);
-	}
 
 	@Override
-	public void Eliminar(Curso entity) {
+	public JpaRepository<Curso, Integer> getDAO() {
 		// TODO Auto-generated method stub
-		cursoDAO.delete(entity);
+		return null;
 	}
+
+
+
 
 }

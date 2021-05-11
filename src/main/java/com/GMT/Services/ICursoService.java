@@ -1,14 +1,10 @@
 package com.GMT.Services;
 
-import java.util.List;
-
+import com.GMT.Commons.IGenericService;
 import com.GMT.Entidad.Curso;
 
-public interface ICursoService {
+public interface ICursoService extends IGenericService<Curso, Integer>{
 
-	public List<Curso>Listar();
 	public void Insertar(Curso entity);
-	public void Editar(Curso entity);
-	public void Eliminar(Curso entity);
 	
 }
