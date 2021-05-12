@@ -253,8 +253,13 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
                                   </a>
                               </li>
                               
+<<<<<<< HEAD
                                <li>
                                   <a th:href="@{/Curso/Paginado}" class="waves-effect waves-dark">
+=======
+                               <li class ="@{${activeCurso}}">
+                                  <a th:href="@{/Curso/Listar}" class="waves-effect waves-dark">
+>>>>>>> abfac7d5e9746bb2a068101dc7f04873063c2a24
                                       <span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>
                                       <span class="pcoded-mtext" data-i18n="nav.form-components.main">Curso</span>
                                       <span class="pcoded-mcaret"></span>
