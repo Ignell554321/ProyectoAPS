@@ -4,22 +4,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import com.GMT.Commons.GenericServiceImpl;
-import com.GMT.Entidad.Horario;
-import com.GMT.Persistencia.IHorarioDAO;
+import com.GMT.Entidad.Maquina;
+import com.GMT.Persistencia.IMaquinaDAO;
 
 @Service
-public class HorarioServiceImpl extends GenericServiceImpl<Horario, Integer> implements IHorarioService{
+public class MaquinaServiceImpl extends GenericServiceImpl<Maquina, Integer> implements IMaquinaService{
 
 	@Autowired
-	private IHorarioDAO horarioDAO;
-
+	private IMaquinaDAO maquinaDAO; 
+	
 	@Override
-	public JpaRepository<Horario, Integer> getDAO() {
+	public JpaRepository<Maquina, Integer> getDAO() {
 		// TODO Auto-generated method stub
-		return horarioDAO;
+		return maquinaDAO;
 	}
-	
-	
-
 
 }

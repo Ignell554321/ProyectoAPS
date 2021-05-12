@@ -1,13 +1,9 @@
 package com.GMT.Services;
 
-import java.util.List;
-
+import com.GMT.Commons.IGenericService;
 import com.GMT.Entidad.Horario;
 
-public interface IHorarioService {
+public interface IHorarioService extends IGenericService<Horario, Integer>{
 
-	public List<Horario>Listar();
-	public void Insertar(Horario entity);
-	public void Editar(Horario entity);
-	public void Eliminar(Horario entity);
+
 }

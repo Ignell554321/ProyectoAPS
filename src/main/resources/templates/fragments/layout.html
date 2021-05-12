@@ -236,7 +236,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
                           
                           <div class="pcoded-navigation-label" data-i18n="nav.category.forms">Registro </div>
                           <ul class="pcoded-item pcoded-left-item">
-                              <li class="@{${activeEstudiante}}">
+                              <li >
                                   <a th:href="@{/Estudiante/Paginado}" class="waves-effect waves-dark">
                                       <span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>
                                       <span class="pcoded-mtext" data-i18n="nav.form-components.main">Estudiante</span>
@@ -245,7 +245,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
                               </li>
                               
                               
-                               <li class="@{${activeInstructor}}">
+                               <li >
                                   <a th:href="@{/Instructor/Paginado}" class="waves-effect waves-dark">
                                       <span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>
                                       <span class="pcoded-mtext" data-i18n="nav.form-components.main">Instructor</span>
@@ -254,7 +254,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
                               </li>
                               
                                <li>
-                                  <a href="bs-basic-table.html" class="waves-effect waves-dark">
+                                  <a th:href="@{/Curso/Paginado}" class="waves-effect waves-dark">
                                       <span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>
                                       <span class="pcoded-mtext" data-i18n="nav.form-components.main">Curso</span>
                                       <span class="pcoded-mcaret"></span>
@@ -262,17 +262,17 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
                               </li>
                               
                                <li>
-                                  <a href="bs-basic-table.html" class="waves-effect waves-dark">
+                                  <a th:href="@{/Certificado/Paginado}" class="waves-effect waves-dark">
                                       <span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>
-                                      <span class="pcoded-mtext" data-i18n="nav.form-components.main">Certificados</span>
+                                      <span class="pcoded-mtext" data-i18n="nav.form-components.main">Certificado</span>
                                       <span class="pcoded-mcaret"></span>
                                   </a>
                               </li>
                               
                                 <li>
-                                  <a href="bs-basic-table.html" class="waves-effect waves-dark">
+                                  <a th:href="@{/Maquina/Paginado}" class="waves-effect waves-dark">
                                       <span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>
-                                      <span class="pcoded-mtext" data-i18n="nav.form-components.main">Maquinas</span>
+                                      <span class="pcoded-mtext" data-i18n="nav.form-components.main">Maquina</span>
                                       <span class="pcoded-mcaret"></span>
                                   </a>
                               </li>
@@ -291,7 +291,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
                                   </a>
                                   <ul class="pcoded-submenu">
                                       <li class="">
-                                          <a href="javascript:void(0)" class="waves-effect waves-dark">
+                                          <a th:href="@{/Reporte/VistaPrevia}" target="_blank" class="waves-effect waves-dark">
                                               <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                                               <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-21">Estudiante</span>
                                               <span class="pcoded-mcaret"></span>
@@ -316,7 +316,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
                                   </a>
                                   <ul class="pcoded-submenu">
                                       <li class="">
-                                          <a href="javascript:void(0)" class="waves-effect waves-dark">
+                                          <a  class="waves-effect waves-dark">
                                               <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                                               <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-21">Estudiante</span>
                                               <span class="pcoded-mcaret"></span>
@@ -348,7 +348,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
                                       <div class="page-header-title" align="center">
                                           
                                           <h3 class="m-b-0">SISTEMA DE REGISTRO DE ESTUDIANTES</h3>
-                                          <img class="img-fluid" src="../images/logoGlobal.png" alt="Theme-Logo" width="200" height="200" />
+                                          <img class="img-fluid" th:src="@{/images/logoGlobal.png}"  src="../images/logoGlobal.png" alt="Theme-Logo" width="200" height="200" />
                                       </div>
                                   </div>
                                   <div class="col-md-4">

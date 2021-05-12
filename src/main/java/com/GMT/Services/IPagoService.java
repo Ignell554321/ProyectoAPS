@@ -1,5 +1,8 @@
 package com.GMT.Services;
 
-public interface IPagoService {
+import com.GMT.Commons.IGenericService;
+import com.GMT.Entidad.Pago;
+
+public interface IPagoService extends IGenericService<Pago, Integer>{
 
 }

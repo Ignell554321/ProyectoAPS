@@ -1,14 +1,11 @@
 package com.GMT.Services;
 
-import java.util.List;
 
+import com.GMT.Commons.IGenericService;
 import com.GMT.Entidad.Certificado;
+import com.GMT.Entidad.Curso;
 
-public interface ICertificadoService {
+public interface ICertificadoService extends IGenericService<Certificado, Integer>{
 
-	public List<Certificado>Listar();
-	public void Insertar(Certificado entity);
-	public void Editar(Certificado entity);
-	public void Eliminar(Certificado entity);
 	
 }

@@ -60,10 +60,9 @@
                                   </div>
                                   
                                   <div class="col-md-3">
-	                                  <select  name="tipoDeCurso" id="tipoDeCurso" class="form-control" style="font-size: 14px;" required="">
+	                                  <select th:field="*{instructor.dni}"  name="dni" id="dni" class="form-control" style="font-size: 14px;" required="">
                                                    <option  value="">DOCENTE</option>
-                                                   <option  value="1">TEST</option>
-                                                  <!--<option th:each="docente: ${listaDocentes}" th:value=$(docente.dni)></option>  --> 
+                                                   <option th:each="docente: ${listaDocentes}" th:text="${docente.apellidos}+' '+${docente.nombres}" th:value="${docente.dni}"></option>  
                                        </select>
                                   </div>
                                    
@@ -144,10 +143,7 @@
 		                <div class="col-3">
 		
 		                  <select id="mHoraInicio" class="form-control form-control-sm">
-		                    <option value="00">00</option>
-		                    <option value="01">01</option>
-		                    <option value="02">02</option>
-		                    <option value="03">03</option>
+		                    <option th:each="hora: ${horas}" th:text="${hora}" th:value="${hora}"></option>
 		                  </select>
 		                </div>
 		              
@@ -156,10 +152,7 @@
 		              </div>
 		              <div class="col-3">
 		                <select id="mMinInicio" class="form-control form-control-sm">
-		                    <option value="00">00</option>
-		                    <option value="01">01</option>
-		                    <option value="02">02</option>
-		                    <option value="03">03</option>
+		                    <option th:each="minuto: ${minutos}" th:text="${minuto}" th:value="${minuto}"></option>
 		                </select>
 		              </div>
 		
@@ -174,7 +167,7 @@
 		                <div class="col-3">
 		
 		                  <select id="mHoraTermino" class="form-control form-control-sm">
-		                    <option>00</option>
+		                    <option th:each="hora: ${horas}" th:text="${hora}" th:value="${hora}"></option>
 		                  </select>
 		                </div>
 		              
@@ -183,7 +176,7 @@
 		              </div>
 		              <div class="col-3">
 		                <select id="mMinTermino" class="form-control form-control-sm">
-		                  <option>00</option>
+		                  <option th:each="minuto: ${minutos}" th:text="${minuto}" th:value="${minuto}"></option>
 		                </select>
 		              </div>
 		

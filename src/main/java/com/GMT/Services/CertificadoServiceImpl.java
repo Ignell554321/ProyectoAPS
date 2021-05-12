@@ -1,40 +1,24 @@
 package com.GMT.Services;
 
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
+import com.GMT.Commons.GenericServiceImpl;
 import com.GMT.Entidad.Certificado;
 import com.GMT.Persistencia.ICertificadoDAO;
 
 @Service
-public class CertificadoServiceImpl implements ICertificadoService {
+public class CertificadoServiceImpl extends GenericServiceImpl<Certificado, Integer> implements ICertificadoService{
 
 	@Autowired
-	private ICertificadoDAO certificadoDAO; 
+	private ICertificadoDAO certificadoDAO;
+
+	@Override
+	public JpaRepository<Certificado, Integer> getDAO() {
+		// TODO Auto-generated method stub
+		return certificadoDAO;
+	} 
 	
-	@Override
-	public List<Certificado> Listar() {
-		// TODO Auto-generated method stub
-		//return certificadoDAO.findAll();
-		return null;
-	}
 
-	@Override
-	public void Insertar(Certificado entity) {
-		// TODO Auto-generated method stub
-		certificadoDAO.save(entity);
-	}
-
-	@Override
-	public void Editar(Certificado entity) {
-		// TODO Auto-generated method stub
-		certificadoDAO.save(entity);
-	}
-
-	@Override
-	public void Eliminar(Certificado entity) {
-		// TODO Auto-generated method stub
-		certificadoDAO.delete(entity);
-	}
 
 }
