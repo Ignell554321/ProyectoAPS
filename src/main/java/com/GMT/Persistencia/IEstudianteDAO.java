@@ -1,7 +1,9 @@
 package com.GMT.Persistencia;
 
+import org.springframework.data.domain.Pageable;
 import java.util.List;
 
+import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -15,4 +17,7 @@ public interface IEstudianteDAO extends JpaRepository<Estudiante, String>{
 	public Estudiante deleteBydni(String dni);
 	@Query(nativeQuery = true, value = "CALL spPaginadoEstudiante(?1,?2)")
 	public List<Estudiante> paginado(int numeroPagina,int tamanioPagina);
+	
+	public Page<Estudiante> findBydni(String dni, Pageable pageable);
+
 }

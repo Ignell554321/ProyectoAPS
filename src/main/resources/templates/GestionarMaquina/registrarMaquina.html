@@ -21,7 +21,7 @@
                               
                                   <form action="" th:action="@{/Maquina/Guardar}" th:object=${maquina} method="post" class="form-material row" >
 
-                                   	
+                                   	<input th:field="*{id}" type="text" name="id" id="id"  class="d-none form-control" required="">
                                		<div class="col-md-3">
                                       <div class="form-group form-default">
                                       	 <input type="text" name="tipoDeMaquina" th:field="*{tipoDeMaquina}" class="form-control" required="">

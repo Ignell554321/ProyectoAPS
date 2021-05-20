@@ -83,7 +83,7 @@ public class InstructorController {
 	public String guardar(Instructor entity, Model model) {
 		
 		 instructorServiceImpl.guardar(entity);
-		 return "redirect:/Instructor/Listar";
+		 return "redirect:/Instructor/Paginado";
 	}
 	
 	@RequestMapping(value= {"/Editar/{dni}"},method=RequestMethod.GET)
@@ -93,7 +93,7 @@ public class InstructorController {
 		Instructor entity=instructorServiceImpl.buscarDni(dni);
 		
 		if(entity==null) {
-			 return "redirect:/Instructor/Listar";
+			 return "redirect:/Instructor/Paginado";
 		}
 		
 		 model.addAttribute("instructor",entity);
@@ -111,7 +111,7 @@ public class InstructorController {
 			instructorServiceImpl.eliminar(entity);
 		}
 		
-		 return "redirect:/Instructor/Listar";
+		 return "redirect:/Instructor/Paginado";
 	}
 	
 }

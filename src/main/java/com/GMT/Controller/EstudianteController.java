@@ -48,7 +48,7 @@ public class EstudianteController {
 		 PageRequest pageRequest=PageRequest.of(page, 10); //RECIBE COMO PARAMETROS LA PAGINA Y EL TAMAÑO DE PAGINA
 		 
 		 Page<Estudiante> pageEstudiante=estudianteServiceImpl.paginado(pageRequest); //OBTENEMOS EL LISTADO DE ESTUDIANTES
-		 
+
 		 int totalPage = pageEstudiante.getTotalPages(); //OBTENEMOS EL TOTAL DE PAGINAS
 		 
 		 if(totalPage>0) {
@@ -66,6 +66,45 @@ public class EstudianteController {
 		 model.addAttribute("template","listarEstudiante");
 		 return "fragments/layout";	 
 	}
+	
+	//BUSCAR
+		@RequestMapping(value= {"/Buscar"},method=RequestMethod.GET)
+		public String paginado1(@RequestParam Map<String,Object> params,Model model) {
+			
+			 int page= params.get("page") != null ? (Integer.valueOf(params.get("page").toString()) - 1) : 0;  
+			 String dni= params.get("dni") != null ? (params.get("dni").toString()) : "" ;  
+			 
+			 if(!dni.equals(""))
+			 {
+				 PageRequest pageRequest=PageRequest.of(page, 10); 
+				 
+				 
+				 Page<Estudiante> pageEstudiante=estudianteServiceImpl.buscar(dni,pageRequest); 
+				 int totalPage = pageEstudiante.getTotalPages(); 
+				 
+				 if(totalPage>0) {
+					 List<Integer>pages=IntStream.rangeClosed(1, totalPage).boxed().collect(Collectors.toList()); 
+					 model.addAttribute("pages",pages);
+				 }
+				 System.out.print(pageEstudiante);
+				 model.addAttribute("lista",pageEstudiante.getContent());
+				 model.addAttribute("current",page+1); //PAGINA ACTUAL
+				 model.addAttribute("next",page+2); //SIGUENTE PAGINA
+				 model.addAttribute("prev",page); //PAGINA ANTERIOR
+				 model.addAttribute("last",totalPage); //TOTAL PAGINAS 
+				 model.addAttribute("html","GestionarEstudiante/listarEstudiante");
+				 model.addAttribute("template","listarEstudiante");
+				 return "fragments/layout";	 
+				 
+			 }else {
+				 return "redirect:/Estudiante/Paginado";
+			 }
+			
+
+			 
+
+			 
+		}
 	
 	//CREAR
 	@RequestMapping(value= {"/Guardar"},method=RequestMethod.GET)
@@ -85,7 +124,7 @@ public class EstudianteController {
 		Estudiante entity=estudianteServiceImpl.buscarDni(dni);
 		
 		if(entity==null) {
-			 return "redirect:/Estudiante/Listar";
+			 return "redirect:/Estudiante/Paginado";
 		}
 		
 		model.addAttribute("estudiante",entity);
@@ -99,7 +138,7 @@ public class EstudianteController {
 	public String guardar(Estudiante entity, Model model) {
 		
 		 estudianteServiceImpl.guardar(entity);
-		 return "redirect:/Estudiante/Listar";
+		 return "redirect:/Estudiante/Paginado";
 	}
 	
 	//ELIMINAR
@@ -112,7 +151,7 @@ public class EstudianteController {
 			estudianteServiceImpl.eliminar(entity);
 		}
 		
-		 return "redirect:/Estudiante/Listar";
+		 return "redirect:/Estudiante/Paginado";
 	}
 	
 }

@@ -23,6 +23,8 @@
                               
                                   <form action="" th:action="@{/Curso/Guardar}" th:object=${curso} method="post" class="form-material row" >
                                   
+                                  <input th:field="*{id}" type="text" name="id" id="id"  class="d-none form-control" required="">
+                                        
                                   <div class="col-3">
                                       <div class="form-group form-default">
                                       	 <input th:field="*{nombre}" type="text" name="nombre" id="nombre"  class="form-control" required="">

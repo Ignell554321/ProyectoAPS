@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.GMT.Entidad.Certificado;
 import com.GMT.Entidad.Curso;
 import com.GMT.Entidad.Estudiante;
+import com.GMT.Entidad.Maquina;
 import com.GMT.Services.CertificadoServiceImpl;
 
 @Controller
@@ -90,5 +91,17 @@ public class CertificadoController {
 			 return "fragments/layout";	
 		}
 		
+		//ELIMINAR
+		@RequestMapping(value= {"/Eliminar/{id}"},method=RequestMethod.GET)
+		public String eliminar(@PathVariable("id") int id, Model model) {
+			
+			Certificado entity=certificadoServiceImpl.buscar(id);
+			
+			if(entity!=null) {
+				certificadoServiceImpl.eliminar(entity);
+			}
+			
+			 return "redirect:/Certificado/Paginado";
+		}
 
 }

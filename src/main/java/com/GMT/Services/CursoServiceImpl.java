@@ -29,7 +29,7 @@ public class CursoServiceImpl extends GenericServiceImpl<Curso, Integer> impleme
 	@Override
 	public JpaRepository<Curso, Integer> getDAO() {
 		// TODO Auto-generated method stub
-		return null;
+		return cursoDAO;
 	}
 
 

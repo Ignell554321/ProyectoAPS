@@ -1,8 +1,12 @@
 package com.GMT.Services;
 
+import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Slice;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
@@ -50,6 +54,13 @@ public class EstudianteServiceImpl extends GenericServiceImpl<Estudiante, String
 		// TODO Auto-generated method stub
 		return estudianteDAO;
 	}
+
+	@Override
+	public Page<Estudiante> buscar(String dni, Pageable pageable) {
+		// TODO Auto-generated method stub
+		return estudianteDAO.findBydni(dni,pageable);
+	}
+
 
 
 

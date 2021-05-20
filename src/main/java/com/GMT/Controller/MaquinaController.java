@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.GMT.Entidad.Estudiante;
 import com.GMT.Entidad.Maquina;
 import com.GMT.Services.MaquinaServiceImpl;
 
@@ -86,6 +87,19 @@ public class MaquinaController {
 		 model.addAttribute("html","GestionarMaquina/registrarMaquina");
 		 model.addAttribute("template","registrarMaquina");
 		 return "fragments/layout";	
+	}
+	
+	//ELIMINAR
+	@RequestMapping(value= {"/Eliminar/{id}"},method=RequestMethod.GET)
+	public String eliminar(@PathVariable("id") int id, Model model) {
+		
+		Maquina entity=maquinaServiceImpl.buscar(id);
+		
+		if(entity!=null) {
+			maquinaServiceImpl.eliminar(entity);
+		}
+		
+		 return "redirect:/Maquina/Paginado";
 	}
 	
 }

@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-=======
+
 <div th:fragment="listarCurso" id="listarCurso">
 
   	<!-- Page-header end -->
@@ -41,7 +40,7 @@
 	                                             <th>Tipo de Curso</th>
 	                                             <th>Instructor</th>
 	                                             <th>Descripcion</th>
-	                                             <th>Horas</th>
+	                                             <th>Opciones</th>
 	                                         </tr>
 	                                     </thead>
 	                                     <tbody>
@@ -50,13 +49,12 @@
 	                                         	<td th:text="${curso.nivel}"></td>
 	                                         	<td th:text="${curso.horas}"></td>
 	                                         	<td th:text="${curso.tipoDeCurso}"></td>
-	                                         	<td th:text="${curso.instructor}"></td>
+	                                         	<td th:text="${curso.instructor.apellidos +' '+curso.instructor.nombres}"></td>
 	                                         	<td th:text="${curso.descripcion}"></td>
-	                                         	<td th:text="${curso.horas}"></td>
-	                                         	<!--<td>
-	                                         	<a class="btn btn-sm btn-warning" th:href="@{/Curso/Editar/{dni} (dni=${curso.dni})}" ><i class="ti-pencil"></i></a>
-	                                         	<a class="btn btn-sm btn-danger" th:href="@{/Curso/Eliminar/{dni} (dni=${estudiante.dni})}"><i class="ti-trash"></i></a>
-	                                         	</td>-->
+	                                         	<td>
+	                                         	<a class="btn btn-sm btn-warning" th:href="@{/Curso/Editar/{id} (id=${curso.id})}" ><i class="ti-pencil"></i></a>
+	                                         	<a class="btn btn-sm btn-danger" th:href="@{/Curso/Eliminar/{id} (id=${curso.id})}"><i class="ti-trash"></i></a>
+	                                         	</td>
 	                                         </tr>
 	                                     </tbody>
 	                                 </table>
@@ -88,4 +86,4 @@
         </div>
 	</div>
 </div>
->>>>>>> abfac7d5e9746bb2a068101dc7f04873063c2a24
+
