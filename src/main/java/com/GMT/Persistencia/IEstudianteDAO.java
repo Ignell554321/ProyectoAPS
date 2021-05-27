@@ -15,9 +15,6 @@ public interface IEstudianteDAO extends JpaRepository<Estudiante, String>{
 
 	public Estudiante findBydni(String dni);
 	public Estudiante deleteBydni(String dni);
-	@Query(nativeQuery = true, value = "CALL spPaginadoEstudiante(?1,?2)")
-	public List<Estudiante> paginado(int numeroPagina,int tamanioPagina);
-	
 	public Page<Estudiante> findBydni(String dni, Pageable pageable);
 
 }

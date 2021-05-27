@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import com.GMT.Entidad.Estudiante;
 import com.GMT.Entidad.Instructor;
 import com.GMT.Services.InstructorServiceImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -43,12 +45,18 @@ public class InstructorController {
 		
 		 //Si el valor de page es diferente de null se resta 1, caso contrario su valor sera 0 debido a que esta en la primera pagina
 		 int page= params.get("page") != null ? (Integer.valueOf(params.get("page").toString()) - 1) : 0; 
+		 int tamanioPaginado= params.get("pageSize") != null ? (Integer.valueOf(params.get("pageSize").toString()) ) : 10; 
 		 
-		 PageRequest pageRequest=PageRequest.of(page, 10); //RECIBE COMO PARAMETROS LA PAGINA Y EL TAMAÑO DE PAGINA
+		 PageRequest pageRequest=PageRequest.of(page, tamanioPaginado); //RECIBE COMO PARAMETROS LA PAGINA Y EL TAMAÑO DE PAGINA
 		 
 		 Page<Instructor> pageInstructor=instructorServiceImpl.paginado(pageRequest); //OBTENEMOS EL LISTADO DE INSTRUCTORES
+		 int primeraFila=0;
+		 int ultimaFila=0;
 		 
 		 int totalPage = pageInstructor.getTotalPages(); //OBTENEMOS EL TOTAL DE PAGINAS
+		 if(pageInstructor.getTotalElements()>0)primeraFila=1; //SI EXISTEN ELEMENTOS SE INICIALIZA EN 1 
+		 primeraFila=primeraFila+(tamanioPaginado*page); // OBTENEMOS EL NUMERO DEL PRIMER REGISTRO DEL PAGINADO
+		 ultimaFila=pageInstructor.getContent().size()+(tamanioPaginado*page); //OBTENEMOS LA ULTIMA FILA
 		 
 		 if(totalPage>0) {
 			//CREAMOS UN ARRAY QUE VAYA DESDE EL NUMERO 1 HASTA EL ULTIMO NUMERO DE PAGINA
@@ -56,23 +64,59 @@ public class InstructorController {
 			 model.addAttribute("pages",pages);
 		 }
 		 
+		 String informacionPaginado="Mostrando "+primeraFila+" al "+ultimaFila+" de "+pageInstructor.getTotalElements()+" registros";
 		 model.addAttribute("lista",pageInstructor.getContent());
+		 model.addAttribute("tamanioPaginado",tamanioPaginado);
+		 model.addAttribute("selectedPageSize",tamanioPaginado);
 		 model.addAttribute("current",page+1); //PAGINA ACTUAL
 		 model.addAttribute("next",page+2); //SIGUENTE PAGINA
 		 model.addAttribute("prev",page); //PAGINA ANTERIOR
 		 model.addAttribute("last",totalPage); //TOTAL PAGINAS 
+		 model.addAttribute("info",informacionPaginado); //INFO 
 		 model.addAttribute("html","GestionarInstructor/listarInstructor");
 		 model.addAttribute("template","listarInstructor");
 		 return "fragments/layout";	 
 	}
 	
+	//BUSCAR
+		@RequestMapping(value= {"/Buscar"},method=RequestMethod.GET)
+		public String buscar(@RequestParam Map<String,Object> params,Model model) {
+			
+			 int page= params.get("page") != null ? (Integer.valueOf(params.get("page").toString()) - 1) : 0;  
+			 String dni= params.get("dni") != null ? (params.get("dni").toString()) : "" ;  
+			 int tamanioPaginado= params.get("pageSize") != null ? (Integer.valueOf(params.get("pageSize").toString()) ) : 10; 
+			 
+			 if(!dni.equals(""))
+			 {
+				 PageRequest pageRequest=PageRequest.of(page, tamanioPaginado); 
+				 
+				 
+				 Page<Instructor> pageInstructor=instructorServiceImpl.buscar(dni,pageRequest); 
+				 int totalPage = pageInstructor.getTotalPages(); 
+				 
+				 if(totalPage>0) {
+					 List<Integer>pages=IntStream.rangeClosed(1, totalPage).boxed().collect(Collectors.toList()); 
+					 model.addAttribute("pages",pages);
+				 }
+				 //System.out.print(pageEstudiante);
+				 model.addAttribute("lista",pageInstructor.getContent());
+				 model.addAttribute("current",page+1); //PAGINA ACTUAL
+				 model.addAttribute("next",page+2); //SIGUENTE PAGINA
+				 model.addAttribute("prev",page); //PAGINA ANTERIOR
+				 model.addAttribute("last",totalPage); //TOTAL PAGINAS 
+				 model.addAttribute("html","GestionarInstructor/listarInstructor");
+				 model.addAttribute("template","listarInstructor");
+				 return "fragments/layout"; 
+				 
+			 }else {
+				 return "redirect:/Instructor/Paginado";
+			 }
+			 
+		}
+	
 	@RequestMapping(value= {"/Guardar"},method=RequestMethod.GET)
 	public String registro( Model model) {
 		
-		//@PathVariable("dni") String dni,
-		/*if(dni!=null) {
-			model.addAttribute("estudiante",estudianteServiceImpl.buscar(dni));
-		}*/
 		model.addAttribute("instructor",new Instructor());
 		 model.addAttribute("html","GestionarInstructor/registrarInstructor");
 		 model.addAttribute("template","registrarInstructor");
@@ -102,9 +146,10 @@ public class InstructorController {
 		 return "fragments/layout";	
 	}
 	
-	@RequestMapping(value= {"/Eliminar/{dni}"},method=RequestMethod.GET)
-	public String eliminar(@PathVariable("dni") String dni, Model model) {
+	@RequestMapping(value= {"/Eliminar"},method=RequestMethod.POST)
+	public String eliminar(@RequestParam Map<String,Object> params, Model model) {
 		
+		String dni= params.get("dni") != null ? (params.get("dni").toString()) : "" ;  
 		Instructor entity=instructorServiceImpl.buscarDni(dni);
 		
 		if(entity!=null) {

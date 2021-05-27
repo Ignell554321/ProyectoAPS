@@ -1,14 +1,17 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <div th:fragment="footer" id="footer">
 
-<!-- Required Jquery -->
+	
+    <!-- Required Jquery -->
+
     <script type="text/javascript" src="../js/jquery/jquery.min.js" th:src="@{/js/jquery/jquery.min.js}"></script>
     <script type="text/javascript" src="../js/jquery-ui/jquery-ui.min.js " th:src="@{/js/jquery-ui/jquery-ui.min.js}"></script>
     <script type="text/javascript" src="../js/popper.js/popper.min.js" th:src="@{/js/popper.js/popper.min.js}"></script>
     <script type="text/javascript" src="../js/bootstrap/js/bootstrap.min.js " th:src="@{/js/bootstrap/js/bootstrap.min.js}"></script>
     <script type="text/javascript" src="../pages/widget/excanvas.js " th:src="@{/pages/widget/excanvas.js}"></script>
+    
     <!-- waves js -->
-    <script src="../pages/waves/js/waves.min.js"></script>
+    <script src="../pages/waves/js/waves.min.js" th:src="@{/pages/waves/js/waves.min.js}"></script>
     <!-- jquery slimscroll js -->
     <script type="text/javascript" src="../js/jquery-slimscroll/jquery.slimscroll.js " th:src="@{/js/jquery-slimscroll/jquery.slimscroll.js}"></script>
     <!-- modernizr js -->
@@ -31,6 +34,269 @@
     <!-- custom js -->
     <script type="text/javascript" src="../pages/dashboard/custom-dashboard.js" th:src="@{/pages/dashboard/custom-dashboard.js}"></script>
     <script type="text/javascript" src="../js/script.js " th:src="@{/js/script.js}"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	<script>
+
+
+	function pageSize(opcion){
+		
+		var pageSize;
+
+		switch(opcion){
+			case 1: //Estudiante
+				 pageSize=$('#cmbtamanioPaginaEstudiante').val();
+				 window.location.replace("/Estudiante/Paginado/?pageSize=" + pageSize + "&page=1");
+				break;
+			case 2: //Instructor
+				pageSize=$('#cmbtamanioPaginaInstructor').val();
+				 window.location.replace("/Instructor/Paginado/?pageSize=" + pageSize + "&page=1");
+				break;
+			case 3: //Curso
+				pageSize=$('#cmbtamanioPaginaCurso').val();
+				 window.location.replace("/Curso/Paginado/?pageSize=" + pageSize + "&page=1");
+				break;
+			case 4: //Certificado
+				pageSize=$('#cmbtamanioPaginaCertificado').val();
+				 window.location.replace("/Certificado/Paginado/?pageSize=" + pageSize + "&page=1");
+				break;
+			case 5: //Maquina
+				pageSize=$('#cmbtamanioPaginaMaquina').val();
+				 window.location.replace("/Maquina/Paginado/?pageSize=" + pageSize + "&page=1");
+				break;
+		}
+		
+
+	}
+	
+
+	//ELIMINACION 
+	
+	$(document).on('click', '#borrarEstudiante', function (event) {
+		
+		var dniEstudiante='';
+		$(this).parents("tr").find("#dniEstudiante").each(function() {
+			dniEstudiante = $(this).html();
+	    });
+		
+		event.preventDefault();
+		swal({
+			  title: "¿Desea eliminar este registro?",
+			  text: "No podras volver a visualizar este registro",
+			  icon: "warning",
+			  buttons: true,
+			  dangerMode: true,
+			})
+			.then((willDelete) => {
+			  if (willDelete) {
+				  
+				  $.ajax({
+				        type: 'POST',
+				        url: "Eliminar",
+				        data:{
+				        	dni:dniEstudiante},
+				        datatype: 'json',
+				        success: function (response) {
+				        	
+				        	  swal("El registro se ha removido correctamente!", {
+				        		  title: "Correcto",
+				           	      icon: "success",
+				           	   	  timer: 2000
+			    				}).then(	
+		  						function () {
+		  							  if (true) {
+		  								window.location.reload();
+		  							  }
+		  						})
+				        },
+			            error : function() {
+			                //alert("error");
+			            }
+				  });  
+			  } 
+			});
+
+	});
+	
+	
+	$(document).on('click', '#borrarInstructor', function (event) {
+			
+			var dniEstudiante='';
+			$(this).parents("tr").find("#dniInstructor").each(function() {
+				dniInstructor = $(this).html();
+		    });
+			
+			event.preventDefault();
+			swal({
+				  title: "¿Desea eliminar este registro?",
+				  text: "No podras volver a visualizar este registro",
+				  icon: "warning",
+				  buttons: true,
+				  dangerMode: true,
+				})
+				.then((willDelete) => {
+				  if (willDelete) {
+					  
+					  $.ajax({
+					        type: 'POST',
+					        url: "Eliminar",
+					        data:{
+					        	dni:dniInstructor},
+					        datatype: 'json',
+					        success: function (response) {
+					        	
+					        	  swal("El registro se ha removido correctamente!", {
+					        		  title: "Correcto",
+					           	      icon: "success",
+					           	   	  timer: 2000
+				    				}).then(	
+			  						function () {
+			  							  if (true) {
+			  								window.location.reload();
+			  							  }
+			  						})
+					        },
+				            error : function() {
+				                //alert("error");
+				            }
+					  });  
+				  } 
+				});
+	
+		});
+	
+	$(document).on('click', '#borrarCurso', function (event) {
+		
+		var idCurso='';
+		$(this).parents("tr").find("#idCurso").each(function() {
+			idCurso = $(this).html();
+	    });
+		event.preventDefault();
+		swal({
+			  title: "¿Desea eliminar este registro?",
+			  text: "No podras volver a visualizar este registro",
+			  icon: "warning",
+			  buttons: true,
+			  dangerMode: true,
+			})
+			.then((willDelete) => {
+			  if (willDelete) {
+				  
+				  $.ajax({
+				        type: 'POST',
+				        url: "Eliminar",
+				        data:{
+				        	id:idCurso},
+				        datatype: 'json',
+				        success: function (response) {
+				        	
+				        	  swal("El registro se ha removido correctamente!", {
+				        		  title: "Correcto",
+				           	      icon: "success",
+				           	   	  timer: 2000
+			    				}).then(	
+		  						function () {
+		  							  if (true) {
+		  								window.location.reload();
+		  							  }
+		  						})
+				        },
+			            error : function() {
+			                //alert("error");
+			            }
+				  });  
+			  } 
+			});
+		});
+	
+	$(document).on('click', '#borrarCertificado', function (event) {
+			
+			var idCertificado='';
+			$(this).parents("tr").find("#idCertificado").each(function() {
+				idCertificado = $(this).html();
+		    });
+			event.preventDefault();
+			swal({
+				  title: "¿Desea eliminar este registro?",
+				  text: "No podras volver a visualizar este registro",
+				  icon: "warning",
+				  buttons: true,
+				  dangerMode: true,
+				})
+				.then((willDelete) => {
+				  if (willDelete) {
+					  
+					  $.ajax({
+					        type: 'POST',
+					        url: "Eliminar",
+					        data:{
+					        	id:idCertificado},
+					        datatype: 'json',
+					        success: function (response) {
+					        	
+					        	  swal("El registro se ha removido correctamente!", {
+					        		  title: "Correcto",
+					           	      icon: "success",
+					           	   	  timer: 2000
+				    				}).then(	
+			  						function () {
+			  							  if (true) {
+			  								window.location.reload();
+			  							  }
+			  						})
+					        },
+				            error : function() {
+				                //alert("error");
+				            }
+					  });  
+				  } 
+				});
+			});
+	
+		$(document).on('click', '#borrarMaquina', function (event) {
+				
+				var idMaquina='';
+				$(this).parents("tr").find("#idMaquina").each(function() {
+					idMaquina = $(this).html();
+			    });
+				event.preventDefault();
+				swal({
+					  title: "¿Desea eliminar este registro?",
+					  text: "No podras volver a visualizar este registro",
+					  icon: "warning",
+					  buttons: true,
+					  dangerMode: true,
+					})
+					.then((willDelete) => {
+					  if (willDelete) {
+						  
+						  $.ajax({
+						        type: 'POST',
+						        url: "Eliminar",
+						        data:{
+						        	id:idMaquina},
+						        datatype: 'json',
+						        success: function (response) {
+						        	
+						        	  swal("El registro se ha removido correctamente!", {
+						        		  title: "Correcto",
+						           	      icon: "success",
+						           	   	  timer: 2000
+					    				}).then(	
+				  						function () {
+				  							  if (true) {
+				  								window.location.reload();
+				  							  }
+				  						})
+						        },
+					            error : function() {
+					                //alert("error");
+					            }
+						  });  
+					  } 
+					});
+				});
+	
+	</script>
 
 
 </div>

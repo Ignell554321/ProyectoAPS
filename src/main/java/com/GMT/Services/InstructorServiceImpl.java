@@ -1,6 +1,8 @@
 package com.GMT.Services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +28,13 @@ public class InstructorServiceImpl extends GenericServiceImpl<Instructor, String
 	public JpaRepository<Instructor, String> getDAO() {
 		// TODO Auto-generated method stub
 		return instructorDAO;
+	}
+
+
+	@Override
+	public Page<Instructor> buscar(String dni, Pageable pageable) {
+		// TODO Auto-generated method stub
+		return instructorDAO.findBydni(dni, pageable);
 	}
 
 }

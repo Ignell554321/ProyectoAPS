@@ -13,6 +13,5 @@ import com.GMT.Entidad.Paginado;
 public interface IEstudianteService  extends IGenericService<Estudiante, String>{
 
 	public Estudiante buscarDni(String dni);
-	public Paginado<Estudiante> paginacion(int numeroPagina,int tamanioPagina);
 	public Page<Estudiante>  buscar(String dni,Pageable pageable);
 }

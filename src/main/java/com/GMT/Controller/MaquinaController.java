@@ -32,24 +32,35 @@ public class MaquinaController {
 		
 		 //Si el valor de page es diferente de null se resta 1, caso contrario su valor sera 0 debido a que esta en la primera pagina
 		 int page= params.get("page") != null ? (Integer.valueOf(params.get("page").toString()) - 1) : 0; 
+		 int tamanioPaginado= params.get("pageSize") != null ? (Integer.valueOf(params.get("pageSize").toString()) ) : 10; 
 		 
-		 PageRequest pageRequest=PageRequest.of(page, 10); //RECIBE COMO PARAMETROS LA PAGINA Y EL TAMAÑO DE PAGINA
+		 PageRequest pageRequest=PageRequest.of(page, tamanioPaginado); //RECIBE COMO PARAMETROS LA PAGINA Y EL TAMAÑO DE PAGINA
 		 
 		 Page<Maquina> pageCertificado=maquinaServiceImpl.paginado(pageRequest); //OBTENEMOS EL LISTADO DE ESTUDIANTES
+		 int primeraFila=0;
+		 int ultimaFila=0;
 		 
 		 int totalPage = pageCertificado.getTotalPages(); //OBTENEMOS EL TOTAL DE PAGINAS
+		 if(pageCertificado.getTotalElements()>0)primeraFila=1; //SI EXISTEN ELEMENTOS SE INICIALIZA EN 1 
+		 primeraFila=primeraFila+(tamanioPaginado*page); // OBTENEMOS EL NUMERO DEL PRIMER REGISTRO DEL PAGINADO
+		 ultimaFila=pageCertificado.getContent().size()+(tamanioPaginado*page); //OBTENEMOS LA ULTIMA FILA
 		 
+		
 		 if(totalPage>0) {
 			//CREAMOS UN ARRAY QUE VAYA DESDE EL NUMERO 1 HASTA EL ULTIMO NUMERO DE PAGINA
 			 List<Integer>pages=IntStream.rangeClosed(1, totalPage).boxed().collect(Collectors.toList()); 
 			 model.addAttribute("pages",pages);
 		 }
 		 
+		 String informacionPaginado="Mostrando "+primeraFila+" al "+ultimaFila+" de "+pageCertificado.getTotalElements()+" registros";
+		 model.addAttribute("tamanioPaginado",tamanioPaginado);
+		 model.addAttribute("selectedPageSize",tamanioPaginado);
 		 model.addAttribute("lista",pageCertificado.getContent());
 		 model.addAttribute("current",page+1); //PAGINA ACTUAL
 		 model.addAttribute("next",page+2); //SIGUENTE PAGINA
 		 model.addAttribute("prev",page); //PAGINA ANTERIOR
 		 model.addAttribute("last",totalPage); //TOTAL PAGINAS 
+		 model.addAttribute("info",informacionPaginado); //INFO 
 		 model.addAttribute("html","GestionarMaquina/listarMaquina");
 		 model.addAttribute("template","listarMaquina");
 		 return "fragments/layout";	 
@@ -90,9 +101,10 @@ public class MaquinaController {
 	}
 	
 	//ELIMINAR
-	@RequestMapping(value= {"/Eliminar/{id}"},method=RequestMethod.GET)
-	public String eliminar(@PathVariable("id") int id, Model model) {
+	@RequestMapping(value= {"/Eliminar"},method=RequestMethod.POST)
+	public String eliminar(@RequestParam Map<String,Object> params, Model model) {
 		
+		int id= params.get("id") != null ? (Integer.valueOf(params.get("id").toString())) : 0 ; 
 		Maquina entity=maquinaServiceImpl.buscar(id);
 		
 		if(entity!=null) {

@@ -47,7 +47,7 @@
                                     <div th:if="${!lista.isEmpty()}">
                                     
                                      <div class="table-responsive">
-                                            <table class="table">
+                                            <table class="table ">
                                                 <thead>
                                                     <tr>
                                                         <th>DNI</th>
@@ -62,7 +62,7 @@
                                                 </thead>
                                                 <tbody>
                                                     <tr th:each="estudiante: ${lista}">
-                                                    	<td th:text="${estudiante.dni}"></td>
+                                                    	<td id="dniEstudiante" th:text="${estudiante.dni}"></td>
                                                     	<td th:text="${estudiante.nombres}"></td>
                                                     	<td th:text="${estudiante.apellidos}"></td>
                                                     	<td th:text="${estudiante.correoElectronico}"></td>
@@ -71,7 +71,7 @@
                                                     	<td th:text="${estudiante.direccion}"></td>
                                                     	<td>
                                                     	<a class="btn btn-sm btn-warning" th:href="@{/Estudiante/Editar/{dni} (dni=${estudiante.dni})}" ><i class="ti-pencil"></i></a>
-                                                    	<a class="btn btn-sm btn-danger" th:href="@{/Estudiante/Eliminar/{dni} (dni=${estudiante.dni})}"><i class="ti-trash"></i></a>
+                                                    	<button id="borrarEstudiante" class="btn btn-sm btn-danger" ><i class="ti-trash"></i></button>
                                                     	</td>
                                                     </tr>
                                                 </tbody>
@@ -83,28 +83,57 @@
                                        
                                     </div>
                                     
-                                    <div class="card-footer">
+                                    <!-- INICIO FOOTER   -->
                                     
-	                                     <div class="col-md-12 ">
-	                                     	<nav aria-label="Pagination">
-											  <ul class="pagination justify-content-end">
-											   <li class="page-item" th:classappend="${prev == 0 ? 'disabled':''}">
-											   	    <a class="page-link" th:href="@{|?page=${prev}|}">Anterior</a>
-											   </li>
-											    <li class="page-item" th:each="page : ${pages}" th:classappend="${current == page ? 'active':''}">
-											    	<a class="page-link" th:href="@{|?page=${page}|}" th:text="${page}"></a>
-											    </li>
-											    <li class="page-item" th:classappend="${current == last ? 'disabled':''}">
-											   	    <a class="page-link" th:href="@{|?page=${next}|}">Siguiente</a>
-											   </li>  
-											  </ul>
-											</nav>	                                     
-	                                     </div>
-	                                     
+                                    <div class="card-footer">
+                                   
+                                    <hr style="margin-top: -40px;">
+                                    
+                                     <main role="main" class="container-fluid mt-4">     
+                                       
+								          <div class="row text-center justify-content-center">   
+									          <div class="col-12">
+									         
+									            <label for="" class="float-left" th:text="${info}"></label>
+									
+									              <!--SELECT-->
+									              <select onchange="pageSize(1)"  class="mx-auto" id="cmbtamanioPaginaEstudiante"  style="height: 30px; margin-top: -5px;">
+									                  <option th:value="10" th:selected="10 == ${selectedPageSize}" >&nbsp;10&nbsp;</option>
+									                  <option th:value="30" th:selected="30 == ${selectedPageSize}" >&nbsp;30&nbsp;</option>
+									                  <option th:value="50" th:selected="50 == ${selectedPageSize}" >&nbsp;50&nbsp;</option>
+									              </select>
+									        
+									               <div class=" float-right" style="margin-top: -10px;">
+		                                     
+			                                     	<nav aria-label="Pagination">
+													  <ul class="pagination justify-content-end">
+													   <li class="page-item" th:classappend="${prev == 0 ? 'disabled':''}">
+													   	    <a class="page-link" th:href="@{|?page=${prev}&pageSize=${tamanioPaginado}|}">Anterior</a>
+													   </li>
+													    <li class="page-item" th:each="page : ${pages}" th:classappend="${current == page ? 'active':''}">
+													    	<a class="page-link" th:href="@{|?page=${page}&pageSize=${tamanioPaginado}|}" th:text="${page}"></a>
+													    </li>
+													    <li class="page-item" th:classappend="${current == last ? 'disabled':''}">
+													   	    <a class="page-link" th:href="@{|?page=${next}&pageSize=${tamanioPaginado}|}">Siguiente</a>
+													   </li>  
+													  </ul>
+													</nav>	  
+													                              
+			                                     </div>
+			                                     
+									          </div>
+								          </div>
+								       </main>
+								                                    
                                     </div>  
+                                    
+                                    <!-- FIN FOOTER   -->
+                                    
                                </div>
                             </div>
                        </div>
                   </div>
 			</div>
 </div>
+
+

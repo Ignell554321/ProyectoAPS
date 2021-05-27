@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.GMT.Entidad.Curso;
 import com.GMT.Entidad.Estudiante;
 import com.GMT.Entidad.Horario;
+import com.GMT.Entidad.Instructor;
 import com.GMT.Services.CursoServiceImpl;
 import com.GMT.Services.InstructorServiceImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -43,24 +44,34 @@ public class CursoController {
 			
 			 //Si el valor de page es diferente de null se resta 1, caso contrario su valor sera 0 debido a que esta en la primera pagina
 			 int page= params.get("page") != null ? (Integer.valueOf(params.get("page").toString()) - 1) : 0; 
+			 int tamanioPaginado= params.get("pageSize") != null ? (Integer.valueOf(params.get("pageSize").toString()) ) : 10; 
 			 
-			 PageRequest pageRequest=PageRequest.of(page, 10); //RECIBE COMO PARAMETROS LA PAGINA Y EL TAMAÑO DE PAGINA
+			 PageRequest pageRequest=PageRequest.of(page, tamanioPaginado); //RECIBE COMO PARAMETROS LA PAGINA Y EL TAMAÑO DE PAGINA
 			 
 			 Page<Curso> pageCurso=cursoServiceImpl.paginado(pageRequest); //OBTENEMOS EL LISTADO DE ESTUDIANTES
+			 int primeraFila=0;
+			 int ultimaFila=0;
 			 
 			 int totalPage = pageCurso.getTotalPages(); //OBTENEMOS EL TOTAL DE PAGINAS
+			 if(pageCurso.getTotalElements()>0)primeraFila=1; //SI EXISTEN ELEMENTOS SE INICIALIZA EN 1 
+			 primeraFila=primeraFila+(tamanioPaginado*page); // OBTENEMOS EL NUMERO DEL PRIMER REGISTRO DEL PAGINADO
+			 ultimaFila=pageCurso.getContent().size()+(tamanioPaginado*page); //OBTENEMOS LA ULTIMA FILA
 			 
 			 if(totalPage>0) {
 				//CREAMOS UN ARRAY QUE VAYA DESDE EL NUMERO 1 HASTA EL ULTIMO NUMERO DE PAGINA
 				 List<Integer>pages=IntStream.rangeClosed(1, totalPage).boxed().collect(Collectors.toList()); 
 				 model.addAttribute("pages",pages);
 			 }
+			 String informacionPaginado="Mostrando "+primeraFila+" al "+ultimaFila+" de "+pageCurso.getTotalElements()+" registros";
 			 
 			 model.addAttribute("lista",pageCurso.getContent());
+			 model.addAttribute("tamanioPaginado",tamanioPaginado);
+			 model.addAttribute("selectedPageSize",tamanioPaginado);
 			 model.addAttribute("current",page+1); //PAGINA ACTUAL
 			 model.addAttribute("next",page+2); //SIGUENTE PAGINA
 			 model.addAttribute("prev",page); //PAGINA ANTERIOR
 			 model.addAttribute("last",totalPage); //TOTAL PAGINAS 
+			 model.addAttribute("info",informacionPaginado); //INFO 
 			 model.addAttribute("html","GestionarCurso/listarCurso");
 			 model.addAttribute("template","listarCurso");
 			 return "fragments/layout";	 
@@ -91,6 +102,19 @@ public class CursoController {
 		//System.out.print(entity.getInstructor().getDni());
 		cursoServiceImpl.Insertar(entity);
 		return "redirect:/Curso/Paginado";
+	}
+	
+	//ELIMINAR
+	@RequestMapping(value= {"/Eliminar"},method=RequestMethod.POST)
+	public String eliminar(@RequestParam Map<String,Object> params, Model model) {
+		
+		int id= params.get("id") != null ? (Integer.valueOf(params.get("id").toString())) : 0 ;  
+		Curso entity=cursoServiceImpl.buscar(id);
+		if(entity!=null) {
+			cursoServiceImpl.eliminar(entity);
+		}
+		
+		 return "redirect:/Curso/Paginado";
 	}
 	
 }

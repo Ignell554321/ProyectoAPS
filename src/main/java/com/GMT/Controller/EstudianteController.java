@@ -44,24 +44,34 @@ public class EstudianteController {
 		
 		 //Si el valor de page es diferente de null se resta 1, caso contrario su valor sera 0 debido a que esta en la primera pagina
 		 int page= params.get("page") != null ? (Integer.valueOf(params.get("page").toString()) - 1) : 0; 
+		 int tamanioPaginado= params.get("pageSize") != null ? (Integer.valueOf(params.get("pageSize").toString()) ) : 10; 
 		 
-		 PageRequest pageRequest=PageRequest.of(page, 10); //RECIBE COMO PARAMETROS LA PAGINA Y EL TAMAÑO DE PAGINA
+		 PageRequest pageRequest=PageRequest.of(page, tamanioPaginado); //RECIBE COMO PARAMETROS LA PAGINA Y EL TAMAÑO DE PAGINA
 		 
 		 Page<Estudiante> pageEstudiante=estudianteServiceImpl.paginado(pageRequest); //OBTENEMOS EL LISTADO DE ESTUDIANTES
-
+		 int primeraFila=0;
+		 int ultimaFila=0; 
 		 int totalPage = pageEstudiante.getTotalPages(); //OBTENEMOS EL TOTAL DE PAGINAS
-		 
+		 if(pageEstudiante.getTotalElements()>0)primeraFila=1; //SI EXISTEN ELEMENTOS SE INICIALIZA EN 1 
+		 primeraFila=primeraFila+(tamanioPaginado*page); // OBTENEMOS EL NUMERO DEL PRIMER REGISTRO DEL PAGINADO
+		 ultimaFila=pageEstudiante.getContent().size()+(tamanioPaginado*page); //OBTENEMOS LA ULTIMA FILA
+
 		 if(totalPage>0) {
 			//CREAMOS UN ARRAY QUE VAYA DESDE EL NUMERO 1 HASTA EL ULTIMO NUMERO DE PAGINA
 			 List<Integer>pages=IntStream.rangeClosed(1, totalPage).boxed().collect(Collectors.toList()); 
 			 model.addAttribute("pages",pages);
 		 }
 		 
+		 String informacionPaginado="Mostrando "+primeraFila+" al "+ultimaFila+" de "+pageEstudiante.getTotalElements()+" registros";
+		 
 		 model.addAttribute("lista",pageEstudiante.getContent());
+		 model.addAttribute("tamanioPaginado",tamanioPaginado);
+		 model.addAttribute("selectedPageSize",tamanioPaginado);
 		 model.addAttribute("current",page+1); //PAGINA ACTUAL
 		 model.addAttribute("next",page+2); //SIGUENTE PAGINA
 		 model.addAttribute("prev",page); //PAGINA ANTERIOR
-		 model.addAttribute("last",totalPage); //TOTAL PAGINAS 
+		 model.addAttribute("last",totalPage); //TOTAL PAGINAS
+		 model.addAttribute("info",informacionPaginado); //INFO 
 		 model.addAttribute("html","GestionarEstudiante/listarEstudiante");
 		 model.addAttribute("template","listarEstudiante");
 		 return "fragments/layout";	 
@@ -69,14 +79,15 @@ public class EstudianteController {
 	
 	//BUSCAR
 		@RequestMapping(value= {"/Buscar"},method=RequestMethod.GET)
-		public String paginado1(@RequestParam Map<String,Object> params,Model model) {
+		public String buscar(@RequestParam Map<String,Object> params,Model model) {
 			
 			 int page= params.get("page") != null ? (Integer.valueOf(params.get("page").toString()) - 1) : 0;  
 			 String dni= params.get("dni") != null ? (params.get("dni").toString()) : "" ;  
+			 int tamanioPaginado= params.get("pageSize") != null ? (Integer.valueOf(params.get("pageSize").toString()) ) : 10; 
 			 
 			 if(!dni.equals(""))
 			 {
-				 PageRequest pageRequest=PageRequest.of(page, 10); 
+				 PageRequest pageRequest=PageRequest.of(page, tamanioPaginado); 
 				 
 				 
 				 Page<Estudiante> pageEstudiante=estudianteServiceImpl.buscar(dni,pageRequest); 
@@ -86,7 +97,7 @@ public class EstudianteController {
 					 List<Integer>pages=IntStream.rangeClosed(1, totalPage).boxed().collect(Collectors.toList()); 
 					 model.addAttribute("pages",pages);
 				 }
-				 System.out.print(pageEstudiante);
+				 //System.out.print(pageEstudiante);
 				 model.addAttribute("lista",pageEstudiante.getContent());
 				 model.addAttribute("current",page+1); //PAGINA ACTUAL
 				 model.addAttribute("next",page+2); //SIGUENTE PAGINA
@@ -99,10 +110,6 @@ public class EstudianteController {
 			 }else {
 				 return "redirect:/Estudiante/Paginado";
 			 }
-			
-
-			 
-
 			 
 		}
 	
@@ -142,9 +149,12 @@ public class EstudianteController {
 	}
 	
 	//ELIMINAR
-	@RequestMapping(value= {"/Eliminar/{dni}"},method=RequestMethod.GET)
-	public String eliminar(@PathVariable("dni") String dni, Model model) {
+	@RequestMapping(value= {"/Eliminar"},method=RequestMethod.POST)
+	public String eliminar( @RequestParam Map<String,Object> params,Model model) {
 		
+		
+		 String dni= params.get("dni") != null ? (params.get("dni").toString()) : "" ;  
+		 System.out.print(dni);
 		Estudiante entity=estudianteServiceImpl.buscarDni(dni);
 		
 		if(entity!=null) {
