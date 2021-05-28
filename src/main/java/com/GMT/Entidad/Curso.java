@@ -19,9 +19,9 @@ public class Curso {
 	@JoinColumn(name = "horario_id")
 	private Horario horario;
 	
-	/*@OneToOne
+	@OneToOne
 	@JoinColumn(name = "certificado_id")
-	private Certificado certificado;*/
+	private Certificado certificado;
 	
 	@OneToOne
 	@JoinColumn(name = "instructor_id")
@@ -44,7 +44,7 @@ public class Curso {
 
 	public Curso() {
 		
-		//this.certificado=new Certificado();
+		this.certificado=new Certificado();
 		this.instructor=new Instructor();
 		this.horario=new Horario();
 		
@@ -66,13 +66,13 @@ public class Curso {
 		this.horario = horario;
 	}
 
-	/*public Certificado getCertificado() {
+	public Certificado getCertificado() {
 		return certificado;
 	}
 
 	public void setCertificado(Certificado certificado) {
 		this.certificado = certificado;
-	}*/
+	}
 
 	public Instructor getInstructor() {
 		return instructor;

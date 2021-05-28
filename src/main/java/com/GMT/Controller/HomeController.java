@@ -17,7 +17,7 @@ public class HomeController {
 	@RequestMapping(value= {"/","/login"},method=RequestMethod.GET)
 	public String listarCompra() {
 		
-		return "login";
+		return "GestionarUsuario/login";
 	}
 	
 	

@@ -15,7 +15,7 @@
                                   <h5>Registro de Cruso</h5>
                                   <!--<span>Add class of <code>.form-control</code> with <code>&lt;input&gt;</code> tag</span>-->
                                      <div class="card-header-right">
-                              			<a th:href="@{/Estudiante/Paginado}" class="mr-2"><i class="ti-shift-left"></i> Atras</a>
+                              			<a th:href="@{/Curso/Paginado}" class="mr-2"><i class="ti-shift-left"></i> Atras</a>
                               		</div>
                               </div>
                            
@@ -61,22 +61,31 @@
                                        </div>
                                   </div>
                                   
-                                  <div class="col-md-3">
+                                  <div class="col-md-2">
 	                                  <select th:field="*{instructor.dni}"  name="dni" id="dni" class="form-control" style="font-size: 14px;" required="">
                                                    <option  value="">DOCENTE</option>
                                                    <option th:each="docente: ${listaDocentes}" th:text="${docente.apellidos}+' '+${docente.nombres}" th:value="${docente.dni}"></option>  
                                        </select>
                                   </div>
+                                  
+                                  <div class="col-md-2">
+	                                  <select th:field="*{certificado.id}"  name="id" id="id" class="form-control" style="font-size: 14px;" required="">
+                                                   <option  value=0>CERTIFICADO</option>
+                                                   <option th:each="certificado_: ${listaCertificado}" th:text="${certificado_.especialidad}" th:value="${certificado_.id}"></option>  
+                                       </select>
+                                  </div>
+                                                   
                                    
-                                   <div class="col-2"></div>
                                    
-                                   <div class="col-4">
+                                   <div class="col-6">
                                      <div class="form-group form-default">
                                         <textarea th:field="*{descripcion}" id="descripcion" name="descripcion" class="form-control" required=""></textarea>
                                         <span class="form-bar"></span>
                                         <label class="float-label">DESCRIPCION</label>
                                     </div>
                                    </div>
+                                   
+                                  
                                   
                                 	<input type="text" name="horaDeInicio" id="horaDeInicio" th:field="*{horario.horaDeInicio}"  class="d-none form-control" required="">
                                 	<input type="text" name="horaDeFin" id="horaDeFin" th:field="*{horario.horaDeFin}"  class="d-none form-control" required="">
@@ -111,7 +120,6 @@
                                    	<div class="col-md-12">
                                    	
                                    		<button type="submit" class="btn waves-effect waves-light btn-success btn-outline-success"> <i class="ti-save"></i> Guardar</button>
-                                   		
                                    	</div>
                                   </form>
                               </div>
@@ -199,7 +207,15 @@
 	    <script>
 	
 	    	var dia='';
-	    
+	    	
+	    	/*function prueba(){
+	    		console.log(${mensaje});
+	    		toastr.success('Guardado Correctamente','Mensaje de Informacion',{
+	    			closeButton:true,
+	    			positionClass: "toast-bottom-right"
+	    		});
+	    	}*/
+	    	
 		    function abrirModalHorario(valor){
 		    	
 			     dia=valor;    

@@ -21,6 +21,7 @@ import com.GMT.Entidad.Curso;
 import com.GMT.Entidad.Estudiante;
 import com.GMT.Entidad.Horario;
 import com.GMT.Entidad.Instructor;
+import com.GMT.Services.CertificadoServiceImpl;
 import com.GMT.Services.CursoServiceImpl;
 import com.GMT.Services.InstructorServiceImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -33,6 +34,8 @@ public class CursoController {
 	private CursoServiceImpl cursoServiceImpl;
 	@Autowired
 	private InstructorServiceImpl instructorServiceImpl;
+	@Autowired
+	private CertificadoServiceImpl certificadoServiceImpl;
 	@ElementCollection
     private List<Horario> listaHorarios=  new ArrayList<Horario>();
 	
@@ -81,13 +84,13 @@ public class CursoController {
 		@RequestMapping(value= {"/Guardar"},method=RequestMethod.GET)
 		public String registro( Model model) {
 			
-			
 		 listaHorarios.clear();
 		 List<Integer>horas=IntStream.rangeClosed(0, 23).boxed().collect(Collectors.toList()); 
 		 List<Integer>minutos=IntStream.rangeClosed(0, 59).boxed().collect(Collectors.toList()); 
 		 model.addAttribute("horas",horas);
 		 model.addAttribute("minutos",minutos);
 		 model.addAttribute("listaDocentes",instructorServiceImpl.listar());
+		 model.addAttribute("listaCertificado",certificadoServiceImpl.listar());
 		 model.addAttribute("curso",new Curso());
 		 model.addAttribute("html","GestionarCurso/registrarCurso");
 		 model.addAttribute("template","registrarCurso");
@@ -99,7 +102,7 @@ public class CursoController {
 	public String guardar(Curso entity, Model model) {
 		
 		entity.getHorario().setPeriodo("3");
-		//System.out.print(entity.getInstructor().getDni());
+		//System.out.print(entity.getCertificado().getId());
 		cursoServiceImpl.Insertar(entity);
 		return "redirect:/Curso/Paginado";
 	}
