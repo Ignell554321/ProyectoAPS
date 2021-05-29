@@ -161,31 +161,19 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
                                   <i class="ti-angle-down"></i>
                               </a>
                               <ul class="show-notification profile-notification">
-                                  <li class="waves-effect waves-light">
-                                      <a href="#!">
-                                          <i class="ti-settings"></i> Settings
-                                      </a>
-                                  </li>
+
                                   <li class="waves-effect waves-light">
                                       <a href="user-profile.html">
-                                          <i class="ti-user"></i> Profile
+                                          <i class="ti-user"></i> Mi Cuenta
                                       </a>
                                   </li>
+ 
                                   <li class="waves-effect waves-light">
-                                      <a href="email-inbox.html">
-                                          <i class="ti-email"></i> My Messages
-                                      </a>
+	                                  <form th:action="@{/logout}" method="post"> 
+	                                      <button style="margin-left:-5px;" type="submit" class="btnTransparente"><i class="ti-layout-sidebar-left"></i> Cerrar Sesion </button>
+	                                  </form>
                                   </li>
-                                  <li class="waves-effect waves-light">
-                                      <a href="auth-lock-screen.html">
-                                          <i class="ti-lock"></i> Lock Screen
-                                      </a>
-                                  </li>
-                                  <li class="waves-effect waves-light">
-                                      <a href="auth-normal-sign-in.html">
-                                          <i class="ti-layout-sidebar-left"></i> Logout
-                                      </a>
-                                  </li>
+                                  
                               </ul>
                           </li>
                       </ul>
@@ -212,9 +200,13 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
                               <div class="main-menu-content">
                                   <ul>
                                       <li class="more-details">
-                                          <a href="user-profile.html"><i class="ti-user"></i>View Profile</a>
-                                          <a href="#!"><i class="ti-settings"></i>Settings</a>
-                                          <a href="auth-normal-sign-in.html"><i class="ti-layout-sidebar-left"></i>Logout</a>
+                                      
+                                          <a href="user-profile.html"><i class="ti-user"></i>Mi Cuenta</a>
+                                          <form th:action="@{/logout}" method="post"> 
+                                          <button class="btnTransparente" style="margin-left: 20px;"><i class="ti-layout-sidebar-left"></i> &nbsp;&nbsp;Cerrar Sesion</button>
+                                          </form>
+                                          
+                                          
                                       </li>
                                   </ul>
                               </div>

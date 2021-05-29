@@ -11,3 +11,14 @@
 	margin-top: -20px;
 	font-size: 14px;
 }
+
+
+.btnTransparente{
+	
+	background-color: Transparent; 
+	background-repeat:no-repeat;
+	border: none;
+	cursor:pointer;
+	overflow: hidden;
+	outline:none;
+}
