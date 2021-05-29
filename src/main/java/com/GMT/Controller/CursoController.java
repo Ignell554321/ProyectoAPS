@@ -103,7 +103,7 @@ public class CursoController {
 	public String guardar(Curso entity, Model model) {
 		
 		//entity.getHorario().setPeriodo("3");
-		//System.out.print(entity.getCertificado().getId());
+		
 		cursoServiceImpl.Insertar(entity);
 		return "redirect:/Curso/Paginado";
 	}
@@ -119,7 +119,6 @@ public class CursoController {
 			if(entity==null) {
 				 return "redirect:/Curso/Paginado";
 			}
-
 			 model.addAttribute("curso",entity);
 			 model.addAttribute("listaDocentes",instructorServiceImpl.listar());
 			 model.addAttribute("listaCertificado",certificadoServiceImpl.listar());
