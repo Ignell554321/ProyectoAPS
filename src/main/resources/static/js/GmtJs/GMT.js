@@ -24,8 +24,7 @@ function pageSize(opcion){
 				 window.location.replace("/Maquina/Paginado/?pageSize=" + pageSize + "&page=1");
 				break;
 		}
-		
-
+	
 	}
 	
 

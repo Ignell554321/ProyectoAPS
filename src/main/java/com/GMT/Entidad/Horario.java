@@ -13,14 +13,11 @@ public class Horario {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 
-	@Column(name = "horaDeInicio", nullable = false,length = 20)
-	private String horaDeInicio;
+	@Column(name = "turno", nullable = false,length = 7)
+	private String turno;
 	
-	@Column(name = "horaDeFin", nullable = false,length = 20)
-	private String horaDeFin;
-	
-	@Column(name = "periodo", nullable = false,length = 15)
-	private String periodo;
+	@Column(name = "dia", nullable = false,length = 15)
+	private String dia;
 	
 	public int getId() {
 		return id;
@@ -30,29 +27,23 @@ public class Horario {
 		this.id = id;
 	}
 
-	public String getHoraDeInicio() {
-		return horaDeInicio;
+	public String getTurno() {
+		return turno;
 	}
 
-	public void setHoraDeInicio(String horaDeInicio) {
-		this.horaDeInicio = horaDeInicio;
+	public void setTurno(String turno) {
+		this.turno = turno;
 	}
 
-	public String getHoraDeFin() {
-		return horaDeFin;
+	public String getDia() {
+		return dia;
 	}
 
-	public void setHoraDeFin(String horaDeFin) {
-		this.horaDeFin = horaDeFin;
+	public void setDia(String dia) {
+		this.dia = dia;
 	}
 
-	public String getPeriodo() {
-		return periodo;
-	}
 
-	public void setPeriodo(String periodo) {
-		this.periodo = periodo;
-	}
 	
 	
 }

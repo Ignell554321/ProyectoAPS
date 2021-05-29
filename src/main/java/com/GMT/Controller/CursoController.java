@@ -13,6 +13,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -101,11 +102,31 @@ public class CursoController {
 	@RequestMapping(value= {"/Guardar"},method=RequestMethod.POST)
 	public String guardar(Curso entity, Model model) {
 		
-		entity.getHorario().setPeriodo("3");
+		//entity.getHorario().setPeriodo("3");
 		//System.out.print(entity.getCertificado().getId());
 		cursoServiceImpl.Insertar(entity);
 		return "redirect:/Curso/Paginado";
 	}
+	
+	
+	//ACTUALIZAR
+		@RequestMapping(value= {"/Editar/{id}"},method=RequestMethod.GET)
+		public String editar( @PathVariable("id") int id, Model model) {
+			
+			
+			Curso entity=cursoServiceImpl.buscar(id);
+			
+			if(entity==null) {
+				 return "redirect:/Curso/Paginado";
+			}
+
+			 model.addAttribute("curso",entity);
+			 model.addAttribute("listaDocentes",instructorServiceImpl.listar());
+			 model.addAttribute("listaCertificado",certificadoServiceImpl.listar());
+			 model.addAttribute("html","GestionarCurso/registrarCurso");
+			 model.addAttribute("template","registrarCurso");
+			 return "fragments/layout";	
+		}
 	
 	//ELIMINAR
 	@RequestMapping(value= {"/Eliminar"},method=RequestMethod.POST)
