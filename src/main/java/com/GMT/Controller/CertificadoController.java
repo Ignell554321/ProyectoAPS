@@ -1,9 +1,12 @@
 package com.GMT.Controller;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -14,16 +17,22 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.GMT.Entidad.Certificado;
-import com.GMT.Entidad.Curso;
 import com.GMT.Entidad.Estudiante;
+import com.GMT.Entidad.Instructor;
 import com.GMT.Entidad.Maquina;
 import com.GMT.Services.CertificadoServiceImpl;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
 @RequestMapping("/Certificado")
 public class CertificadoController {
+	
+	ObjectMapper Obj = new ObjectMapper();
 	
 	@Autowired
 	private CertificadoServiceImpl certificadoServiceImpl;
@@ -77,12 +86,21 @@ public class CertificadoController {
 		}
 		
 		//CREAR
-		@RequestMapping(value= {"/Guardar"},method=RequestMethod.POST)
+		/*@RequestMapping(value= {"/Guardar"},method=RequestMethod.POST)
 		public String guardar(Certificado entity, Model model) {
 			
 			certificadoServiceImpl.guardar(entity);
 			return "redirect:/Certificado/Paginado";
+		}*/
+		
+		@RequestMapping(value= {"/Guardar"},method=RequestMethod.POST)
+		public @ResponseBody String guardar(HttpServletRequest request) throws JsonParseException, JsonMappingException, IOException{
+			
+			Certificado entity= Obj.readValue(request.getParameter("Certificado"),Certificado.class);
+			certificadoServiceImpl.guardar(entity);
+			 return request.getParameter("Guardado correctamente");
 		}
+		
 		
 		//ACTUALIZAR
 		@RequestMapping(value= {"/Editar/{id}"},method=RequestMethod.GET)

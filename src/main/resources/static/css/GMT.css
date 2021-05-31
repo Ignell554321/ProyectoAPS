@@ -22,3 +22,8 @@
 	overflow: hidden;
 	outline:none;
 }
+
+.error{
+	color: red;
+
+}

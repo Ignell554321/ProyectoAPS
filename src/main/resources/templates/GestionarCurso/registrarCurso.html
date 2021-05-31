@@ -21,7 +21,7 @@
                            
                               <div class="card-block">
                               
-                                  <form action="" th:action="@{/Curso/Guardar}" th:object=${curso} method="post" class="form-material row" >
+                                  <form action="" th:action="@{/Curso/Guardar}" id="frmCurso" name="frmCurso" th:object=${curso} method="post" class="form-material row" >
                                   
                                   <input th:field="*{id}" type="text" name="id" id="id"  class="d-none form-control" required="">
                                         
@@ -69,7 +69,7 @@
 	                                  <div class="form-group frmGroupCurso" >
 	                                  
 		                                    <label class="lblCurso"> DOCENTE</label>
-		                                  	<select th:field="*{instructor.dni}"  name="instructor" id="instructor" class="form-control cmbCurso"  required="">
+		                                  	<select th:field="*{instructor.dni}"  name="dniInstructor" id="dniInstructor" class="form-control cmbCurso"  required="">
 		                                             <option  value="">SELECCIONE</option>
 		                                             <option  th:each="docente: ${listaDocentes}"   th:text="${docente.apellidos}+' '+${docente.nombres}" th:value="${docente.dni}"></option>  
 		                                    </select>
@@ -81,7 +81,7 @@
                                   
                                   <div class="form-group frmGroupCurso">
                                    	   <label class="lblCurso"> CERTIFICADO</label>
-                                  	   <select th:field="*{certificado.id}"  name="id" id="id" class="form-control cmbCurso" required="">
+                                  	   <select th:field="*{certificado.id}"  name="idCertificado" id="idCertificado" class="form-control cmbCurso" required="">
                                              <option  value=0>SELECCIONE</option>
                                               <option th:each="certificado: ${listaCertificado}" th:text="${certificado.especialidad}" th:value="${certificado.id}"></option>  
                                        </select>
@@ -96,7 +96,7 @@
 
                                   	 <div class="col-md-3 ">
                                   	 
-                                  	 	<input th:field="*{horario.id}" name="horario" id="horario" th:value="*{horario.id}" class="d-none"/>
+                                  	 	<input th:field="*{horario.id}" name="idHorario" id="idHorario" th:value="*{horario.id}" class="d-none"/>
                                   
 		                                  <div class="form-group">
 		                                   	   <label class="lblCurso"> TURNO</label>
@@ -181,7 +181,7 @@
 
                                    	<div class="col-md-12">
                                    	
-                                   		<button type="submit" class="btn waves-effect waves-light btn-success btn-outline-success"> <i class="ti-save"></i> Guardar</button>
+                                   		<button type="button" onclick="guardarCurso()" class="btn waves-effect waves-light btn-success btn-outline-success"> <i class="ti-save"></i> Guardar</button>
                                    	</div>
                                   </form>
                               </div>

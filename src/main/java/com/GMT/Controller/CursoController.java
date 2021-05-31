@@ -1,5 +1,6 @@
 package com.GMT.Controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -7,6 +8,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import javax.persistence.ElementCollection;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.GMT.Entidad.Curso;
 import com.GMT.Entidad.Estudiante;
@@ -25,6 +28,8 @@ import com.GMT.Entidad.Instructor;
 import com.GMT.Services.CertificadoServiceImpl;
 import com.GMT.Services.CursoServiceImpl;
 import com.GMT.Services.InstructorServiceImpl;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
@@ -99,14 +104,22 @@ public class CursoController {
 		}
 	
 	//CREAR
-	@RequestMapping(value= {"/Guardar"},method=RequestMethod.POST)
+	/*@RequestMapping(value= {"/Guardar"},method=RequestMethod.POST)
 	public String guardar(Curso entity, Model model) {
 		
 		//entity.getHorario().setPeriodo("3");
 		
 		cursoServiceImpl.Insertar(entity);
 		return "redirect:/Curso/Paginado";
-	}
+	}*/
+		
+		@RequestMapping(value= {"/Guardar"},method=RequestMethod.POST)
+		public @ResponseBody String guardar(HttpServletRequest request) throws JsonParseException, JsonMappingException, IOException{
+			
+			Curso entity= Obj.readValue(request.getParameter("Curso"),Curso.class);
+			cursoServiceImpl.Insertar(entity);
+			 return request.getParameter("Guardado correctamente");
+		}
 	
 	
 	//ACTUALIZAR

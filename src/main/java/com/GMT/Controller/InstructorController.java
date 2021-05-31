@@ -1,9 +1,12 @@
 package com.GMT.Controller;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -14,10 +17,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.GMT.Entidad.Estudiante;
 import com.GMT.Entidad.Instructor;
 import com.GMT.Services.InstructorServiceImpl;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
@@ -123,11 +128,19 @@ public class InstructorController {
 		 return "fragments/layout";	
 	}
 	
-	@RequestMapping(value= {"/Guardar"},method=RequestMethod.POST)
+	/*@RequestMapping(value= {"/Guardar"},method=RequestMethod.POST)
 	public String guardar(Instructor entity, Model model) {
 		
 		 instructorServiceImpl.guardar(entity);
 		 return "redirect:/Instructor/Paginado";
+	}*/
+	
+	@RequestMapping(value= {"/Guardar"},method=RequestMethod.POST)
+	public @ResponseBody String guardar(HttpServletRequest request) throws JsonParseException, JsonMappingException, IOException{
+		
+		Instructor entity= Obj.readValue(request.getParameter("Instructor"),Instructor.class);
+		 instructorServiceImpl.guardar(entity);
+		 return request.getParameter("Guardado correctamente");
 	}
 	
 	@RequestMapping(value= {"/Editar/{dni}"},method=RequestMethod.GET)

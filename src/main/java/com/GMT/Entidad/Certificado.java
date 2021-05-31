@@ -1,6 +1,5 @@
 package com.GMT.Entidad;
 
-import java.sql.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,7 +18,7 @@ public class Certificado {
 	private String nombreInstitucion;
 	
 	@Column(name="fecha",nullable = false)
-	private Date fecha;
+	private String fecha;
 	
 	@Column(name="especialidad",nullable = false,length = 45)
 	private String especialidad;
@@ -40,11 +39,11 @@ public class Certificado {
 		this.nombreInstitucion = nombreInstitucion;
 	}
 
-	public Date getFecha() {
+	public String getFecha() {
 		return fecha;
 	}
 
-	public void setFecha(Date fecha) {
+	public void setFecha(String fecha) {
 		this.fecha = fecha;
 	}
 
