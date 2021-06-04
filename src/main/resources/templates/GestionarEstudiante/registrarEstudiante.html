@@ -21,7 +21,7 @@
                               
                                   <form id="frmEstudiante" name="frmEstudiante" action="" th:action="@{/Estudiante/Guardar}" th:object=${estudiante} method="post" class="form-material row" >
                                   
-                                  <div class="col-1">
+                                  <div class="col-2">
                                       <div class="form-group form-default">
                                       	 <input type="text" name="dni" id="dni" th:field="*{dni}" class="form-control" required="">
                                           <span class="form-bar"></span>
@@ -55,7 +55,7 @@
                                       </div>
                                    	</div>
                                    	
-                                   	<div class="col-md-1">
+                                   	<div class="col-md-2">
                                       <div class="form-group form-default">
                                       	 <input type="text" name="telefono" id="telefono" th:field="*{telefono}"  class="form-control" required="">
                                           <span class="form-bar"></span>
@@ -88,11 +88,11 @@
 									
                                    	<div class="col-md-12">
                                    	
-<<<<<<< HEAD
+
                                    		<button id="guardarEstudiante" class="btn btn-sm btn-success"> <i class="ti-save"></i> Guardar</button>
-=======
+
                                    		<button type="button" onclick="guardarEstudiante()"  class="btn waves-effect waves-light btn-success btn-outline-success"> <i class="ti-save"></i> Guardar</button>
->>>>>>> 3c582b53bbbee051fe3a8cc5a4fcb100cb43aa3e
+
                                    		
                                    	</div>
                                   </form>
