@@ -16454,7 +16454,8 @@ body.dark {
   -webkit-transition: all 0.5s ease;
   transition: all 0.5s ease;
 }
+/*
 .fixed-button.active {
   bottom: 50px;
   opacity: 1;
-}
+}*/

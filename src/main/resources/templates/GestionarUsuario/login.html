@@ -67,58 +67,46 @@
 
     <section class="login-block">
         <!-- Container-fluid starts -->
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-12">
-                    <!-- Authentication card start -->
-                    
-                        <form class="md-float-material form-material" th:action="@{/login}" method="post">
-                            <div class="text-center">
-                               <!--<img src="assets/images/logo.png" th:src="@{/images/logo.png}" alt="logo.png">  --> 
-                            </div>
-                            <div class="auth-box card" style="margin-top: 30px;">
-                                <div class="card-block">
-                                    <div class="row m-b-20">
-                                        <div class="col-md-12">
-                                            <h3 class="text-center">Iniciar Sesion</h3>
-                                        </div>
-                                    </div>
-                                    <div class="form-group form-primary">
-                                        <input type="text" name="email" class="form-control" required="">
-                                        <span class="form-bar"></span>
-                                        <label class="float-label">Correo Electronico</label>
-                                    </div>
-                                    <div class="form-group form-primary">
-                                        <input type="password" name="password" class="form-control" required="">
-                                        <span class="form-bar"></span>
-                                        <label class="float-label">Contraseña</label>
-                                    </div>
-                                    <div class="row m-t-25 text-left">
-
-                                    </div>
-                                    <div class="row m-t-30">
-                                        <div class="col-md-12">
-                                            <button type="submit" class="btn btn-primary btn-md btn-block waves-effect waves-light text-center m-b-20">Ingresar</button>
-                                        </div>
-                                    </div>
-                                    <hr/>
-                             
-                                </div>
-                            </div>
-                        </form>
-                        <!-- end of form -->
-                         <div th:if="${param.error}" class="alert alert-danger text-center mt-4" role="alert">     
-							Email y/o password invalidos.
-				        </div>
-				        <div th:if="${param.logout}" class="alert alert-success text-center mt-4" role="alert">
-				            Usted ha sido desconectado.
-				        </div>
-                </div>
-                <!-- end of col-sm-12 -->
-            </div>
-            <!-- end of row -->
-        </div>
-        <!-- end of container-fluid -->
+         <div class="container-fluid">
+		  <div class="row no-gutter">
+		 
+		    <img class="d-none d-md-flex col-md-4 col-lg-6" src="../images/logoGlobal.png" alt="Theme-Logo" width="500px" height="500px" />
+		    
+		    <div class="col-md-8 col-lg-6">
+		      <div class="login d-flex align-items-center py-5">
+		        <div class="container">
+		          <div class="row">
+		            <div class="col-md-9 col-lg-8 mx-auto">
+		              <h3 class="login-heading mb-4 text-center">Iniciar Sesion</h3>
+		              <form class="md-float-material form-material" th:action="@{/login}" method="post">
+		                <div class="form-label-group">
+		                    <input type="text" name="email" class="form-control"  required="">
+		                    <label for="inputEmail">Usuario</label>
+		                </div>
+		
+		                <div class="form-label-group">
+		                  <input type="password" name="password" class="form-control"  required="">
+		                  <label for="inputPassword">Password</label>
+		                </div>
+		                <div class="row m-t-25 text-left">
+                        </div>
+                        <div class="col-md-12">
+		                 <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" type="submit">Iniciar</button>
+		                </div>       
+		              </form>
+		              <div th:if="${param.error}" class="alert alert-danger text-center mt-4" role="alert">     
+		                	Usuario y/o password invalidos.
+		              </div>
+		              <div th:if="${param.logout}" class="alert alert-success text-center mt-4" role="alert">
+		                    Se ha cerrado sesion.
+		              </div>
+		            </div>
+		          </div>
+		        </div>
+		      </div>
+		    </div>
+		  </div>
+		</div>
     </section>
     
     

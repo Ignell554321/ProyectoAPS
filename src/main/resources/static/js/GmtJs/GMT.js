@@ -27,6 +27,27 @@ function pageSize(opcion){
 	
 	}
 	
+	
+	//GUARDAR
+	
+	$(document).on('click', '#guardarEstudiante', function (event) {
+	
+		
+			
+		event.preventDefault();
+		swal({
+		        		  title: "Estudiante Guardado",
+						  text: "Se ha registrado correctamente al estudiante",
+						  icon: "success",
+						  button: true,
+	    				}).then(	
+  						function () {
+  							  if (true) {
+  								window.location.reload();
+  							  }
+  				})
+ 		});
+	
 
 	//ELIMINACION 
 	
@@ -102,6 +123,7 @@ function pageSize(opcion){
 					        	dni:dniInstructor},
 					        datatype: 'json',
 					        success: function (response) {
+					        console.log("raa",response)
 					        	
 					        	  swal("El registro se ha removido correctamente!", {
 					        		  title: "Correcto",

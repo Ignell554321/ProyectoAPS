@@ -15,7 +15,7 @@
                                   <h5>Registro de Cruso</h5>
                                   <!--<span>Add class of <code>.form-control</code> with <code>&lt;input&gt;</code> tag</span>-->
                                      <div class="card-header-right">
-                              			<a th:href="@{/Estudiante/Paginado}" class="mr-2"><i class="ti-shift-left"></i> Atras</a>
+                              			<a th:href="@{/Curso/Paginado}" class="mr-2"><i class="ti-shift-left"></i> Atras</a>
                               		</div>
                               </div>
                            
@@ -23,7 +23,9 @@
                               
                                   <form action="" th:action="@{/Curso/Guardar}" th:object=${curso} method="post" class="form-material row" >
                                   
-                                  <div class="col-3">
+                                  <input th:field="*{id}" type="text" name="id" id="id"  class="d-none form-control" required="">
+                                        
+                                  <div class="col-md-3">
                                       <div class="form-group form-default">
                                       	 <input th:field="*{nombre}" type="text" name="nombre" id="nombre"  class="form-control" required="">
                                           <span class="form-bar"></span>
@@ -31,7 +33,7 @@
                                       </div>
                                    </div>
                                    	
-                                   <div class="col-1">
+                                   <div class="col-md-1">
                                       <div class="form-group form-default">
                                       	 <input th:field="*{nivel}"type="text" name="nivel" id="nivel" class="form-control" required="">
                                           <span class="form-bar"></span>
@@ -39,7 +41,7 @@
                                       </div>
                                    </div>
                                   
-                                  <div class="col-1">
+                                  <div class="col-md-1">
                                       <div class="form-group form-default">
                                       	 <input th:field="*{horas}" type="text" name="horas" id="horas"  class="form-control" required="">
                                           <span class="form-bar"></span>
@@ -47,10 +49,11 @@
                                       </div>
                                    </div>
                                    
-                                   <div class="col-2">
-                                        <div class="form-group row">                                    
-                                               <select th:field="*{tipoDeCurso}" name="tipoDeCurso" id="tipoDeCurso" class="form-control" style="font-size: 14px;">
-                                                   <option value="">TIPO DE CURSO</option>
+                                   <div class="col-md-2">
+                                        <div class="form-group frmGroupCurso" >    
+                                        		<label class="lblCurso" > TIPO DE CURSO</label>                                
+                                               <select  th:field="*{tipoDeCurso}" name="tipoDeCurso" id="tipoDeCurso" class="form-control cmbCurso" >
+                                                   <option value="">SELECCIONE</option>
                                                    <option value="PRACTICO">PRACTICO</option>
                                                    <option value="TEORICO">TEORICO</option>
                                                    <option value="PRACTICO/TEORICO">TEORICO/PRACTICO</option>
@@ -59,29 +62,98 @@
                                        </div>
                                   </div>
                                   
-                                  <div class="col-md-3">
-	                                  <select  name="tipoDeCurso" id="tipoDeCurso" class="form-control" style="font-size: 14px;" required="">
-                                                   <option  value="">DOCENTE</option>
-                                                   <option  value="1">TEST</option>
-                                                  <!--<option th:each="docente: ${listaDocentes}" th:value=$(docente.dni)></option>  --> 
+                                  
+
+                                  <div class="col-md-2">
+                                  
+	                                  <div class="form-group frmGroupCurso" >
+	                                  
+		                                    <label class="lblCurso"> DOCENTE</label>
+		                                  	<select th:field="*{instructor.dni}"  name="instructor" id="instructor" class="form-control cmbCurso"  required="">
+		                                             <option  value="">SELECCIONE</option>
+		                                             <option  th:each="docente: ${listaDocentes}"   th:text="${docente.apellidos}+' '+${docente.nombres}" th:value="${docente.dni}"></option>  
+		                                    </select>
+	                                  </div>
+                                  </div>
+                                  
+                                  
+                                  <div class="col-md-2">
+                                  
+                                  <div class="form-group frmGroupCurso">
+                                   	   <label class="lblCurso"> CERTIFICADO</label>
+                                  	   <select th:field="*{certificado.id}"  name="id" id="id" class="form-control cmbCurso" required="">
+                                             <option  value=0>SELECCIONE</option>
+                                              <option th:each="certificado: ${listaCertificado}" th:text="${certificado.especialidad}" th:value="${certificado.id}"></option>  
                                        </select>
                                   </div>
+	                                  
+                                  </div>
+                                  
+                                  <div class="col-12 my-1 ">
+                                  <label class="lblCurso"> <strong>HORARIO</strong> </label>
+                                  
+                                  <div class="row">
+
+                                  	 <div class="col-md-3 ">
+                                  	 
+                                  	 	<input th:field="*{horario.id}" name="horario" id="horario" th:value="*{horario.id}" class="d-none"/>
+                                  
+		                                  <div class="form-group">
+		                                   	   <label class="lblCurso"> TURNO</label>
+		                                  	   <select th:field="*{horario.turno}"  name="turno" id="turno" class="form-control"  required="">
+		                                             <option  value="">SELECCIONE</option>
+		                                             <option  value="MAÑANA">MAÑANA</option>
+		                                             <option  value="TARDE">TARDE</option>
+		                                       </select>
+		                                  </div>
+		                                  
+	                                  </div>
+	                                  
+	                                   <div class="col-md-3 ">
+                                  
+		                                  <div class="form-group">
+		                                   	   <label class="lblCurso"> DIA</label>
+		                                  	   <select th:field="*{horario.dia}"  name="dia" id="dia" class="form-control"  required="">
+		                                             <option  value="">SELECCIONE</option>
+		                                             <option  value="LUNES">LUNES</option>
+		                                             <option  value="MARTES">MARTES</option>
+		                                             <option  value="MIERCOLES">MIERCOLES</option>
+		                                             <option  value="JUEVES">JUEVES</option>
+		                                             <option  value="VIERNES">VIERNES</option>
+		                                             <option  value="SABADO">SABADO</option>
+		                                             <option  value="DOMINGO">DOMINGO</option>
+		                                             
+		                                       </select>
+		                                  </div>
+		                                  
+	                                  </div>
+	                                
+                                  </div>
+                                  
+                                 
+                                  
+                                  </div>
+                                  
+                                 
                                    
-                                   <div class="col-2"></div>
-                                   
-                                   <div class="col-4">
-                                     <div class="form-group form-default">
+                                   <div class="col-md-6">
+                                     <div class="form-group">
+                                    	 <label class="lblCurso"> DESCRIPCION</label>
                                         <textarea th:field="*{descripcion}" id="descripcion" name="descripcion" class="form-control" required=""></textarea>
                                         <span class="form-bar"></span>
-                                        <label class="float-label">DESCRIPCION</label>
+                                        
                                     </div>
                                    </div>
+                                   
                                   
+                                  <!--  
                                 	<input type="text" name="horaDeInicio" id="horaDeInicio" th:field="*{horario.horaDeInicio}"  class="d-none form-control" required="">
                                 	<input type="text" name="horaDeFin" id="horaDeFin" th:field="*{horario.horaDeFin}"  class="d-none form-control" required="">
-                                	
+                                	-->
 								<div class="col-12 my-3">
-								<label > HORARIO</label>
+								
+								
+								<!--  
 								<table>
 									    <tr>
 									      <th class="day-name text-center">Lunes <i class="d-none ti-close ml-2" id="RL" onclick="eliminarHorario('L')" style="color: red; cursor:pointer;"></i> </th>
@@ -102,15 +174,14 @@
 									      <td onclick="abrirModalHorario('D')" class="day pr-3" id="D" ></td>
 
 									    </tr> 
-									</table>
-								
+								</table>
+								-->
 								</div>
 									
 
                                    	<div class="col-md-12">
                                    	
                                    		<button type="submit" class="btn waves-effect waves-light btn-success btn-outline-success"> <i class="ti-save"></i> Guardar</button>
-                                   		
                                    	</div>
                                   </form>
                               </div>
@@ -144,10 +215,7 @@
 		                <div class="col-3">
 		
 		                  <select id="mHoraInicio" class="form-control form-control-sm">
-		                    <option value="00">00</option>
-		                    <option value="01">01</option>
-		                    <option value="02">02</option>
-		                    <option value="03">03</option>
+		                    <option th:each="hora: ${horas}" th:text="${hora}" th:value="${hora}"></option>
 		                  </select>
 		                </div>
 		              
@@ -156,10 +224,7 @@
 		              </div>
 		              <div class="col-3">
 		                <select id="mMinInicio" class="form-control form-control-sm">
-		                    <option value="00">00</option>
-		                    <option value="01">01</option>
-		                    <option value="02">02</option>
-		                    <option value="03">03</option>
+		                    <option th:each="minuto: ${minutos}" th:text="${minuto}" th:value="${minuto}"></option>
 		                </select>
 		              </div>
 		
@@ -174,7 +239,7 @@
 		                <div class="col-3">
 		
 		                  <select id="mHoraTermino" class="form-control form-control-sm">
-		                    <option>00</option>
+		                    <option th:each="hora: ${horas}" th:text="${hora}" th:value="${hora}"></option>
 		                  </select>
 		                </div>
 		              
@@ -183,7 +248,7 @@
 		              </div>
 		              <div class="col-3">
 		                <select id="mMinTermino" class="form-control form-control-sm">
-		                  <option>00</option>
+		                  <option th:each="minuto: ${minutos}" th:text="${minuto}" th:value="${minuto}"></option>
 		                </select>
 		              </div>
 		
@@ -204,7 +269,15 @@
 	    <script>
 	
 	    	var dia='';
-	    
+	    	
+	    	/*function prueba(){
+	    		console.log(${mensaje});
+	    		toastr.success('Guardado Correctamente','Mensaje de Informacion',{
+	    			closeButton:true,
+	    			positionClass: "toast-bottom-right"
+	    		});
+	    	}*/
+	    	
 		    function abrirModalHorario(valor){
 		    	
 			     dia=valor;    

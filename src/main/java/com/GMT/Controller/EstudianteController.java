@@ -46,7 +46,7 @@ public class EstudianteController {
 		 int page= params.get("page") != null ? (Integer.valueOf(params.get("page").toString()) - 1) : 0; 
 		 int tamanioPaginado= params.get("pageSize") != null ? (Integer.valueOf(params.get("pageSize").toString()) ) : 10; 
 		 
-		 PageRequest pageRequest=PageRequest.of(page, tamanioPaginado); //RECIBE COMO PARAMETROS LA PAGINA Y EL TAMAÑO DE PAGINA
+		 PageRequest pageRequest=PageRequest.of(page, tamanioPaginado); //RECIBE COMO PARAMETROS LA PAGINA Y EL TAMAï¿½O DE PAGINA
 		 
 		 Page<Estudiante> pageEstudiante=estudianteServiceImpl.paginado(pageRequest); //OBTENEMOS EL LISTADO DE ESTUDIANTES
 		 int primeraFila=0;
@@ -116,13 +116,13 @@ public class EstudianteController {
 	//CREAR
 	@RequestMapping(value= {"/Guardar"},method=RequestMethod.GET)
 	public String registro( Model model) {
-		
-		
-		model.addAttribute("estudiante",new Estudiante());
+				
+		 model.addAttribute("estudiante",new Estudiante());
 		 model.addAttribute("html","GestionarEstudiante/registrarEstudiante");
 		 model.addAttribute("template","registrarEstudiante");
 		 return "fragments/layout";	
 	}
+	
 	//ACTUALIZAR
 	@RequestMapping(value= {"/Editar/{dni}"},method=RequestMethod.GET)
 	public String registro( @PathVariable("dni") String dni, Model model) {
@@ -143,7 +143,6 @@ public class EstudianteController {
 	
 	@RequestMapping(value= {"/Guardar"},method=RequestMethod.POST)
 	public String guardar(Estudiante entity, Model model) {
-		
 		 estudianteServiceImpl.guardar(entity);
 		 return "redirect:/Estudiante/Paginado";
 	}
