@@ -505,7 +505,46 @@ function guardarInstructor(){
 				});
 		
 		
+		//BUSCAR
 		
+		function buscarEstudiante(){
+			
+			
+			var dni=$('#dni').val();
+		    console.log(dni);
+		    
+			if(dni!='')
+			{
+					console.log(dni);
+					$.ajax({
+					    type:"POST", // la variable type guarda el tipo de la peticion GET,POST,..
+					    url:"/Inscripcion/BuscarEstudiante", //url guarda la ruta hacia donde se hace la peticion
+					    data:{dni:dni}, // data recive un objeto con la informacion que se enviara al servidor
+					    success:function(datos){ //success es una funcion que se utiliza si el servidor retorna informacion
+					         if(datos!=''){
+					        	 console.log(datos)
+					         }else{
+					        	 swal("Informacion", {
+					        		  title: "No se encontro el estudiante.",
+					           	      icon: "error",
+					           	   	  timer: 2000
+				  				}).then()
+					         }
+					    	
+					     }
+					})
+				
+			}else{
+				swal("Advertencia", {
+	        		  title: "Ingresa un dni por favor...",
+	           	      icon: "warning",
+	           	   	  timer: 2000
+  				}).then()
+				
+			}
+
+			
+		}
 		
 		$(document).ready(function() {
 			jQuery.extend(jQuery.validator.messages, {

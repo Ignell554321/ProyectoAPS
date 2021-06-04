@@ -169,7 +169,6 @@ public class EstudianteController {
 		
 		
 		 String dni= params.get("dni") != null ? (params.get("dni").toString()) : "" ;  
-		 System.out.print(dni);
 		Estudiante entity=estudianteServiceImpl.buscarDni(dni);
 		
 		if(entity!=null) {

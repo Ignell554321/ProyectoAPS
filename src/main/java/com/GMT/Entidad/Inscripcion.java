@@ -29,6 +29,10 @@ public class Inscripcion {
 	@JoinColumn(name = "curso_id")
 	private Curso curso;
 	
+	@OneToOne
+	@JoinColumn(name = "maquina_id")
+	private Maquina maquina;
+	
 	/*@OneToMany(mappedBy = "inscripcion")
 	private List<Pago> pago;*/
 	
@@ -47,8 +51,19 @@ public class Inscripcion {
 		
 		//this.pago=new ArrayList<Pago>();
 		this.curso=new Curso();
+		this.maquina=new Maquina();
 		this.estudiante=new Estudiante();
 		
+	}
+
+	
+	
+	public Maquina getMaquina() {
+		return maquina;
+	}
+
+	public void setMaquina(Maquina maquina) {
+		this.maquina = maquina;
 	}
 
 	public int getId() {
