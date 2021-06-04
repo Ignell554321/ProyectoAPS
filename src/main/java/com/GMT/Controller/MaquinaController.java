@@ -1,9 +1,12 @@
 package com.GMT.Controller;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -14,14 +17,19 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.GMT.Entidad.Estudiante;
 import com.GMT.Entidad.Maquina;
 import com.GMT.Services.MaquinaServiceImpl;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
 @RequestMapping("/Maquina")
 public class MaquinaController {
+	
+	ObjectMapper Obj = new ObjectMapper();
 	
 	@Autowired
 	private MaquinaServiceImpl maquinaServiceImpl;
@@ -76,11 +84,19 @@ public class MaquinaController {
 	}
 	
 	//CREAR
-	@RequestMapping(value= {"/Guardar"},method=RequestMethod.POST)
+	/*@RequestMapping(value= {"/Guardar"},method=RequestMethod.POST)
 	public String guardarMaquinaPOST(Maquina entity, Model model) {
 		
 		maquinaServiceImpl.guardar(entity);
 		return "redirect:/Maquina/Paginado";
+	}*/
+	
+	@RequestMapping(value= {"/Guardar"},method=RequestMethod.POST)
+	public @ResponseBody String guardar(HttpServletRequest request) throws JsonParseException, JsonMappingException, IOException{
+		
+		Maquina entity= Obj.readValue(request.getParameter("Maquina"),Maquina.class);
+		maquinaServiceImpl.guardar(entity);
+		 return request.getParameter("Guardado correctamente");
 	}
 	
 	//ACTUALIZAR

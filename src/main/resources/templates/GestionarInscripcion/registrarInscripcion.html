@@ -1,0 +1,279 @@
+ <div th:fragment="registrarInscripcion" id="registrarInscripcion">
+ 
+ 
+ <!-- Main-body start -->
+      <div class="main-body">
+          <div class="page-wrapper">
+          
+           <!-- Page body start -->
+              <div class="page-body">
+                  <div class="row">
+                      <div class="col-md-12">
+                          <div class="card">
+                          
+                             <div class="card-header">
+                                  <h5>Gestionar <b>Inscripcion</b></h5>
+                                  <!--<span>Add class of <code>.form-control</code> with <code>&lt;input&gt;</code> tag</span>-->
+                                     <div class="card-header-right">
+                              			<a th:href="@{/Estudiante/Paginado}" class="mr-2"><i class="ti-shift-left"></i> Atras</a>
+                              		</div>
+                              </div>
+                          
+	                          	<div class="card-block">
+	                          		
+						                <br>
+						
+						                <div>
+						                    <h2><b>Datos del Estudiante</b></h2>
+						                    <div class="form-row">
+						                        <div class="col-md-2 mb-3">
+						                            <label>DNI</label>
+						                            <input type="text" class="form-control" placeholder="Ingrese un dni" id="dni" name="dni">
+						                        </div>
+						                        <div class="col-md-1 mb-3">
+						                            <label>&nbsp;</label>
+						                            <button onclick="buscarEstudiante()" class="btn btn-primary form-control" id="btnBuscarEstudiante">
+						                                <i class="fas fa-search">Ingresar</i>
+						                            </button>
+						                        </div>
+						                    </div>
+						                    <div class="form-row">
+						                        <div class="col-md-3 mb-3">
+						                            <label>Apellidos</label>
+						                            <input disabled type="text" class="form-control" id="">
+						                        </div>
+						                        <div class="col-md-3 mb-3">
+						                            <label>Nombres</label>
+						                            <input disabled type="text" class="form-control" id="">
+						                        </div>
+						                       <div class="col-md-3 mb-3">
+						                            <label>Fecha de Nacimiento</label>
+						                            <input disabled type="date" class="form-control" id="">
+						                        </div>
+						                      <div class="col-md-3 mb-3">
+						                            <label>Telefono</label>
+						                            <input disabled type="text" class="form-control" id="">
+						                        </div>
+						                      <div class="col-md-4 mb-3">
+						                            <label>Direccion</label>
+						                            <input disabled type="text" class="form-control" id="">
+						                        </div>
+						                      <div class="col-md-3 mb-3">
+						                            <label>Distrito</label>
+						                            <input  type="text" class="form-control" id="">
+						                        </div>
+						                      <div class="col-md-3 mb-3">
+						                            <label>Provincia</label>
+						                            <input  type="text" class="form-control" id="">
+						                        </div>
+						                      <div class="col-md-2 mb-3">
+						                            <label>Departamento</label>
+						                            <input  type="text" class="form-control" id="">
+						                        </div>
+						                       
+						                    </div>
+						             </div>
+						              <!--CURSOS-->
+						               <br>
+					                    <h2><b>Cursos</b></h2>
+					                    <div class="list-group">
+					                      
+					                    <a type="checkbox" class="list-group-item list-group-item-action " aria-current="">
+					                      <div class="d-flex w-100 justify-content-between">
+					                        <h5 class="mb-1">NIVEL I</h5>
+					                      </div>
+					                      <p class="mb-1">Cursos de mantenimiento y manejo de equipos pesados.</p>
+					                    </a>
+					                      
+					                    <a   class="list-group-item list-group-item-action">
+					                      <div class="d-flex w-100 justify-content-between">
+					                        <h5 class="mb-1">NIVEL II</h5>
+					                      </div>
+					                      <p class="mb-1">Cursos de lectura de planos hidraulicos</p>
+					                    </a>
+					                      
+					                    <a  class="list-group-item list-group-item-action">
+					                      <div class="d-flex w-100 justify-content-between">
+					                        <h5 class="mb-1">NIVEL III</h5>
+					                      </div>
+					                      <p class="mb-1">Cursos de tecnico prevencionista de riesgo.</p>
+					                    </a>
+					                    <a  class="list-group-item list-group-item-action">
+					                      <div class="d-flex w-100 justify-content-between">
+					                        <h5 class="mb-1">ESPECIALIZACION</h5>
+					                      </div>
+					                      <p class="mb-1">Cursos avanzados de mantenimiento de equipos pesados.</p>
+					
+					                    </a>
+					                   </div>
+					    
+					                <!--TIPO DE MAQUINARIA-->
+					               
+					                    <br>
+					                    <h2><b>Tipo de Maquinaria</b></h2>
+					                    
+					                    <div class="form-row" > 
+					                    
+						                      <ul class="text-align" style="margin-left: 40px;" >
+						                        
+							                      <div class="form-check">
+							                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="">
+							                        <label class="form-check-label" for="flexRadioDefault1">
+							                          CARGADORA FRONTAL
+							                        </label>
+							                      </div>
+							                    
+							                      <div class="form-check">
+							                        <input class="form-check-input " type="radio" name="flexRadioDefault" id="" checked>
+							                        <label class="form-check-label" for="flexRadioDefault2">
+							                          EXCAVADORA
+							                        </label>
+							                      </div>
+							                      <div class="form-check">
+							                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="" checked>
+							                        <label class="form-check-label" for="flexRadioDefault2">
+							                          TRACTOR ORUGA
+							                        </label>
+							                      </div>
+							                      <div class="form-check">
+							                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="" checked>
+							                        <label class="form-check-label" for="flexRadioDefault2">
+							                          RETROEXCAVADORA
+							                        </label>
+							                      </div>
+							                      <div class="form-check">
+							                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="" checked>
+							                        <label class="form-check-label" for="flexRadioDefault2">
+							                          MOTONIVELADORA
+							                        </label>
+							                      </div>
+							                      <div class="form-check">
+							                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="" checked>
+							                        <label class="form-check-label" for="flexRadioDefault2">
+							                          CAMION MINERO
+							                        </label>
+							                      </div>
+							                      <div class="form-check">
+							                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="" checked>
+							                        <label class="form-check-label" for="flexRadioDefault2">
+							                          MONTACARGA
+							                        </label>
+							                      </div>
+						                     </ul>   
+					                     
+					                    </div>
+					                
+						    
+						   
+					     
+					                
+					                    
+					                <!--TURNOS-->
+					                <div> 
+					                  <br>
+					                    <h2><b>Turno</b></h2>
+					                    <div class="form-row-right">
+					                      <ul class="text-align" style="margin-left: 40px;">
+					                      <div class="form-check">
+					                        <input class="form-check-input" type="radio" name="flexRadioDefault2" id="">
+					                        <label class="form-check-label" for="flexRadioDefault1">
+					                          LUNES A VIERNES
+					                        </label>
+					                      </div>
+					                    
+					                      <div class="form-check">
+					                        <input class="form-check-input " type="radio" name="flexRadioDefault2" id="" checked>
+					                        <label class="form-check-label" for="flexRadioDefault2">
+					                          DOMINGOS
+					                        </label>
+					                      </div>
+					                      
+					                     </ul>   
+					                    </div>
+					                    <!--PROMOCION-->
+					                    <br>
+					                      <h2><b>Promocion</b></h2>
+					                    <div class="form-check">
+					                       
+					                       <label class="form-check-label" for="flexRadioDefault1">
+					                          <input class="form-check-input" type="radio" name="flexRadioDefault3" id="">
+					                          2021-I
+					                        </label>
+					                        <label class="form-check-label" for="flexRadioDefault2">
+					                          <input class="form-check-input " type="radio" name="flexRadioDefault3" id="" checked>
+					                          2021-II
+					                        </label>
+					                      <label class="form-check-label" for="flexRadioDefault2">
+					                          <input class="form-check-input " type="radio" name="flexRadioDefault3" id="" checked>
+					                          2021-III
+					                        </label>
+					                      <label class="form-check-label" for="flexRadioDefault2">
+					                          <input class="form-check-input " type="radio" name="flexRadioDefault3" id="" checked>
+					                          2021-IV
+					                        </label>
+					                      <label class="form-check-label" for="flexRadioDefault2">
+					                          <input class="form-check-input " type="radio" name="flexRadioDefault3" id="" checked>
+					                          2021-V
+					                        </label>
+					                      <label class="form-check-label" for="flexRadioDefault2">
+					                          <input class="form-check-input " type="radio" name="flexRadioDefault3" id="" checked>
+					                          2021-VI
+					                        </label>
+					                      </div>
+					        <!--COSTOS-->   
+					                <br>
+					                <h2><b>Pago</b></h2>
+					                <div class="row">
+					                 <form  class="form-row" style="margin-left: 10px;">
+					                  
+						                  <div class="col-md-4">
+						                  	 <div class="form-group">
+							                  	<label for="inputEmail4" class="form-label"> Inscripcion</label>
+							                    <input type="text" class="form-control" id="">
+							                  </div>
+						                    
+						                  </div>
+						                  
+						                  <div class="col-md-4">
+						                  	 <div class="form-group">
+							                  	 <label for="inputEmail4" class="form-label"> Maquina</label>
+						                    	  <input type="text" class="form-control" id="">
+							                  </div>
+						                    
+						                  </div>
+					                  
+					                </form>
+					                </div>
+					               
+					                    <br>
+					                    <div class="container-fluid h-100">
+					                        <div class="row w-100 align-items-center">
+					                            <div class="col text-center">
+					                              <button id="btnGenerarOrden" class="btn btn-primary" data-dismiss="modal"
+					                                        onclick="save()"><i class="fas fa-save"></i> Generar Inscripcion</i>
+					                                </button>
+					                                <button type="button" class="btn btn-danger"
+					                                        data-dismiss="modal">Cancelar
+					                                </button>
+					                                
+					                            </div>
+					                        </div>
+					                    </div>
+					                   
+					                </div>
+                          
+                          	</div>
+                          
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          
+          
+          </div>
+          
+        </div>      
+ 
+ 
+ </div>
+ 

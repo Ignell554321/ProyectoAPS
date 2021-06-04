@@ -19,11 +19,11 @@
                            
                               <div class="card-block">
                               
-                                  <form action="" th:action="@{/Instructor/Guardar}" th:object=${instructor} method="post" class="form-material row" >
+                                  <form action="" th:action="@{/Instructor/Guardar}" id="frmInstructor" name="frmInstructor" th:object=${instructor} method="post" class="form-material row" >
                                   
                                   <div class="col-1">
                                       <div class="form-group form-default">
-                                      	 <input type="text" name="dni" th:field="*{dni}" class="form-control" required="">
+                                      	 <input type="text" name="dni" id="dni" th:field="*{dni}" class="form-control" required="">
                                           <span class="form-bar"></span>
                                           <label class="float-label">DNI</label>
                                       </div>
@@ -33,7 +33,7 @@
                                    	
                                		<div class="col-md-3">
                                       <div class="form-group form-default">
-                                      	 <input type="text" name="nombres" th:field="*{nombres}" class="form-control" required="">
+                                      	 <input type="text" name="nombres" id="nombres" th:field="*{nombres}" class="form-control" required="">
                                           <span class="form-bar"></span>
                                           <label class="float-label">Nombres</label>
                                       </div>
@@ -41,7 +41,7 @@
                                    	
                                    	<div class="col-md-3">
                                       <div class="form-group form-default">
-                                      	 <input type="text" name="apellidos" th:field="*{apellidos}"  class="form-control" required="">
+                                      	 <input type="text" name="apellidos" id="apellidos" th:field="*{apellidos}"  class="form-control" required="">
                                           <span class="form-bar"></span>
                                           <label class="float-label">Apellidos</label>
                                       </div>
@@ -49,7 +49,7 @@
                                    	
                                    	<div class="col-md-4">
                                       <div class="form-group form-default">
-                                      	 <input type="text" name="especialidad" th:field="*{especialidad}"  class="form-control" required="">
+                                      	 <input type="text" name="especialidad" id="especialidad" th:field="*{especialidad}"  class="form-control" required="">
                                           <span class="form-bar"></span>
                                           <label class="float-label">Especialidad</label>
                                       </div>
@@ -57,7 +57,7 @@
                                    	
                                    	<div class="col-md-1">
                                       <div class="form-group form-default">
-                                      	 <input type="text" name="telefono" th:field="*{telefono}"  class="form-control" required="">
+                                      	 <input type="text" name="telefono" id="telefono" th:field="*{telefono}"  class="form-control" required="">
                                           <span class="form-bar"></span>
                                           <label class="float-label">Telefono</label>
                                       </div>
@@ -65,7 +65,7 @@
                                    	
                                    	<div class="col-md-4">
                                    	 <div class="form-group form-default">
-                                          <input type="text" name="correoElectronico" th:field="*{correoElectronico}"  class="form-control" required="">
+                                          <input type="text" name="correoElectronico" id="correoElectronico" th:field="*{correoElectronico}"  class="form-control" required="">
                                           <span class="form-bar"></span>
                                           <label class="float-label">Email (exa@gmail.com)</label>
                                       </div>
@@ -74,7 +74,7 @@
                                		                                   	
 									<div class="col-md-5">
                                       <div class="form-group form-default">
-                                      	 <input type="text" name="direccion" th:field="*{direccion}"  class="form-control" required="">
+                                      	 <input type="text" name="direccion" id="direccion" th:field="*{direccion}"  class="form-control" required="">
                                           <span class="form-bar"></span>
                                           <label class="float-label">Direccion</label>
                                       </div>
@@ -83,7 +83,7 @@
 									
                                    	<div class="col-md-12">
                                    	
-                                   		<button type="submit" class="btn waves-effect waves-light btn-success btn-outline-success"><i class="ti-save"></i>Guardar</button>
+                                   		<button type="button" onclick="guardarInstructor()" class="btn waves-effect waves-light btn-success btn-outline-success"><i class="ti-save"></i>Guardar</button>
                                    		
                                    	</div>
                                   </form>

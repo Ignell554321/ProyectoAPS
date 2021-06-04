@@ -19,11 +19,11 @@
                            
                               <div class="card-block">
                               
-                                  <form action="" th:action="@{/Estudiante/Guardar}" th:object=${estudiante} method="post" class="form-material row" >
+                                  <form id="frmEstudiante" name="frmEstudiante" action="" th:action="@{/Estudiante/Guardar}" th:object=${estudiante} method="post" class="form-material row" >
                                   
                                   <div class="col-1">
                                       <div class="form-group form-default">
-                                      	 <input type="text" name="footer-email" th:field="*{dni}" class="form-control" required="">
+                                      	 <input type="text" name="dni" id="dni" th:field="*{dni}" class="form-control" required="">
                                           <span class="form-bar"></span>
                                           <label class="float-label">DNI</label>
                                       </div>
@@ -33,7 +33,7 @@
                                    	
                                		<div class="col-md-3">
                                       <div class="form-group form-default">
-                                      	 <input type="text" name="nombres" th:field="*{nombres}" class="form-control" required="">
+                                      	 <input type="text" name="nombres" id="nombres" th:field="*{nombres}" class="form-control" required="">
                                           <span class="form-bar"></span>
                                           <label class="float-label">Nombres</label>
                                       </div>
@@ -41,7 +41,7 @@
                                    	
                                    	<div class="col-md-3">
                                       <div class="form-group form-default">
-                                      	 <input type="text" name="apellidos" th:field="*{apellidos}"  class="form-control" required="">
+                                      	 <input type="text" name="apellidos" id="apellidos" th:field="*{apellidos}"  class="form-control" required="">
                                           <span class="form-bar"></span>
                                           <label class="float-label">Apellidos</label>
                                       </div>
@@ -49,7 +49,7 @@
                                    	
                                		<div class="col-md-4">
                                       <div class="form-group form-default">
-                                      	 <input type="text" name="direccion" th:field="*{direccion}"  class="form-control" required="">
+                                      	 <input type="text" name="direccion" id="direccion" th:field="*{direccion}"  class="form-control" required="">
                                           <span class="form-bar"></span>
                                           <label class="float-label">Direccion</label>
                                       </div>
@@ -57,7 +57,7 @@
                                    	
                                    	<div class="col-md-1">
                                       <div class="form-group form-default">
-                                      	 <input type="text" name="telefono" th:field="*{telefono}"  class="form-control" required="">
+                                      	 <input type="text" name="telefono" id="telefono" th:field="*{telefono}"  class="form-control" required="">
                                           <span class="form-bar"></span>
                                           <label class="float-label">Telefono</label>
                                       </div>
@@ -67,7 +67,7 @@
                                    	
                                    	<div class="col-md-3">
                                    	 <div class="form-group form-default">
-                                          <input type="text" name="correoElectronico" th:field="*{correoElectronico}"  class="form-control" required="">
+                                          <input type="text" name="correoElectronico" id="correoElectronico" th:field="*{correoElectronico}"  class="form-control" required="">
                                           <span class="form-bar"></span>
                                           <label class="float-label">Email (exa@gmail.com)</label>
                                       </div>
@@ -78,7 +78,7 @@
                                    		<div class="form-group" style="margin-top: -10px">
                                    		
                                    			<label >Fecha</label>
-                                   			<input type="date" id="fechaNacimiento" name="trip-start" th:field="*{fechaNacimiento}">
+                                   			<input type="date" id="fechaNacimiento" name="fechaNacimiento" th:field="*{fechaNacimiento}" required="">
                                    			
                                    		</div>
                                    		
@@ -88,7 +88,11 @@
 									
                                    	<div class="col-md-12">
                                    	
+<<<<<<< HEAD
                                    		<button id="guardarEstudiante" class="btn btn-sm btn-success"> <i class="ti-save"></i> Guardar</button>
+=======
+                                   		<button type="button" onclick="guardarEstudiante()"  class="btn waves-effect waves-light btn-success btn-outline-success"> <i class="ti-save"></i> Guardar</button>
+>>>>>>> 3c582b53bbbee051fe3a8cc5a4fcb100cb43aa3e
                                    		
                                    	</div>
                                   </form>
