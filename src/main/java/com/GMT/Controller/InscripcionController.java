@@ -16,12 +16,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.GMT.Entidad.Curso;
 import com.GMT.Entidad.Estudiante;
 import com.GMT.Entidad.Inscripcion;
+import com.GMT.Services.CursoServiceImpl;
 import com.GMT.Services.EstudianteServiceImpl;
 import com.GMT.Services.InscripcionServiceImpl;
+import com.GMT.Services.MaquinaServiceImpl;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -38,6 +41,12 @@ public class InscripcionController {
 	
 	@Autowired
 	private EstudianteServiceImpl estudianteServiceImpl;
+	
+	@Autowired
+	private CursoServiceImpl cursoServiceImpl;
+	
+	@Autowired
+	private MaquinaServiceImpl maquinaServiceImpl;
 	
 	@RequestMapping(value= {"/Paginado"},method=RequestMethod.GET)
 	public String paginado(@RequestParam Map<String,Object> params, Model model) {
@@ -80,17 +89,18 @@ public class InscripcionController {
 	@RequestMapping(value= {"/Guardar"},method=RequestMethod.GET)
 	public String registro( Model model) {
 		
-		model.addAttribute("inscripcion",new Inscripcion());
+		 model.addAttribute("inscripcion",new Inscripcion());
+		 model.addAttribute("listaCursos",cursoServiceImpl.listar());
+		 model.addAttribute("listaMaquina",maquinaServiceImpl.listar());
 		 model.addAttribute("html","GestionarInscripcion/registrarInscripcion");
 		 model.addAttribute("template","registrarInscripcion");
 		 return "fragments/layout";	
 	}
 	
 	@RequestMapping(value= {"/BuscarEstudiante"},method=RequestMethod.POST)
-	public String buscarEstudiante(HttpServletRequest request) throws JsonParseException, JsonMappingException, IOException{
+	public @ResponseBody String buscarEstudiante(HttpServletRequest request) throws JsonParseException, JsonMappingException, IOException{
 		
-		 String dni= request.getParameter("dni");
-		 System.out.print(dni);
+	     String dni= request.getParameter("dni");
 		 Estudiante entity=estudianteServiceImpl.buscar(dni);
 		 if(entity!=null) {
 			 return Obj.writeValueAsString(entity);

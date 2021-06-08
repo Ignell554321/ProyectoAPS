@@ -81,8 +81,8 @@
                                   
                                   <div class="form-group frmGroupCurso">
                                    	   <label class="lblCurso"> CERTIFICADO</label>
-                                  	   <select th:field="*{certificado.id}"  name="idCertificado" id="idCertificado" class="form-control cmbCurso" required="">
-                                             <option  value=0>SELECCIONE</option>
+                                  	   <select th:field="*{certificado.id}"  name="idCertificado" id="idCertificado" class="form-control cmbCurso" required>
+                                              <option  value=0>SELECCIONE</option>
                                               <option th:each="certificado: ${listaCertificado}" th:text="${certificado.especialidad}" th:value="${certificado.id}"></option>  
                                        </select>
                                   </div>
@@ -139,7 +139,7 @@
                                    <div class="col-md-6">
                                      <div class="form-group">
                                     	 <label class="lblCurso"> DESCRIPCION</label>
-                                        <textarea th:field="*{descripcion}" id="descripcion" name="descripcion" class="form-control" required=""></textarea>
+                                        <textarea th:field="*{descripcion}" id="descripcion" name="descripcion" class="form-control"></textarea>
                                         <span class="form-bar"></span>
                                         
                                     </div>

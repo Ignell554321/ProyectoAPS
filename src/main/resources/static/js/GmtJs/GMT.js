@@ -1,5 +1,5 @@
+
 function pageSize(opcion){
-		
 		var pageSize;
 
 		switch(opcion){
@@ -29,8 +29,9 @@ function pageSize(opcion){
 
 	//GUARDAR
 
-	function guardarEstudiante(){
+function guardarEstudiante(){
 		
+	
 		if($("#frmEstudiante").valid())
 		{
 			var Estudiante={
@@ -155,29 +156,6 @@ function guardarInstructor(){
 					}
 				}
 	
-<<<<<<< HEAD
-	
-	//GUARDAR
-	
-	$(document).on('click', '#guardarEstudiante', function (event) {
-	
-		
-			
-		event.preventDefault();
-		swal({
-		        		  title: "Estudiante Guardado",
-						  text: "Se ha registrado correctamente al estudiante",
-						  icon: "success",
-						  button: true,
-	    				}).then(	
-  						function () {
-  							  if (true) {
-  								window.location.reload();
-  							  }
-  				})
- 		});
-	
-=======
 			$.ajax({
 		        type: 'POST',
 		        url: "/Curso/Guardar",
@@ -298,8 +276,18 @@ function guardarInstructor(){
 		
 	}
 	
-
->>>>>>> 3c582b53bbbee051fe3a8cc5a4fcb100cb43aa3e
+	function guardarInscripcion(){
+		
+		var idMaquina=$('input[name="maquina"]:checked').attr('id');
+		var idCurso= $('.lst-cursos a.active').attr('id');
+		var idTurno=0;
+		var idPromocion='';
+		var dniEstudiante=$('#txtDni').val();
+		
+		console.log("dni:"+dniEstudiante);
+		
+	}
+	
 
 	//ELIMINACION 
 	
@@ -375,7 +363,6 @@ function guardarInstructor(){
 					        	dni:dniInstructor},
 					        datatype: 'json',
 					        success: function (response) {
-					        console.log("raa",response)
 					        	
 					        	  swal("El registro se ha removido correctamente!", {
 					        		  title: "Correcto",
@@ -535,27 +522,30 @@ function guardarInstructor(){
 		function buscarEstudiante(){
 			
 			
-			var dni=$('#dni').val();
-		    console.log(dni);
+			var dni=$('#txtDni').val();
 		    
 			if(dni!='')
 			{
-					console.log(dni);
-					$.ajax({
-					    type:"POST", // la variable type guarda el tipo de la peticion GET,POST,..
-					    url:"/Inscripcion/BuscarEstudiante", //url guarda la ruta hacia donde se hace la peticion
-					    data:{dni:dni}, // data recive un objeto con la informacion que se enviara al servidor
-					    success:function(datos){ //success es una funcion que se utiliza si el servidor retorna informacion
-					         if(datos!=''){
-					        	 console.log(datos)
-					         }else{
-					        	 swal("Informacion", {
-					        		  title: "No se encontro el estudiante.",
-					           	      icon: "error",
-					           	   	  timer: 2000
-				  				}).then()
-					         }
-					    	
+					
+				  $.ajax({
+				        type: 'POST',
+				        url: "BuscarEstudiante",
+				        data: {
+				        	dni:dni
+				        },
+				        datatype: 'json',
+				        success: function (response) {
+
+				        	
+				        	var data = jQuery.parseJSON(response);
+				        	console.log(data);
+					         
+					         $('#txtApellidos').val(data['apellidos']);
+					         $('#txtNombres').val(data['nombres']);
+					         $('#txtDate').val(data['fechaNacimiento']);
+					         $('#txtTelefono').val(data['telefono']);
+					         $('#txtDireccion').val(data['direccion']);
+
 					     }
 					})
 				
@@ -571,8 +561,33 @@ function guardarInstructor(){
 			
 		}
 		
+		$(".list-group-item").click(function(){
+
+			   var listItems = $(".list-group-item"); //Select all list items
+			
+			   //Remove 'active' tag for all list items
+			   for (let i = 0; i < listItems.length; i++) {   
+				   
+			      listItems[i].classList.remove("active");
+			      listItems[i].classList.remove("text-white");
+			   }
+			
+			   //Add 'active' tag for currently selected item
+			   this.classList.add("active");
+			   this.classList.add("text-white");
+
+			});
+	
+
+		
+		
+		
+	
+		
 		$(document).ready(function() {
-			jQuery.extend(jQuery.validator.messages, {
+			
+			
+			  jQuery.extend(jQuery.validator.messages, {
 			  required: "Este campo es obligatorio.",
 			  remote: "Por favor, rellena este campo.",
 			  email: "Por favor, escribe una dirección de correo válida",
@@ -591,6 +606,10 @@ function guardarInstructor(){
 			  max: jQuery.validator.format("Por favor, escribe un valor menor o igual a {0}."),
 			  min: jQuery.validator.format("Por favor, escribe un valor mayor o igual a {0}.")
 			});
-			});
+			  
+			  
 			
+		});
+		
+		
 			

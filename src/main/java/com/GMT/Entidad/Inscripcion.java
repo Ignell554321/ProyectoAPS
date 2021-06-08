@@ -22,7 +22,7 @@ public class Inscripcion {
 	private int id;
 	
 	@ManyToOne
-	@JoinColumn(name = "estudiante_id")
+	@JoinColumn(name = "estudiante_dni")
 	private Estudiante estudiante;
 	
 	@OneToOne

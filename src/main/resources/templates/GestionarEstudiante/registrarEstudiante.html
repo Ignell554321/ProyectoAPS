@@ -19,7 +19,7 @@
                            
                               <div class="card-block">
                               
-                                  <form id="frmEstudiante" name="frmEstudiante" action="" th:action="@{/Estudiante/Guardar}" th:object=${estudiante} method="post" class="form-material row" >
+                                  <form id="frmEstudiante" name=frmEstudiante action="" th:action="@{/Estudiante/Guardar}" th:object=${estudiante} method="post" class="form-material row" >
                                   
                                   <div class="col-2">
                                       <div class="form-group form-default">
@@ -88,9 +88,6 @@
 									
                                    	<div class="col-md-12">
                                    	
-
-                                   		<button id="guardarEstudiante" class="btn btn-sm btn-success"> <i class="ti-save"></i> Guardar</button>
-
                                    		<button type="button" onclick="guardarEstudiante()"  class="btn waves-effect waves-light btn-success btn-outline-success"> <i class="ti-save"></i> Guardar</button>
 
                                    		

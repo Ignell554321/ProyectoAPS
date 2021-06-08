@@ -61,13 +61,13 @@ public class Estudiante {
 		this.id = id;
 	}*/
 
-	public List<Inscripcion> getInscripcion() {
+/*	public List<Inscripcion> getInscripcion() {
 		return inscripcion;
 	}
 
 	public void setInscripcion(List<Inscripcion> inscripcion) {
 		this.inscripcion = inscripcion;
-	}
+	}*/
 
 	public String getNombres() {
 		return nombres;
