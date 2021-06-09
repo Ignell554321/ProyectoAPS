@@ -37,35 +37,37 @@
                                             <table class="table ">
                                                 <thead>
                                                     <tr>
-                                                        <th>DNI</th>
-                                                        <th>Nombres</th>
-                                                        <th>Apellidos</th>
-                                                        <th>Email</th>
-                                                        <th>Fecha Nac.</th>
-                                                        <th>Telefono</th>
-                                                        <th>Direccion</th>
+                                                        <th class="d-none">ID</th>
+                                                        <th>Estudiante</th>
+                                                        <th>Curso</th>
+                                                        <th>Maquina</th>
+                                                        <th>Departamento</th>
+                                                        <th>Provincia</th>
+                                                        <th>Distrito</th>
+                                                         <th>Fecha</th>
                                                         <th>Opciones</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                <!-- 
                                                 
                                                 
-                                                    <tr th:each="estudiante: ${lista}">
-                                                    	<td id="dniEstudiante" th:text="${estudiante.dni}"></td>
-                                                    	<td th:text="${estudiante.nombres}"></td>
-                                                    	<td th:text="${estudiante.apellidos}"></td>
-                                                    	<td th:text="${estudiante.correoElectronico}"></td>
-                                                    	<td th:text="${estudiante.fechaNacimiento}"></td>
-                                                    	<td th:text="${estudiante.telefono}"></td>
-                                                    	<td th:text="${estudiante.direccion}"></td>
+                                                
+                                                    <tr th:each="inscripcion: ${lista}">
+                                                    	<td id="idInscripcion" class="d-none" th:text="${inscripcion.id}"></td>
+                                                     	<td th:text="${inscripcion.estudiante.apellidos +' '+ inscripcion.estudiante.nombres}"></td>
+                                                     	<td th:text="${inscripcion.curso.nombre}"></td>
+                                                    	<td th:text="${inscripcion.maquina.tipoDeMaquina}"></td>
+                                                    	<td th:text="${inscripcion.departamento}"></td>
+                                                    	<td th:text="${inscripcion.provincia}"></td>
+                                                    	<td th:text="${inscripcion.distrito}"></td>
+                                                    	<td th:text="${inscripcion.fechaActual}"></td>
                                                     	<td>
-                                                    	<a class="btn btn-sm btn-warning" th:href="@{/Estudiante/Editar/{dni} (dni=${estudiante.dni})}" ><i class="ti-pencil"></i></a>
-                                                    	<button id="borrarEstudiante" class="btn btn-sm btn-danger" ><i class="ti-trash"></i></button>
-                                                    	</td>
+                                                    	<a class="btn btn-sm btn-warning" th:href="@{/Inscripcion/Editar/{id} (id=${inscripcion.id})}" ><i class="ti-pencil"></i></a>
+                                                    	<button id="borrarInscripcion" class="btn btn-sm btn-danger" ><i class="ti-trash"></i></button>
+                                                    	</td> 
                                                     </tr>
                                                     
-                                                     -->
+                                                     
                                                 </tbody>
                                             </table>
                                         </div>

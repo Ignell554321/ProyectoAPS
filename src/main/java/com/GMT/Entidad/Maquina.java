@@ -18,6 +18,9 @@ public class Maquina {
 	
 	@Column(name="descripcion",nullable = false,length = 300)
 	private String descripcion;
+	
+	@Column(name="montoMaquina",nullable = false)
+	private float montoMaquina;
 
 	public int getId() {
 		return id;
@@ -42,6 +45,16 @@ public class Maquina {
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
+
+	public float getMontoMaquina() {
+		return montoMaquina;
+	}
+
+	public void setMontoMaquina(float montoMaquina) {
+		this.montoMaquina = montoMaquina;
+	}
+	
+	
 	
 	
 }

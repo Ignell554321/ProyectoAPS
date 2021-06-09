@@ -36,20 +36,42 @@ public class Inscripcion {
 	/*@OneToMany(mappedBy = "inscripcion")
 	private List<Pago> pago;*/
 	
-	@Column(name="tipoDeInscripcion", nullable = false, length = 45)
-	private String tipoDeInscripcion;
+	/*@Column(name="tipoDeInscripcion", nullable = false, length = 45)
+	private String tipoDeInscripcion;*/
 	
-	@Column(name="fecha", nullable = false)
+	/*@Column(name="fecha", nullable = false)
 	@DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-	private Date fecha;
+	private Date fecha;*/
 	
-	@Column(name="monto", nullable = false)
-	private double monto;
+	@Column(name="fechaActual", nullable = false, length = 15)
+	private String fechaActual;
+	
+	@Column(name="departamento", nullable = false, length = 45)
+	private String departamento;
+	
+	@Column(name="provincia", nullable = false, length = 45)
+	private String provincia;
+	
+	@Column(name="distrito", nullable = false, length = 45)
+	private String distrito;
+	
+	@Column(name="MontoTotal", nullable = false)
+	private float MontoTotal;
+	
+	@Column(name="MontoRestante", nullable = false)
+	private float MontoRestante;
+	
+	@Column(name="promocion", nullable = false, length = 15)
+	private String promocion;
+	
+	@Column(name="turno", nullable = false, length = 25)
+	private String turno;
+	
+	
 	
 	public Inscripcion() {
 		
-		//this.pago=new ArrayList<Pago>();
 		this.curso=new Curso();
 		this.maquina=new Maquina();
 		this.estudiante=new Estudiante();
@@ -90,37 +112,108 @@ public class Inscripcion {
 		this.curso = curso;
 	}
 
-	/*public List<Pago> getPago() {
-		return pago;
+
+	public String getFechaActual() {
+		return fechaActual;
 	}
 
-	public void setPago(List<Pago> pago) {
-		this.pago = pago;
-	}*/
 
-	public String getTipoDeInscripcion() {
-		return tipoDeInscripcion;
+	public void setFechaActual(String fechaActual) {
+		this.fechaActual = fechaActual;
 	}
 
-	public void setTipoDeInscripcion(String tipoDeInscripcion) {
-		this.tipoDeInscripcion = tipoDeInscripcion;
+
+	public String getDepartamento() {
+		return departamento;
 	}
 
-	public Date getFecha() {
+
+	public void setDepartamento(String departamento) {
+		this.departamento = departamento;
+	}
+
+
+
+	public String getProvincia() {
+		return provincia;
+	}
+
+
+
+	public void setProvincia(String provincia) {
+		this.provincia = provincia;
+	}
+
+
+
+	public String getDistrito() {
+		return distrito;
+	}
+
+
+
+	public void setDistrito(String distrito) {
+		this.distrito = distrito;
+	}
+
+
+
+	public float getMontoTotal() {
+		return MontoTotal;
+	}
+
+
+
+	public void setMontoTotal(float montoTotal) {
+		MontoTotal = montoTotal;
+	}
+
+
+
+	public float getMontoRestante() {
+		return MontoRestante;
+	}
+
+
+
+	public void setMontoRestante(float montoRestante) {
+		MontoRestante = montoRestante;
+	}
+
+
+
+	public String getPromocion() {
+		return promocion;
+	}
+
+
+
+	public void setPromocion(String promocion) {
+		this.promocion = promocion;
+	}
+
+
+
+	public String getTurno() {
+		return turno;
+	}
+
+
+
+	public void setTurno(String turno) {
+		this.turno = turno;
+	}
+
+	/*public Date getFecha() {
 		return fecha;
 	}
 
 	public void setFecha(Date fecha) {
 		this.fecha = fecha;
-	}
+	}*/
 
-	public double getMonto() {
-		return monto;
-	}
 
-	public void setMonto(double monto) {
-		this.monto = monto;
-	}
+	
 	
 	
 }

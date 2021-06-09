@@ -39,7 +39,6 @@
 	                                             <th>Horas</th>
 	                                             <th>Tipo de Curso</th>
 	                                             <th>Instructor</th>
-	                                             <th>Descripcion</th>
 	                                             <th>Opciones</th>
 	                                         </tr>
 	                                     </thead>
@@ -51,7 +50,6 @@
 	                                         	<td th:text="${curso.horas}"></td>
 	                                         	<td th:text="${curso.tipoDeCurso}"></td>
 	                                         	<td th:text="${curso.instructor.apellidos +' '+curso.instructor.nombres}"></td>
-	                                         	<td th:text="${curso.descripcion}"></td>
 	                                         	<td>
 	                                         	<a class="btn btn-sm btn-warning" th:href="@{/Curso/Editar/{id} (id=${curso.id})}" ><i class="ti-pencil"></i></a>
 	                                         	<button class="btn btn-sm btn-danger" id="borrarCurso"><i class="ti-trash"></i></button>

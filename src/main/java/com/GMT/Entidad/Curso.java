@@ -41,6 +41,9 @@ public class Curso {
 	
 	@Column(name = "tipoDeCurso",nullable = false,length = 45)
 	private String tipoDeCurso;
+	
+	@Column(name = "montoCurso",nullable = false)
+	private float montoCurso;
 
 	public Curso() {
 		
@@ -122,5 +125,14 @@ public class Curso {
 		this.tipoDeCurso = tipoDeCurso;
 	}
 
+	public float getMontoCurso() {
+		return montoCurso;
+	}
+
+	public void setMontoCurso(float montoCurso) {
+		this.montoCurso = montoCurso;
+	}
+
+	
 	
 }

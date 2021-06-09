@@ -143,6 +143,7 @@ function guardarInstructor(){
 					horas:$('#horas').val(),
 					tipoDeCurso:$('#tipoDeCurso').val(),
 					descripcion:$('#descripcion').val(),
+					montoCurso:$('#montoCurso').val(),
 					instructor:{
 						dni:$('#dniInstructor').val(),
 					},
@@ -241,7 +242,8 @@ function guardarInstructor(){
 					
 				id:$('#id').val(),
 				tipoDeMaquina:$('#tipoDeMaquina').val(),
-				descripcion:$('#descripcion').val()
+				descripcion:$('#descripcion').val(),
+				montoMaquina:$('#montoMaquina').val()
 			}
 	
 			$.ajax({
@@ -278,13 +280,103 @@ function guardarInstructor(){
 	
 	function guardarInscripcion(){
 		
-		var idMaquina=$('input[name="maquina"]:checked').attr('id');
-		var idCurso= $('.lst-cursos a.active').attr('id');
-		var idTurno=0;
-		var idPromocion='';
-		var dniEstudiante=$('#txtDni').val();
 		
-		console.log("dni:"+dniEstudiante);
+		if($("#frmInscripcion").valid()){
+			
+			
+			var d = new Date(); 
+			var month = d.getMonth()+1; 
+			var day = d.getDate(); 
+			var fechaActual = d.getFullYear() + '/' + (month<10 ? '0' : '') + month + '/' + (day<10 ? '0' : '') + day;
+			
+			var idInscripcion=$('#idInscripcion').val();
+			var idMaquina=$('input[name="maquina"]:checked').attr('id');
+			var idCurso= $('.lst-cursos a.active').attr('id');
+			var dniEstudiante=$('#txtDni').val();
+			var departamento=$('#txtDepartamento').val();
+			var distrito=$('#txtDistrito').val();
+			var provincia=$('#txtProvincia').val();
+			var montoRestante=$('#txtMontoRestante').val();
+			var montoTotal =$('#txtxMontoTotal').val();
+			var promocion=$('input[name="promocion"]:checked').attr('id');
+			var turno=$('input[name="turno"]:checked').attr('id');	
+			var montoPagado=$('#txtxPagoCuota').val();
+			var montoFinal;
+			if(parseFloat(montoRestante)>0)
+				{
+				montoFinal=parseFloat(montoRestante)-parseFloat(montoPagado);
+				montoRestante=montoFinal;
+				}else{montoRestante=0;}
+
+				
+			if(idCurso === undefined){
+
+				  swal("Verifique por favor...", {
+	    		  title: "No ha seleccionado un curso",
+	       	      icon: "warning"
+				}).then()
+				
+			}else{
+				
+				//Creando variable Inscripcion
+				var Inscricpion= {
+					
+					id:idInscripcion,
+					departamento:departamento,
+					distrito:distrito,
+					provincia:provincia,
+					fechaActual:fechaActual,
+					montoRestante:montoRestante,
+					montoTotal:montoTotal,
+					promocion:promocion,
+					turno:turno,
+					fechaActual:fechaActual,	
+					curso:{
+						id:idCurso
+					},
+					maquina:{
+						id:idMaquina
+					},
+					estudiante:{
+						dni:dniEstudiante
+					}
+						
+				}
+				
+				$.ajax({
+			        type: 'POST',
+			        url: "/Inscripcion/Guardar",
+			        data:{
+			        	Inscricpion:JSON.stringify(Inscricpion)
+			        	},
+			        datatype: 'json',
+			        success: function (response) {
+			        	swal({
+		    				  title: "Correcto!",
+		    				  text: "Registro guardado correctamente!",
+		    				  icon: "success",
+		    				  button: "Aceptar",
+		    				  timer: 2000
+		    				}).then(	
+								function () {
+									  if (true) {
+										 window.location="/Inscripcion/Paginado";
+									  }
+								}
+							)
+			        	
+					        },
+				            error : function() { }	 
+					 });
+				
+			}
+			
+		}else{
+			swal("Verifique por favor...", {
+      		  title: "No ha terminado de completar el formulario",
+         	      icon: "warning"
+			}).then()
+		}
 		
 	}
 	
@@ -340,7 +432,7 @@ function guardarInstructor(){
 	
 	$(document).on('click', '#borrarInstructor', function (event) {
 			
-			var dniEstudiante='';
+			var dniInstructor='';
 			$(this).parents("tr").find("#dniInstructor").each(function() {
 				dniInstructor = $(this).html();
 		    });
@@ -535,16 +627,30 @@ function guardarInstructor(){
 				        },
 				        datatype: 'json',
 				        success: function (response) {
-
 				        	
 				        	var data = jQuery.parseJSON(response);
-				        	console.log(data);
-					         
-					         $('#txtApellidos').val(data['apellidos']);
-					         $('#txtNombres').val(data['nombres']);
-					         $('#txtDate').val(data['fechaNacimiento']);
-					         $('#txtTelefono').val(data['telefono']);
-					         $('#txtDireccion').val(data['direccion']);
+				        	
+				        	if(data.length!=0)
+			        		{
+				        		console.log(response);
+
+						         $('#txtApellidos').val(data['apellidos']);
+						         $('#txtNombres').val(data['nombres']);
+						         $('#txtDate').val(data['fechaNacimiento']);
+						         $('#txtTelefono').val(data['telefono']);
+						         $('#txtDireccion').val(data['direccion']);
+			        		
+			        		}else{
+			        			
+			        			swal("Informacion", {
+			  	        		  title: "No se encontraron registros..",
+			  	           	      icon: "info",
+			  	           	   	  timer: 2000
+			    				}).then()
+			        			
+			        		}
+				        		
+				        	
 
 					     }
 					})
@@ -560,6 +666,56 @@ function guardarInstructor(){
 
 			
 		}
+		
+		
+		$(document).on('click', '#borrarInscripcion', function (event) {
+			
+			var idInscripcion='';
+			$(this).parents("tr").find("#idInscripcion").each(function() {
+				idInscripcion = $(this).html();
+		    });
+			
+			event.preventDefault();
+			swal({
+				  title: "¿Desea eliminar este registro?",
+				  text: "No podras volver a visualizar este registro",
+				  icon: "warning",
+				  buttons: true,
+				  dangerMode: true,
+				})
+				.then((willDelete) => {
+				  if (willDelete) {
+					  
+					  $.ajax({
+					        type: 'POST',
+					        url: "Eliminar",
+					        data:{
+					        	id:idInscripcion},
+					        datatype: 'json',
+					        success: function (response) {
+					        	
+					        	  swal("El registro se ha removido correctamente!", {
+					        		  title: "Correcto",
+					           	      icon: "success",
+					           	   	  timer: 2000
+				    				}).then(	
+			  						function () {
+			  							  if (true) {
+			  								window.location.reload();
+			  							  }
+			  						})
+					        },
+				            error : function() {
+				                //alert("error");
+				            }
+					  });  
+				  } 
+				});
+
+		});
+		
+		
+		//OTRAS FUNCIONES
 		
 		$(".list-group-item").click(function(){
 
@@ -578,6 +734,35 @@ function guardarInstructor(){
 
 			});
 	
+
+		//CONSULTAR MONTO CURSO
+		
+		
+		$("#lstCursos a").click(function(){
+				
+			 	//alert($('input[name="maquina"]:checked', '#frmInscripcion').val());
+				var idCurso=$(this).attr("id");
+				var idMaquina=$('input[name="maquina"]:checked').attr('id');
+				var m=$("input[type='radio'][name='maquina']:checked").val();
+				
+				$.ajax({
+			        type: 'POST',
+			        url: "ConsultarMontos",
+			        data: {
+			        	idCurso:idCurso,
+			        	idMaquina:idMaquina
+			        	
+			        },
+			        datatype: 'json',
+			        success: function (response) {
+				         
+				        $('#txtxMontoTotal').val(response);
+				        $('#txtMontoRestante').val(response);
+
+				     }
+				})
+							
+		})
 
 		
 		

@@ -13,6 +13,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.GMT.Entidad.Curso;
 import com.GMT.Entidad.Estudiante;
 import com.GMT.Entidad.Inscripcion;
+import com.GMT.Entidad.Maquina;
 import com.GMT.Services.CursoServiceImpl;
 import com.GMT.Services.EstudianteServiceImpl;
 import com.GMT.Services.InscripcionServiceImpl;
@@ -60,7 +62,6 @@ public class InscripcionController {
 		 Page<Inscripcion> pageInscripcion=inscripcionServicioImpl.paginado(pageRequest); //OBTENEMOS EL LISTADO DE ESTUDIANTES
 		 int primeraFila=0;
 		 int ultimaFila=0;
-		 
 		 int totalPage = pageInscripcion.getTotalPages(); //OBTENEMOS EL TOTAL DE PAGINAS
 		 if(pageInscripcion.getTotalElements()>0)primeraFila=1; //SI EXISTEN ELEMENTOS SE INICIALIZA EN 1 
 		 primeraFila=primeraFila+(tamanioPaginado*page); // OBTENEMOS EL NUMERO DEL PRIMER REGISTRO DEL PAGINADO
@@ -88,13 +89,22 @@ public class InscripcionController {
 	
 	@RequestMapping(value= {"/Guardar"},method=RequestMethod.GET)
 	public String registro( Model model) {
-		
+		 model.addAttribute("edicion",false);
 		 model.addAttribute("inscripcion",new Inscripcion());
 		 model.addAttribute("listaCursos",cursoServiceImpl.listar());
 		 model.addAttribute("listaMaquina",maquinaServiceImpl.listar());
 		 model.addAttribute("html","GestionarInscripcion/registrarInscripcion");
 		 model.addAttribute("template","registrarInscripcion");
 		 return "fragments/layout";	
+	}
+	
+	@RequestMapping(value= {"/Guardar"},method=RequestMethod.POST)
+	public @ResponseBody String guardar(HttpServletRequest request) throws JsonParseException, JsonMappingException, IOException{
+		
+		 Inscripcion entity= Obj.readValue(request.getParameter("Inscricpion"),Inscripcion.class);
+		 
+		 inscripcionServicioImpl.guardar(entity);
+		 return request.getParameter("Guardado correctamente");
 	}
 	
 	@RequestMapping(value= {"/BuscarEstudiante"},method=RequestMethod.POST)
@@ -106,8 +116,55 @@ public class InscripcionController {
 			 return Obj.writeValueAsString(entity);
 		 }else {
 			 return Obj.writeValueAsString("");
-		 }
-		 
-		 
+		 } 
 	}
+	
+	@RequestMapping(value= {"/ConsultarMontos"},method=RequestMethod.POST)
+	public @ResponseBody String ConsultarMontos(HttpServletRequest request) throws JsonParseException, JsonMappingException, IOException{
+		
+		 int idCurso=Integer.parseInt(request.getParameter("idCurso"));
+		 int idMaquina=Integer.parseInt(request.getParameter("idMaquina"));
+		 float montoTotal=0;
+		 Curso curso=cursoServiceImpl.buscar(idCurso);
+		 Maquina maquina=maquinaServiceImpl.buscar(idMaquina);
+		 
+		 if(maquina!=null) {  montoTotal=curso.getMontoCurso()+maquina.getMontoMaquina();}
+		 else {montoTotal=curso.getMontoCurso();}
+			 
+		 return Obj.writeValueAsString(montoTotal);
+
+	}
+	
+	//ACTUALIZAR
+			@RequestMapping(value= {"/Editar/{id}"},method=RequestMethod.GET)
+			public String editar( @PathVariable("id") int id, Model model) {
+				
+				
+				Inscripcion entity=inscripcionServicioImpl.buscar(id);
+				
+				if(entity==null) {
+					 return "redirect:/Inscripcion/Paginado";
+				}
+				 model.addAttribute("edicion",true);
+				 model.addAttribute("inscripcion",entity);
+				 model.addAttribute("listaCursos",cursoServiceImpl.listar());
+				 model.addAttribute("listaMaquina",maquinaServiceImpl.listar());
+				 model.addAttribute("html","GestionarInscripcion/registrarInscripcion");
+				 model.addAttribute("template","registrarInscripcion");
+				 return "fragments/layout";	
+			}
+	
+	//ELIMINAR
+		@RequestMapping(value= {"/Eliminar"},method=RequestMethod.POST)
+		public String eliminar(@RequestParam Map<String,Object> params, Model model) {
+			
+			int id= params.get("id") != null ? (Integer.valueOf(params.get("id").toString())) : 0 ;  
+			Inscripcion entity=inscripcionServicioImpl.buscar(id);
+			if(entity!=null) {
+				inscripcionServicioImpl.eliminar(entity);
+			}
+			
+			 return "redirect:/Inscripcion/Paginado"; 
+		}
+
 }
