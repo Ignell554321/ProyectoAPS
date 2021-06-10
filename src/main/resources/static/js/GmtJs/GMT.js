@@ -23,6 +23,10 @@ function pageSize(opcion){
 				pageSize=$('#cmbtamanioPaginaMaquina').val();
 				 window.location.replace("/Maquina/Paginado/?pageSize=" + pageSize + "&page=1");
 				break;
+			case 6: //Maquina
+				pageSize=$('#cmbtamanioPaginaInscripcion').val();
+				 window.location.replace("/Inscripcion/Paginado/?pageSize=" + pageSize + "&page=1");
+				break;
 		}
 	
 	}

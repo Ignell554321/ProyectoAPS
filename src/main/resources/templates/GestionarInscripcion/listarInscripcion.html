@@ -62,6 +62,7 @@
                                                     	<td th:text="${inscripcion.distrito}"></td>
                                                     	<td th:text="${inscripcion.fechaActual}"></td>
                                                     	<td>
+                                                    	<a class="btn btn-sm btn-primary" target="_blank" th:href="@{/Reporte/Inscripcion/{idServicioMecanico} (idServicioMecanico=${inscripcion.id})}" ><i class="ti-printer"></i></a>
                                                     	<a class="btn btn-sm btn-warning" th:href="@{/Inscripcion/Editar/{id} (id=${inscripcion.id})}" ><i class="ti-pencil"></i></a>
                                                     	<button id="borrarInscripcion" class="btn btn-sm btn-danger" ><i class="ti-trash"></i></button>
                                                     	</td> 
@@ -91,7 +92,7 @@
 									            <label for="" class="float-left" th:text="${info}"></label>
 									
 									              <!--SELECT-->
-									              <select onchange="pageSize(1)"  class="mx-auto" id="cmbtamanioPaginaEstudiante"  style="height: 30px; margin-top: -5px;">
+									              <select onchange="pageSize(6)"  class="mx-auto" id="cmbtamanioPaginaInscripcion"  style="height: 30px; margin-top: -5px;">
 									                  <option th:value="10" th:selected="10 == ${selectedPageSize}" >&nbsp;10&nbsp;</option>
 									                  <option th:value="30" th:selected="30 == ${selectedPageSize}" >&nbsp;30&nbsp;</option>
 									                  <option th:value="50" th:selected="50 == ${selectedPageSize}" >&nbsp;50&nbsp;</option>

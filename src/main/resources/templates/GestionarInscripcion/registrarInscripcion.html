@@ -103,7 +103,7 @@
 								             
 									                    <h4 class="mt-2"><b>Cursos</b></h4>
 									                    
-									                    <ul class="lst-cursos" id="lstCursos">
+									                    <ul class="lst-cursos" id="lstCursos" style="overflow-y: auto; height: 200px;">
 										                    <a th:each="curso: ${listaCursos}"  th:classappend="${curso.id}==*{curso.id} ? 'active text-white'  : ''"  th:field="*{curso.id}" th:value=${curso.id}  type="checkbox" class="list-group-item list-group-item-action" th:id=${curso.id} >
 										                      <div class="d-flex w-100 justify-content-between">
 										                      </div>
@@ -227,9 +227,9 @@
 					                              <button id="btnGenerarOrden" class="btn btn-primary" type="button" data-dismiss="modal"
 					                                        onclick="guardarInscripcion()"> <i class="ti-save"></i> Generar Inscripcion
 					                                </button>
-					                                <button type="button" class="btn btn-danger"
+					                                <a  th:href="@{/Inscripcion/Paginado}" type="button" class="btn btn-danger"
 					                                        data-dismiss="modal">Cancelar
-					                                </button>
+					                                </a>
 					                                
 					                            </div>
 					                        </div>

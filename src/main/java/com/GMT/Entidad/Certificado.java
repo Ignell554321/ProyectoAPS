@@ -20,7 +20,7 @@ public class Certificado {
 	@Column(name="fecha",nullable = false)
 	private String fecha;
 	
-	@Column(name="especialidad",nullable = false,length = 45)
+	@Column(name="especialidad",nullable = false,length = 100)
 	private String especialidad;
 
 	public int getId() {

@@ -4,12 +4,16 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -57,7 +61,23 @@ public class ReportesController {
         response.setHeader("Content-Disposition", "inline;");
         final OutputStream outputStream = response.getOutputStream();
         JasperExportManager.exportReportToPdfStream(jasperPrint, outputStream);
-     
+ 
+    }
+	
+	@RequestMapping(value ="/Inscripcion/{idInscripcion}", method = RequestMethod.GET)
+    public void vistaPreviaInscripcionPDF( HttpServletRequest request,HttpServletResponse response,@PathVariable(value="idInscripcion") int idInscripcion) throws  Exception{
+
+
+		InputStream jasperStream = this.getClass().getResourceAsStream("/Reportes/inscripcion.jasper");
+		Map<String,Object> params = new HashMap();
+		params.put("idInscripcion", idInscripcion);
+	    JasperReport jasperReport = (JasperReport) JRLoader.loadObject(jasperStream);
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, datasource.getConnection());
+        
+        response.setContentType("application/pdf");
+        response.setHeader("Content-Disposition", "inline;");
+        final OutputStream outputStream = response.getOutputStream();
+        JasperExportManager.exportReportToPdfStream(jasperPrint, outputStream);
  
     }
 
