@@ -109,7 +109,7 @@ from inscripcion i inner join estudiante e on(i.estudiante_dni=e.dni)
 		<band height="49" splitType="Stretch">
 			<staticText>
 				<reportElement x="120" y="0" width="340" height="40" uuid="4d127db6-0023-4af5-a8dd-12216dc35d6c"/>
-				<textElement>
+				<textElement textAlignment="Center">
 					<font size="24" isBold="true"/>
 				</textElement>
 				<text><![CDATA[GLOBAL MINING TRUJILLO ]]></text>

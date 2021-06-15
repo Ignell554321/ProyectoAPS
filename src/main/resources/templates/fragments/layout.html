@@ -222,7 +222,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
                                   <a th:href="@{/Inscripcion/Paginado}" class="waves-effect waves-dark">
 
-                                      <span class="pcoded-micon"><i class="ti-layers"></i><b>D</b></span>
+                                      <span class="pcoded-micon"><i class="ti-agenda"></i><b>D</b></span>
                                       <span class="pcoded-mtext" data-i18n="nav.dash.main">Inscripcion</span>
                                       <span class="pcoded-mcaret"></span>
                                   </a>
@@ -234,7 +234,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
                           <ul class="pcoded-item pcoded-left-item">
                               <li >
                                   <a th:href="@{/Estudiante/Paginado}" class="waves-effect waves-dark">
-                                      <span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>
+                                      <span class="pcoded-micon"><i class="ti-user"></i><b>FC</b></span>
                                       <span class="pcoded-mtext" data-i18n="nav.form-components.main">Estudiante</span>
                                       <span class="pcoded-mcaret"></span>
                                   </a>
@@ -243,7 +243,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
                               
                                <li >
                                   <a th:href="@{/Instructor/Paginado}" class="waves-effect waves-dark">
-                                      <span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>
+                                      <span class="pcoded-micon"><i class="ti-user"></i><b>FC</b></span>
                                       <span class="pcoded-mtext" data-i18n="nav.form-components.main">Instructor</span>
                                       <span class="pcoded-mcaret"></span>
                                   </a>
@@ -252,7 +252,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
                                <li class ="@{${activeCurso}}">
                                   <a th:href="@{/Curso/Paginado}" class="waves-effect waves-dark">
 
-                                      <span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>
+                                      <span class="pcoded-micon"><i class="ti-book"></i><b>FC</b></span>
                                       <span class="pcoded-mtext" data-i18n="nav.form-components.main">Curso</span>
                                       <span class="pcoded-mcaret"></span>
                                   </a>
@@ -260,7 +260,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
                               
                                <li>
                                   <a th:href="@{/Certificado/Paginado}" class="waves-effect waves-dark">
-                                      <span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>
+                                      <span class="pcoded-micon"><i class="ti-notepad"></i><b>FC</b></span>
                                       <span class="pcoded-mtext" data-i18n="nav.form-components.main">Certificado</span>
                                       <span class="pcoded-mcaret"></span>
                                   </a>
@@ -268,7 +268,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
                               
                                 <li>
                                   <a th:href="@{/Maquina/Paginado}" class="waves-effect waves-dark">
-                                      <span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>
+                                      <span class="pcoded-micon"><i class="ti-truck"></i><b>FC</b></span>
                                       <span class="pcoded-mtext" data-i18n="nav.form-components.main">Maquina</span>
                                       <span class="pcoded-mcaret"></span>
                                   </a>
@@ -282,18 +282,19 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
                           <ul class="pcoded-item pcoded-left-item">
                               <li class="pcoded-hasmenu ">
                                   <a href="javascript:void(0)" class="waves-effect waves-dark">
-                                      <span class="pcoded-micon"><i class="ti-direction-alt"></i><b>M</b></span>
+                                      <span class="pcoded-micon"><i class="ti-image"></i><b>M</b></span>
                                       <span class="pcoded-mtext" data-i18n="nav.menu-levels.main">Reportes</span>
                                       <span class="pcoded-mcaret"></span>
                                   </a>
                                   <ul class="pcoded-submenu">
                                       <li class="">
-                                          <a th:href="@{/Reporte/VistaPrevia}" target="_blank" class="waves-effect waves-dark">
+                                          <a th:href="@{/Reporte/Morosos}" target="_blank" class="waves-effect waves-dark">
                                               <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                              <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-21">Estudiante</span>
+                                              <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-21">Estudiantes Morosos</span>
                                               <span class="pcoded-mcaret"></span>
                                           </a>
                                       </li>
+                                      <!--  
                                       <li class="">
                                           <a href="javascript:void(0)" class="waves-effect waves-dark">
                                               <span class="pcoded-micon"><i class="ti-direction-alt"></i></span>
@@ -301,7 +302,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
                                               <span class="pcoded-mcaret"></span>
                                           </a>
                                       </li>
-                
+               						 -->
                                   </ul>
                               </li>
                               <!--  

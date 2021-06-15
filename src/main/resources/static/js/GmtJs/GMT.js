@@ -768,6 +768,47 @@ function guardarInstructor(){
 							
 		})
 
+		$("input[type='radio'][name='maquina']").change(function(){
+		    
+			var idMaquina=$(this).attr("id");
+			var idCurso=$('#lstCursos > a.active').attr('id');
+			
+			if(idCurso!=undefined)
+			{
+				$.ajax({
+			        type: 'POST',
+			        url: "ConsultarMontos",
+			        data: {
+			        	idCurso:idCurso,
+			        	idMaquina:idMaquina
+			        	
+			        },
+			        datatype: 'json',
+			        success: function (response) {
+				         
+				        $('#txtxMontoTotal').val(response);
+				        $('#txtMontoRestante').val(response);
+
+				     }
+				})
+			}
+
+			
+		});
+		
+		
+		$("#txtxPagoCuota").keyup(function() {
+			
+			 var cantidad = this.value; 
+			 var montoRestante=$('#txtMontoRestante').val();
+			 
+			 if(parseFloat(cantidad)>parseFloat(montoRestante) || parseFloat(cantidad)<0){
+				 
+				 this.value="";
+				 
+			 }
+	        
+	    });
 		
 		
 		

@@ -85,7 +85,7 @@
 								             			<h4 class="mt-2"><b>Tipo de Maquinaria</b></h4>
 								             			
 	
-									                      <div class="ml-4 mt-2">                
+									                      <div class="ml-4 mt-2" id="inptMaquinarias">                
 										                      
 										                      <div th:each="maquina: ${listaMaquina}" class="form-check" >
 										                        <input th:disabled="${edicion}"  th:checked="*{maquina.id}==${maquina.id} ? 'checked'" th:value=${maquina.id}  class="form-check-input " type="radio" name="maquina" th:id=${maquina.id}>

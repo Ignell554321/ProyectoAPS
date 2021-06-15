@@ -80,6 +80,22 @@ public class ReportesController {
         JasperExportManager.exportReportToPdfStream(jasperPrint, outputStream);
  
     }
+	
+	@RequestMapping(value ="/Morosos", method = RequestMethod.GET)
+    public void vistaPreviaMorososPDF( HttpServletRequest request,HttpServletResponse response) throws  Exception{
+
+
+		InputStream jasperStream = this.getClass().getResourceAsStream("/Reportes/estudiantesMorosos.jasper");
+
+	    JasperReport jasperReport = (JasperReport) JRLoader.loadObject(jasperStream);
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, null, datasource.getConnection());
+        
+        response.setContentType("application/pdf");
+        response.setHeader("Content-Disposition", "inline;");
+        final OutputStream outputStream = response.getOutputStream();
+        JasperExportManager.exportReportToPdfStream(jasperPrint, outputStream);
+ 
+    }
 
 	
 
