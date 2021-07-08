@@ -40,6 +40,14 @@ public class Estudiante {
 	@Column( name = "fechaNacimiento", nullable = false, length =50)
 	private String fechaNacimiento;
 	
+	@Column(name="departamento", nullable = false, length = 45)
+	private String departamento;
+	
+	@Column(name="provincia", nullable = false, length = 45)
+	private String provincia;
+	
+	@Column(name="distrito", nullable = false, length = 45)
+	private String distrito;
 	
 	@OneToMany(mappedBy = "estudiante")
 	private List<Inscripcion> inscripcion;
@@ -134,5 +142,32 @@ public class Estudiante {
 		this.dni = dni;
 	}
  
+	public String getDepartamento() {
+		return departamento;
+	}
+
+
+	public void setDepartamento(String departamento) {
+		this.departamento = departamento;
+	}
+
+
+	public String getProvincia() {
+		return provincia;
+	}
+
+	public void setProvincia(String provincia) {
+		this.provincia = provincia;
+	}
+
+
+	public String getDistrito() {
+		return distrito;
+	}
+
+
+	public void setDistrito(String distrito) {
+		this.distrito = distrito;
+	}
 	
 }

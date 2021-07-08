@@ -3,12 +3,32 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="inscripcion" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8a494403-32db-4ada-a7ff-c6933de1aa68">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="GlobalMiningTrujilloMVC"/>
+	<subDataset name="DatasetMaquinas" uuid="8244f302-cbcc-4fa2-991e-2b80f521c716">
+		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="GlobalMiningTrujilloMVC"/>
+		<parameter name="idInscripcion" class="java.lang.Integer">
+			<defaultValueExpression><![CDATA[$P{idInscripcion}]]></defaultValueExpression>
+		</parameter>
+		<queryString language="SQL">
+			<![CDATA[select m.tipo_de_maquina from maquinas_inscripcion mi inner join maquina m on(mi.maquina_id=m.id)
+where inscripcion_id= $P{idInscripcion}]]>
+		</queryString>
+		<field name="tipo_de_maquina" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="tipo_de_maquina"/>
+			<property name="com.jaspersoft.studio.field.label" value="tipo_de_maquina"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="maquina"/>
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<group name="tipo_de_maquina">
+			<groupExpression><![CDATA[$F{tipo_de_maquina}]]></groupExpression>
+		</group>
+	</subDataset>
 	<parameter name="idInscripcion" class="java.lang.Integer"/>
 	<queryString language="SQL">
 		<![CDATA[select 
-i.distrito,
-i.provincia,
-i.departamento,
+e.distrito,
+e.provincia,
+e.departamento,
 IF(i.turno='LV',"Lunes a Viernes","Domingos") AS turno,
 i.promocion,
 e.dni,
@@ -16,11 +36,9 @@ CONCAT(e.apellidos,' ',e.nombres) AS nombres,
 e.fecha_nacimiento,
 e.telefono,
 e.direccion,
-m.tipo_de_maquina,
 c.nombre
 from inscripcion i inner join estudiante e on(i.estudiante_dni=e.dni)
 							inner join curso c on(i.curso_id=c.id)
-                            inner join maquina m on(i.maquina_id=m.id)
                             where i.id= $P{idInscripcion}]]>
 	</queryString>
 	<field name="distrito" class="java.lang.String">
@@ -83,12 +101,6 @@ from inscripcion i inner join estudiante e on(i.estudiante_dni=e.dni)
 		<property name="com.jaspersoft.studio.field.tree.path" value="estudiante"/>
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="tipo_de_maquina" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="tipo_de_maquina"/>
-		<property name="com.jaspersoft.studio.field.label" value="tipo_de_maquina"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="maquina"/>
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
 	<field name="nombre" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="nombre"/>
 		<property name="com.jaspersoft.studio.field.label" value="nombre"/>
@@ -109,7 +121,7 @@ from inscripcion i inner join estudiante e on(i.estudiante_dni=e.dni)
 		<band height="49" splitType="Stretch">
 			<staticText>
 				<reportElement x="120" y="0" width="340" height="40" uuid="4d127db6-0023-4af5-a8dd-12216dc35d6c"/>
-				<textElement textAlignment="Center">
+				<textElement>
 					<font size="24" isBold="true"/>
 				</textElement>
 				<text><![CDATA[GLOBAL MINING TRUJILLO ]]></text>
@@ -136,7 +148,7 @@ from inscripcion i inner join estudiante e on(i.estudiante_dni=e.dni)
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="300" splitType="Stretch">
+		<band height="384" splitType="Stretch">
 			<textField>
 				<reportElement x="60" y="110" width="100" height="30" uuid="b8e0c30c-5b8d-421c-ab39-b86aac4573a8"/>
 				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
@@ -309,29 +321,17 @@ from inscripcion i inner join estudiante e on(i.estudiante_dni=e.dni)
 				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="210" width="80" height="30" uuid="f9cc8396-1e31-4972-b40d-157b22b3cdf2"/>
-				<box>
-					<pen lineWidth="1.0" lineStyle="Solid"/>
-				</box>
-				<textElement textAlignment="Left" verticalAlignment="Middle">
-					<font size="11" isBold="true"/>
-				</textElement>
-				<text><![CDATA[  MAQUINA:]]></text>
-			</staticText>
-			<textField>
-				<reportElement x="80" y="210" width="460" height="30" uuid="893f19fb-c754-4916-a3d6-bdfe007fbd49">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="12c1b0f1-d6b8-4fe0-9b44-f53ada30342e"/>
-				</reportElement>
+				<reportElement x="0" y="250" width="220" height="30" uuid="f9cc8396-1e31-4972-b40d-157b22b3cdf2"/>
 				<box>
 					<pen lineWidth="1.0" lineStyle="Solid"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="12"/>
+					<font size="11" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{tipo_de_maquina}]]></textFieldExpression>
-			</textField>
+				<text><![CDATA[  MAQUINAS]]></text>
+			</staticText>
 			<staticText>
-				<reportElement x="0" y="240" width="80" height="30" uuid="9a320bb4-89b2-4d2e-b8aa-f63a612ee0a1"/>
+				<reportElement x="0" y="210" width="80" height="30" uuid="9a320bb4-89b2-4d2e-b8aa-f63a612ee0a1"/>
 				<box>
 					<pen lineWidth="1.0" lineStyle="Solid"/>
 				</box>
@@ -341,7 +341,7 @@ from inscripcion i inner join estudiante e on(i.estudiante_dni=e.dni)
 				<text><![CDATA[  PROMOCION:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="80" y="240" width="172" height="30" uuid="b9064aa0-8630-4a15-82b9-2a4310ae4f53">
+				<reportElement x="80" y="210" width="172" height="30" uuid="b9064aa0-8630-4a15-82b9-2a4310ae4f53">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3c0e9801-73a6-4e42-9e2d-6d3e08965d7a"/>
 				</reportElement>
 				<box>
@@ -353,7 +353,7 @@ from inscripcion i inner join estudiante e on(i.estudiante_dni=e.dni)
 				<textFieldExpression><![CDATA[$F{promocion}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="252" y="240" width="80" height="30" uuid="a624fd3e-a14f-4612-90ee-43ef4d1f6544"/>
+				<reportElement x="252" y="210" width="80" height="30" uuid="a624fd3e-a14f-4612-90ee-43ef4d1f6544"/>
 				<box>
 					<pen lineWidth="1.0" lineStyle="Solid"/>
 				</box>
@@ -363,7 +363,7 @@ from inscripcion i inner join estudiante e on(i.estudiante_dni=e.dni)
 				<text><![CDATA[TURNO:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="332" y="240" width="208" height="30" uuid="c8ba3c85-c2fa-46af-b784-f4df1cdab43a">
+				<reportElement x="332" y="210" width="208" height="30" uuid="c8ba3c85-c2fa-46af-b784-f4df1cdab43a">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="61335e56-17e8-4811-863d-330557d89e1f"/>
 				</reportElement>
 				<box>
@@ -395,6 +395,31 @@ from inscripcion i inner join estudiante e on(i.estudiante_dni=e.dni)
 				</textElement>
 				<textFieldExpression><![CDATA[$F{nombres}]]></textFieldExpression>
 			</textField>
+			<componentElement>
+				<reportElement mode="Transparent" x="0" y="280" width="220" height="20" forecolor="#000000" uuid="e4524c73-1323-4dce-88c0-457e7c3407f6">
+					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
+				</reportElement>
+				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
+					<datasetRun subDataset="DatasetMaquinas" uuid="2620cefd-6bb0-4b7a-a64a-7294f83ca852">
+						<datasetParameter name="idInscripcion">
+							<datasetParameterExpression><![CDATA[$P{idInscripcion}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:listContents height="20" width="220">
+						<textField>
+							<reportElement x="0" y="0" width="220" height="20" uuid="3c1ebe0f-9746-48f7-8e22-24f50b2b92f0"/>
+							<box>
+								<pen lineWidth="1.0" lineStyle="Solid"/>
+							</box>
+							<textElement textAlignment="Center" verticalAlignment="Middle">
+								<font size="12"/>
+							</textElement>
+							<textFieldExpression><![CDATA[$F{tipo_de_maquina}]]></textFieldExpression>
+						</textField>
+					</jr:listContents>
+				</jr:list>
+			</componentElement>
 		</band>
 	</detail>
 	<pageFooter>

@@ -69,7 +69,7 @@ public class EstudianteController {
 		 }
 		 
 		 String informacionPaginado="Mostrando "+primeraFila+" al "+ultimaFila+" de "+pageEstudiante.getTotalElements()+" registros";
-		 
+		 model.addAttribute("activo",2);
 		 model.addAttribute("lista",pageEstudiante.getContent());
 		 model.addAttribute("tamanioPaginado",tamanioPaginado);
 		 model.addAttribute("selectedPageSize",tamanioPaginado);
@@ -104,6 +104,7 @@ public class EstudianteController {
 					 model.addAttribute("pages",pages);
 				 }
 				 //System.out.print(pageEstudiante);
+				 model.addAttribute("activo",2);
 				 model.addAttribute("lista",pageEstudiante.getContent());
 				 model.addAttribute("current",page+1); //PAGINA ACTUAL
 				 model.addAttribute("next",page+2); //SIGUENTE PAGINA
@@ -139,7 +140,7 @@ public class EstudianteController {
 		if(entity==null) {
 			 return "redirect:/Estudiante/Paginado";
 		}
-		
+		model.addAttribute("activo",2);
 		model.addAttribute("estudiante",entity);
 		 model.addAttribute("html","GestionarEstudiante/registrarEstudiante");
 		 model.addAttribute("template","registrarEstudiante");

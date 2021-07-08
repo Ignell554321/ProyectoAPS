@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.16.0.final using JasperReports Library version 6.16.0-48579d909b7943b64690c65c71e07e0b80981928  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="EstudiantesMorosos" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f19db1d2-d7ff-46ca-b26a-8d9f56580696">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="EstudiantesPorTipoDeCurso" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="62f5fb0a-8743-4687-9233-363257955938">
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
@@ -39,14 +39,15 @@
 			<rightPen lineWidth="0.5" lineColor="#000000"/>
 		</box>
 	</style>
-	<subDataset name="Dataset1" uuid="8b38b022-280f-4c38-8227-f8d45c0a9ce4">
+	<subDataset name="DatasetMorososPorCurso" uuid="0def318f-0625-4016-878f-2824a6c74816">
 		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="GlobalMiningTrujilloMVC"/>
+		<parameter name="idCurso" class="java.lang.Integer"/>
 		<queryString language="SQL">
-			<![CDATA[select e.dni,CONCAT(e.apellidos,' ',e.nombres) as estudiante, c.nombre,i.fecha_actual,monto_total,monto_restante from inscripcion i 
-inner join estudiante e on(i.estudiante_dni=e.dni) 
-inner join curso c on(i.curso_id=c.id)
-where monto_restante>0]]>
+			<![CDATA[select e.dni,CONCAT(e.apellidos,' ',e.nombres) as estudiante,c.nombre,i.fecha_actual ,i.monto_total,i.monto_restante  
+from inscripcion i inner join estudiante e on(i.estudiante_dni=e.dni)
+					inner join curso c on (c.id=i.curso_id)
+                   where i.curso_id= $P{idCurso} ]]>
 		</queryString>
 		<field name="dni" class="java.lang.String">
 			<property name="com.jaspersoft.studio.field.name" value="dni"/>
@@ -101,11 +102,12 @@ where monto_restante>0]]>
 			<groupExpression><![CDATA[$F{monto_restante}]]></groupExpression>
 		</group>
 	</subDataset>
+	<parameter name="idCurso" class="java.lang.Integer"/>
 	<queryString>
-		<![CDATA[select e.dni,CONCAT(e.apellidos,' ',e.nombres) as estudiante, c.nombre,i.fecha_actual,monto_total,monto_restante from inscripcion i 
-inner join estudiante e on(i.estudiante_dni=e.dni) 
-inner join curso c on(i.curso_id=c.id)
-where monto_restante>0]]>
+		<![CDATA[select e.dni,CONCAT(e.apellidos,' ',e.nombres) as estudiante,c.nombre,i.fecha_actual ,i.monto_total,i.monto_restante  
+from inscripcion i inner join estudiante e on(i.estudiante_dni=e.dni)
+					inner join curso c on (c.id=i.curso_id)
+                   where i.curso_id= $P{idCurso} ]]>
 	</queryString>
 	<field name="dni" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="dni"/>
@@ -145,16 +147,16 @@ where monto_restante>0]]>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="66" splitType="Stretch">
+		<band height="71" splitType="Stretch">
 			<staticText>
-				<reportElement x="0" y="0" width="802" height="40" uuid="687e756d-7b78-41dc-9e4e-5162c20a3cf1"/>
+				<reportElement x="0" y="10" width="796" height="40" uuid="b9bbc820-e3fb-408d-be12-ee20d5980cba"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="24" isBold="true"/>
 				</textElement>
 				<text><![CDATA[GLOBAL MINING TRUJILLO]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="40" width="802" height="20" uuid="5a283ddd-65a3-4fa7-a779-f63994ce9893"/>
+				<reportElement x="0" y="50" width="802" height="20" uuid="7cd276d1-6aaf-4fd7-a416-5ef5abb1120e"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
@@ -163,33 +165,36 @@ where monto_restante>0]]>
 		</band>
 	</title>
 	<pageHeader>
-		<band height="39" splitType="Stretch">
+		<band height="40" splitType="Stretch">
 			<staticText>
-				<reportElement x="0" y="4" width="802" height="30" uuid="e3c5a12a-6ebe-4e18-886e-3dedddb98542"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="18" isBold="true"/>
+				<reportElement x="0" y="10" width="796" height="30" uuid="598cec04-785e-4cd1-8b94-b0537c73d070"/>
+				<textElement textAlignment="Center">
+					<font size="20"/>
 				</textElement>
-				<text><![CDATA[REPORTE DE ESTUDIANTES MOROSOS]]></text>
+				<text><![CDATA[Reporte de Estudiantes Morosos Por Tipo De Curso]]></text>
 			</staticText>
 		</band>
 	</pageHeader>
 	<columnHeader>
 		<band height="100" splitType="Stretch">
 			<componentElement>
-				<reportElement x="10" y="10" width="792" height="90" uuid="f3933ba7-ebb1-4b0e-8001-190c1040ea6f">
+				<reportElement x="0" y="12" width="791" height="69" uuid="dcfc202d-7805-447a-acea-455000ec08a5">
 					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
 					<property name="com.jaspersoft.studio.table.style.table_header" value="Table_TH"/>
 					<property name="com.jaspersoft.studio.table.style.column_header" value="Table_CH"/>
 					<property name="com.jaspersoft.studio.table.style.detail" value="Table_TD"/>
 				</reportElement>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
-					<datasetRun subDataset="Dataset1" uuid="5969051e-ecac-4c40-abba-941aa2feed0a">
+					<datasetRun subDataset="DatasetMorososPorCurso" uuid="422c87c5-8abd-4505-9932-f92b4c9b3413">
+						<datasetParameter name="idCurso">
+							<datasetParameterExpression><![CDATA[$P{idCurso}]]></datasetParameterExpression>
+						</datasetParameter>
 						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					</datasetRun>
-					<jr:column width="60" uuid="d3046792-0e57-45c5-98f7-cb636d026ae4">
+					<jr:column width="60" uuid="60e7aa44-f045-4a1e-bd91-e13bb2a90f6e">
 						<jr:tableHeader style="Table_TH" height="30">
 							<staticText>
-								<reportElement x="0" y="0" width="60" height="30" uuid="9667a739-6931-42a2-afea-0abc928e720f"/>
+								<reportElement x="0" y="0" width="60" height="30" uuid="e985baea-b7fb-4ed0-880f-eec0a4c84177"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font size="12" isBold="true"/>
 								</textElement>
@@ -198,16 +203,18 @@ where monto_restante>0]]>
 						</jr:tableHeader>
 						<jr:detailCell style="Table_TD" height="30">
 							<textField>
-								<reportElement x="0" y="0" width="60" height="30" uuid="e96f8413-b0b1-4ec8-8360-c868df90cd42"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<reportElement x="0" y="0" width="60" height="30" uuid="fdd3aabe-db3b-49d2-8c2c-c841d41e9f4b"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="11"/>
+								</textElement>
 								<textFieldExpression><![CDATA[$F{dni}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="250" uuid="89ad1382-30b2-414a-9b60-5aafe6fa7d96">
+					<jr:column width="210" uuid="6d7b40bf-a259-4509-afe3-9cf0b58f6d34">
 						<jr:tableHeader style="Table_TH" height="30">
 							<staticText>
-								<reportElement x="0" y="0" width="250" height="30" uuid="2bfd14d8-4ce5-4fed-8a85-10f88bd46e5d"/>
+								<reportElement x="0" y="0" width="210" height="30" uuid="7388a930-ed84-4055-ac7b-d3e684a89214"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font size="12" isBold="true"/>
 								</textElement>
@@ -216,16 +223,18 @@ where monto_restante>0]]>
 						</jr:tableHeader>
 						<jr:detailCell style="Table_TD" height="30">
 							<textField>
-								<reportElement x="0" y="0" width="250" height="30" uuid="47e0fcf1-15f2-4d45-a0bb-969218b07d0f"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<reportElement x="0" y="0" width="210" height="30" uuid="23aa4a5b-d50a-49a2-9748-45f760f16dcb"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="11"/>
+								</textElement>
 								<textFieldExpression><![CDATA[$F{estudiante}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="240" uuid="19b568cb-fe42-4b60-9e6e-235875783e39">
+					<jr:column width="270" uuid="437f3041-db7d-44cd-9ba4-a60712147392">
 						<jr:tableHeader style="Table_TH" height="30">
 							<staticText>
-								<reportElement x="0" y="0" width="240" height="30" uuid="fa1ece6a-d54c-44d3-b1e3-dcb331f4dd30"/>
+								<reportElement x="0" y="0" width="270" height="30" uuid="543aa077-4147-45d8-8929-af2eb546e803"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font size="12" isBold="true"/>
 								</textElement>
@@ -234,34 +243,38 @@ where monto_restante>0]]>
 						</jr:tableHeader>
 						<jr:detailCell style="Table_TD" height="30">
 							<textField>
-								<reportElement x="0" y="0" width="240" height="30" uuid="289cb02c-3885-4f95-8999-0422e2758630"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<reportElement x="0" y="0" width="270" height="30" uuid="a1d24a2d-2802-4ac2-a992-2beea8fc1f87"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="11"/>
+								</textElement>
 								<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="79" uuid="d311206a-a4d0-44e4-a3b1-f2c91456c147">
+					<jr:column width="90" uuid="06bacab6-c0c1-4d32-b6eb-eb30c1678b7b">
 						<jr:tableHeader style="Table_TH" height="30">
 							<staticText>
-								<reportElement x="0" y="0" width="79" height="30" uuid="5706f86d-2c1e-4be4-bd55-53fc99233fb6"/>
+								<reportElement x="0" y="0" width="90" height="30" uuid="683b453f-e22f-49ed-ba04-c7611addcb22"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font size="12" isBold="true"/>
 								</textElement>
-								<text><![CDATA[Ultimo Pago]]></text>
+								<text><![CDATA[Ultimo pago]]></text>
 							</staticText>
 						</jr:tableHeader>
 						<jr:detailCell style="Table_TD" height="30">
 							<textField>
-								<reportElement x="0" y="0" width="79" height="30" uuid="20ccbf2e-c042-450e-81c3-86c61a97af85"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<reportElement x="0" y="0" width="90" height="30" uuid="ac248ed6-a163-4604-b589-6262c9a8c069"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="11"/>
+								</textElement>
 								<textFieldExpression><![CDATA[$F{fecha_actual}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="71" uuid="46f9b331-cc51-445e-befd-efea3530f29a">
+					<jr:column width="70" uuid="440e69dc-6bab-426b-b019-ad5c6d674b4c">
 						<jr:tableHeader style="Table_TH" height="30">
 							<staticText>
-								<reportElement x="0" y="0" width="71" height="30" uuid="fb6580c9-7b22-4a3b-ac7f-dfb7f1b5add2"/>
+								<reportElement x="0" y="0" width="70" height="30" uuid="ed1c79b8-a331-498e-8707-fdf0f8d1e597"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font size="12" isBold="true"/>
 								</textElement>
@@ -270,16 +283,18 @@ where monto_restante>0]]>
 						</jr:tableHeader>
 						<jr:detailCell style="Table_TD" height="30">
 							<textField>
-								<reportElement x="0" y="0" width="71" height="30" uuid="6b2803e1-d4a8-4373-b7a7-a1a1592f509c"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<reportElement x="0" y="0" width="70" height="30" uuid="74b591d1-07c9-4552-b85d-342be7b7a561"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="11"/>
+								</textElement>
 								<textFieldExpression><![CDATA[$F{monto_total}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="80" uuid="1c4296d2-e67c-4523-a036-d11a13c516c9">
+					<jr:column width="80" uuid="2286fa1a-9a89-4abc-a6d2-f5080a81742e">
 						<jr:tableHeader style="Table_TH" height="30">
 							<staticText>
-								<reportElement x="0" y="0" width="80" height="30" uuid="5d352229-c70d-4bef-83c9-24894b4ce6ba"/>
+								<reportElement x="0" y="0" width="80" height="30" uuid="f4bf1da2-7d2d-4f2d-b926-5c326d2edc59"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font size="12" isBold="true"/>
 								</textElement>
@@ -288,8 +303,10 @@ where monto_restante>0]]>
 						</jr:tableHeader>
 						<jr:detailCell style="Table_TD" height="30">
 							<textField>
-								<reportElement x="0" y="0" width="80" height="30" uuid="db34e761-ebd9-477e-ba87-25a8cbaf7b3d"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<reportElement x="0" y="0" width="80" height="30" uuid="a1011b1e-1833-4b90-a4e8-5ef6f9b38f57"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="11"/>
+								</textElement>
 								<textFieldExpression><![CDATA[$F{monto_restante}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
@@ -298,16 +315,13 @@ where monto_restante>0]]>
 			</componentElement>
 		</band>
 	</columnHeader>
-	<detail>
-		<band height="51" splitType="Stretch"/>
-	</detail>
 	<columnFooter>
-		<band height="45" splitType="Stretch"/>
+		<band height="88" splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
 		<band height="54" splitType="Stretch"/>
 	</pageFooter>
 	<summary>
-		<band height="42" splitType="Stretch"/>
+		<band height="138" splitType="Stretch"/>
 	</summary>
 </jasperReport>

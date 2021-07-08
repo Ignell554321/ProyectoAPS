@@ -1,17 +1,22 @@
 package com.GMT.Entidad;
 
+
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 import org.springframework.format.annotation.DateTimeFormat;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
@@ -29,9 +34,22 @@ public class Inscripcion {
 	@JoinColumn(name = "curso_id")
 	private Curso curso;
 	
-	@OneToOne
+	/*@OneToOne
 	@JoinColumn(name = "maquina_id")
-	private Maquina maquina;
+	private Maquina maquina;*/
+	
+	
+	@JoinTable(
+			//Name: Nombre de la tabla que será creada físicamente en la base de datos
+			//joinColumns: Corresponde al nombre para el ID de la Entidad Inscripcion
+			//inverseJoinColumns: Corresponde al nombre para el ID de la Entidad Maquina
+			name = "MaquinasInscripcion",
+			joinColumns = @JoinColumn(name="inscripcion_id",nullable = false),
+			inverseJoinColumns = @JoinColumn(name="maquina_id",nullable = false)
+			)
+	@ManyToMany()
+	private List<Maquina> maquinas;
+	
 	
 	/*@OneToMany(mappedBy = "inscripcion")
 	private List<Pago> pago;*/
@@ -47,15 +65,6 @@ public class Inscripcion {
 	@Column(name="fechaActual", nullable = false, length = 15)
 	private String fechaActual;
 	
-	@Column(name="departamento", nullable = false, length = 45)
-	private String departamento;
-	
-	@Column(name="provincia", nullable = false, length = 45)
-	private String provincia;
-	
-	@Column(name="distrito", nullable = false, length = 45)
-	private String distrito;
-	
 	@Column(name="MontoTotal", nullable = false)
 	private float MontoTotal;
 	
@@ -69,23 +78,22 @@ public class Inscripcion {
 	private String turno;
 	
 	
-	
 	public Inscripcion() {
 		
 		this.curso=new Curso();
-		this.maquina=new Maquina();
+		this.maquinas=new ArrayList<Maquina>();
 		this.estudiante=new Estudiante();
+		this.MontoTotal=50;
+		this.MontoRestante=50;
 		
 	}
 
-	
-	
-	public Maquina getMaquina() {
-		return maquina;
+	public List<Maquina> getMaquinas() {
+		return maquinas;
 	}
 
-	public void setMaquina(Maquina maquina) {
-		this.maquina = maquina;
+	public void setMaquinas(List<Maquina> maquinas) {
+		this.maquinas = maquinas;
 	}
 
 	public int getId() {
@@ -123,45 +131,9 @@ public class Inscripcion {
 	}
 
 
-	public String getDepartamento() {
-		return departamento;
-	}
-
-
-	public void setDepartamento(String departamento) {
-		this.departamento = departamento;
-	}
-
-
-
-	public String getProvincia() {
-		return provincia;
-	}
-
-
-
-	public void setProvincia(String provincia) {
-		this.provincia = provincia;
-	}
-
-
-
-	public String getDistrito() {
-		return distrito;
-	}
-
-
-
-	public void setDistrito(String distrito) {
-		this.distrito = distrito;
-	}
-
-
-
 	public float getMontoTotal() {
 		return MontoTotal;
 	}
-
 
 
 	public void setMontoTotal(float montoTotal) {
@@ -169,11 +141,9 @@ public class Inscripcion {
 	}
 
 
-
 	public float getMontoRestante() {
 		return MontoRestante;
 	}
-
 
 
 	public void setMontoRestante(float montoRestante) {

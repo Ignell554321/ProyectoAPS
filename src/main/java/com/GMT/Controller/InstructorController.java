@@ -70,6 +70,7 @@ public class InstructorController {
 		 }
 		 
 		 String informacionPaginado="Mostrando "+primeraFila+" al "+ultimaFila+" de "+pageInstructor.getTotalElements()+" registros";
+		 model.addAttribute("activo",3);
 		 model.addAttribute("lista",pageInstructor.getContent());
 		 model.addAttribute("tamanioPaginado",tamanioPaginado);
 		 model.addAttribute("selectedPageSize",tamanioPaginado);
@@ -104,6 +105,7 @@ public class InstructorController {
 					 model.addAttribute("pages",pages);
 				 }
 				 //System.out.print(pageEstudiante);
+				 model.addAttribute("activo",3);
 				 model.addAttribute("lista",pageInstructor.getContent());
 				 model.addAttribute("current",page+1); //PAGINA ACTUAL
 				 model.addAttribute("next",page+2); //SIGUENTE PAGINA
@@ -153,6 +155,7 @@ public class InstructorController {
 			 return "redirect:/Instructor/Paginado";
 		}
 		
+		model.addAttribute("activo",3);
 		 model.addAttribute("instructor",entity);
 		 model.addAttribute("html","GestionarInstructor/registrarInstructor");
 		 model.addAttribute("template","registrarInstructor");

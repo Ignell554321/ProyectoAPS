@@ -1,6 +1,8 @@
 package com.GMT.Controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -8,12 +10,16 @@ import java.util.stream.IntStream;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.springframework.asm.TypeReference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,6 +36,9 @@ import com.GMT.Services.MaquinaServiceImpl;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+
+
 
 
 @Controller
@@ -74,6 +83,7 @@ public class InscripcionController {
 		 }
 		 String informacionPaginado="Mostrando "+primeraFila+" al "+ultimaFila+" de "+pageInscripcion.getTotalElements()+" registros";
 		 
+		 model.addAttribute("activo",1);
 		 model.addAttribute("lista",pageInscripcion.getContent());
 		 model.addAttribute("tamanioPaginado",tamanioPaginado);
 		 model.addAttribute("selectedPageSize",tamanioPaginado);
@@ -89,6 +99,7 @@ public class InscripcionController {
 	
 	@RequestMapping(value= {"/Guardar"},method=RequestMethod.GET)
 	public String registro( Model model) {
+		 model.addAttribute("activo",1);
 		 model.addAttribute("edicion",false);
 		 model.addAttribute("inscripcion",new Inscripcion());
 		 model.addAttribute("listaCursos",cursoServiceImpl.listar());
@@ -135,6 +146,25 @@ public class InscripcionController {
 
 	}
 	
+	@RequestMapping(value= {"/ConsultarMontosMaquina"},method=RequestMethod.POST)
+	public @ResponseBody String ConsultarMontosMaquina( HttpServletRequest request) throws JsonParseException, JsonMappingException, IOException{
+		
+		// List<String>  data= Obj.readValue(request.getParameterValues("idMaquinas"),new java.awt.List().getClass());
+
+		//List<String> idMaquinas=request.getParameterValues("idMaquinas");
+		int idMaquina=Integer.parseInt(request.getParameter("idMaquina"));
+		float monto=0;
+		//JSONObject root=new JSONObject(request.getParameter("idMaquinas"));
+		System.out.print(idMaquina);
+		 Maquina maquina=maquinaServiceImpl.buscar(idMaquina);
+		 
+		 if(maquina!=null) {  monto=maquina.getMontoMaquina();}
+
+			 
+		 return Obj.writeValueAsString(monto);
+
+	}
+	
 	//ACTUALIZAR
 			@RequestMapping(value= {"/Editar/{id}"},method=RequestMethod.GET)
 			public String editar( @PathVariable("id") int id, Model model) {
@@ -145,6 +175,7 @@ public class InscripcionController {
 				if(entity==null) {
 					 return "redirect:/Inscripcion/Paginado";
 				}
+				 model.addAttribute("activo",1);
 				 model.addAttribute("edicion",true);
 				 model.addAttribute("inscripcion",entity);
 				 model.addAttribute("listaCursos",cursoServiceImpl.listar());

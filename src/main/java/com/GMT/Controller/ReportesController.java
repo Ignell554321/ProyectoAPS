@@ -13,10 +13,15 @@ import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.GMT.Entidad.Maquina;
+import com.GMT.Services.CursoServiceImpl;
+import com.GMT.Services.MaquinaServiceImpl;
 
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperExportManager;
@@ -32,6 +37,26 @@ public class ReportesController {
 	//CONEXION BASE DE DATOS ACTUAL
 	@Autowired
 	protected DataSource datasource;
+	
+	@Autowired
+	private MaquinaServiceImpl maquinaServiceImpl;
+	
+	@Autowired
+	private CursoServiceImpl cursoServiceImpl;
+	
+	//LISTAR RESPORTES 
+	@RequestMapping(value= {"/Lista"},method=RequestMethod.GET)
+	public String listaReportes(Model model) {
+		
+		 model.addAttribute("activo",7);
+		 model.addAttribute("listaMaquina",maquinaServiceImpl.listar());
+		 model.addAttribute("listaCurso",cursoServiceImpl.listar());
+		 model.addAttribute("maquina",new Maquina());
+		 model.addAttribute("html","GestionarReporte/Reportes");
+		 model.addAttribute("template","listarReportes");
+		 return "fragments/layout";	
+	}
+	
 	
 	//DESCARGAR REPORTE EN PDF
 	@RequestMapping(value = "/DescargarPDF", method = RequestMethod.GET)
@@ -81,11 +106,45 @@ public class ReportesController {
  
     }
 	
+	@RequestMapping(value ="/MorososMaquina/{idMaquina}", method = RequestMethod.GET)
+    public void vistaPreviaMorososMaquinaPDF( HttpServletRequest request,HttpServletResponse response,@PathVariable(value="idMaquina") int idMaquina) throws  Exception{
+
+
+		InputStream jasperStream = this.getClass().getResourceAsStream("/Reportes/EstudiantesPorTipoDeMaquina.jasper");
+		Map<String,Object> params = new HashMap();
+		params.put("idMaquina", idMaquina);
+	    JasperReport jasperReport = (JasperReport) JRLoader.loadObject(jasperStream);
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, datasource.getConnection());
+        
+        response.setContentType("application/pdf");
+        response.setHeader("Content-Disposition", "inline;");
+        final OutputStream outputStream = response.getOutputStream();
+        JasperExportManager.exportReportToPdfStream(jasperPrint, outputStream);
+ 
+    }
+	
+	@RequestMapping(value ="/MorososCurso/{idCurso}", method = RequestMethod.GET)
+    public void vistaPreviaMorososCursoPDF( HttpServletRequest request,HttpServletResponse response,@PathVariable(value="idCurso") int idCurso) throws  Exception{
+
+
+		InputStream jasperStream = this.getClass().getResourceAsStream("/Reportes/EstudiantesPorTipoDeCurso.jasper");
+		Map<String,Object> params = new HashMap();
+		params.put("idCurso", idCurso);
+	    JasperReport jasperReport = (JasperReport) JRLoader.loadObject(jasperStream);
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, datasource.getConnection());
+        
+        response.setContentType("application/pdf");
+        response.setHeader("Content-Disposition", "inline;");
+        final OutputStream outputStream = response.getOutputStream();
+        JasperExportManager.exportReportToPdfStream(jasperPrint, outputStream);
+ 
+    }
+	
 	@RequestMapping(value ="/Morosos", method = RequestMethod.GET)
     public void vistaPreviaMorososPDF( HttpServletRequest request,HttpServletResponse response) throws  Exception{
 
 
-		InputStream jasperStream = this.getClass().getResourceAsStream("/Reportes/estudiantesMorosos.jasper");
+		InputStream jasperStream = this.getClass().getResourceAsStream("/Reportes/EstudiantesMorosos.jasper");
 
 	    JasperReport jasperReport = (JasperReport) JRLoader.loadObject(jasperStream);
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, null, datasource.getConnection());

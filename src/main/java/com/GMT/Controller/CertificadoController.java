@@ -63,6 +63,7 @@ public class CertificadoController {
 			 }
 			 
 			 String informacionPaginado="Mostrando "+primeraFila+" al "+ultimaFila+" de "+pageCertificado.getTotalElements()+" registros";
+			 model.addAttribute("activo",5);
 			 model.addAttribute("lista",pageCertificado.getContent());
 			 model.addAttribute("tamanioPaginado",tamanioPaginado);
 			 model.addAttribute("selectedPageSize",tamanioPaginado);
@@ -79,6 +80,7 @@ public class CertificadoController {
 		@RequestMapping(value= {"/Guardar"},method=RequestMethod.GET)
 		public String listarCompra(Model model) {
 			
+			model.addAttribute("activo",5);
 			 model.addAttribute("certificado",new Certificado());
 			 model.addAttribute("html","GestionarCertificado/registrarCertificado");
 			 model.addAttribute("template","registrarCertificado");
@@ -112,7 +114,7 @@ public class CertificadoController {
 			if(entity==null) {
 				 return "redirect:/Certificado/Paginado";
 			}
-			
+			 model.addAttribute("activo",5);
 			 model.addAttribute("certificado",entity);
 			 model.addAttribute("html","GestionarCertificado/registrarCertificado");
 			 model.addAttribute("template","registrarCertificado");

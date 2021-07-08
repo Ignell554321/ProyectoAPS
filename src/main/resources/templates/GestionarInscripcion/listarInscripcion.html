@@ -37,10 +37,10 @@
                                             <table class="table ">
                                                 <thead>
                                                     <tr>
-                                                        <th class="d-none">ID</th>
+                                                        <th >Codigo</th>
                                                         <th>Estudiante</th>
                                                         <th>Curso</th>
-                                                        <th>Maquina</th>
+                                                        <th class="text-center" >Maquina</th>
                                                         <th>Departamento</th>
                                                         <th>Provincia</th>
                                                         <th>Distrito</th>
@@ -53,13 +53,18 @@
                                                 
                                                 
                                                     <tr th:each="inscripcion: ${lista}">
-                                                    	<td id="idInscripcion" class="d-none" th:text="${inscripcion.id}"></td>
+                                                    	<td id="idInscripcion" th:text="${'GMT-000'+inscripcion.id}"></td>
                                                      	<td th:text="${inscripcion.estudiante.apellidos +' '+ inscripcion.estudiante.nombres}"></td>
                                                      	<td th:text="${inscripcion.curso.nombre}"></td>
-                                                    	<td th:text="${inscripcion.maquina.tipoDeMaquina}"></td>
-                                                    	<td th:text="${inscripcion.departamento}"></td>
-                                                    	<td th:text="${inscripcion.provincia}"></td>
-                                                    	<td th:text="${inscripcion.distrito}"></td>
+                                                     	<td class="text-center" >
+                                                     	<div th:each="maquina: ${inscripcion.maquinas}">
+                                                     		<label th:text="${maquina.tipoDeMaquina}"></label>
+                                                     	</div>
+                                                     	</td>
+                                                    	<!--  <td th:text="${inscripcion.maquina.tipoDeMaquina}"></td>  -->
+                                                    	<td th:text="${inscripcion.estudiante.departamento}"></td>
+                                                    	<td th:text="${inscripcion.estudiante.provincia}"></td>
+                                                    	<td th:text="${inscripcion.estudiante.distrito}"></td>
                                                     	<td th:text="${inscripcion.fechaActual}"></td>
                                                     	<td>
                                                     	<a class="btn btn-sm btn-primary" target="_blank" th:href="@{/Reporte/Inscripcion/{idServicioMecanico} (idServicioMecanico=${inscripcion.id})}" ><i class="ti-printer"></i></a>

@@ -73,6 +73,7 @@ public class CursoController {
 			 }
 			 String informacionPaginado="Mostrando "+primeraFila+" al "+ultimaFila+" de "+pageCurso.getTotalElements()+" registros";
 			 
+			 model.addAttribute("activo",4);
 			 model.addAttribute("lista",pageCurso.getContent());
 			 model.addAttribute("tamanioPaginado",tamanioPaginado);
 			 model.addAttribute("selectedPageSize",tamanioPaginado);
@@ -93,6 +94,7 @@ public class CursoController {
 		 listaHorarios.clear();
 		 List<Integer>horas=IntStream.rangeClosed(0, 23).boxed().collect(Collectors.toList()); 
 		 List<Integer>minutos=IntStream.rangeClosed(0, 59).boxed().collect(Collectors.toList()); 
+		 model.addAttribute("activo",4);
 		 model.addAttribute("horas",horas);
 		 model.addAttribute("minutos",minutos);
 		 model.addAttribute("listaDocentes",instructorServiceImpl.listar());
@@ -132,6 +134,7 @@ public class CursoController {
 			if(entity==null) {
 				 return "redirect:/Curso/Paginado";
 			}
+			 model.addAttribute("activo",4);
 			 model.addAttribute("curso",entity);
 			 model.addAttribute("listaDocentes",instructorServiceImpl.listar());
 			 model.addAttribute("listaCertificado",certificadoServiceImpl.listar());

@@ -61,6 +61,7 @@ public class MaquinaController {
 		 }
 		 
 		 String informacionPaginado="Mostrando "+primeraFila+" al "+ultimaFila+" de "+pageCertificado.getTotalElements()+" registros";
+		 model.addAttribute("activo",6);
 		 model.addAttribute("tamanioPaginado",tamanioPaginado);
 		 model.addAttribute("selectedPageSize",tamanioPaginado);
 		 model.addAttribute("lista",pageCertificado.getContent());
@@ -78,6 +79,7 @@ public class MaquinaController {
 	public String guardarMaquinaGET(Model model) {
 		
 		 model.addAttribute("maquina",new Maquina());
+		 model.addAttribute("activo",6);
 		 model.addAttribute("html","GestionarMaquina/registrarMaquina");
 		 model.addAttribute("template","registrarMaquina");
 		 return "fragments/layout";	
@@ -111,6 +113,7 @@ public class MaquinaController {
 		}
 		
 		 model.addAttribute("maquina",entity);
+		 model.addAttribute("activo",6);
 		 model.addAttribute("html","GestionarMaquina/registrarMaquina");
 		 model.addAttribute("template","registrarMaquina");
 		 return "fragments/layout";	

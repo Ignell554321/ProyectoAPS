@@ -46,7 +46,10 @@ function guardarEstudiante(){
 					direccion:$('#direccion').val(),
 					telefono:$('#telefono').val(),
 					correoElectronico:$('#correoElectronico').val(),
-					fechaNacimiento:$('#fechaNacimiento').val()
+					fechaNacimiento:$('#fechaNacimiento').val(),
+					departamento:$('#departamento').val(),
+					provincia:$('#provincia').val(),
+					distrito:$('#distrito').val()
 			}
 			
 			$.ajax({
@@ -297,15 +300,14 @@ function guardarInstructor(){
 			var idMaquina=$('input[name="maquina"]:checked').attr('id');
 			var idCurso= $('.lst-cursos a.active').attr('id');
 			var dniEstudiante=$('#txtDni').val();
-			var departamento=$('#txtDepartamento').val();
-			var distrito=$('#txtDistrito').val();
-			var provincia=$('#txtProvincia').val();
 			var montoRestante=$('#txtMontoRestante').val();
 			var montoTotal =$('#txtxMontoTotal').val();
 			var promocion=$('input[name="promocion"]:checked').attr('id');
 			var turno=$('input[name="turno"]:checked').attr('id');	
 			var montoPagado=$('#txtxPagoCuota').val();
 			var montoFinal;
+			var maquinas=[];
+			
 			if(parseFloat(montoRestante)>0)
 				{
 				montoFinal=parseFloat(montoRestante)-parseFloat(montoPagado);
@@ -322,13 +324,28 @@ function guardarInstructor(){
 				
 			}else{
 				
+				//Agregando id maquina al arreglo
+				$('.CheckedAK:checked').each(
+						function() {
+							var maquina={
+									id:$(this).val()
+								}
+							maquinas.push(maquina)
+						}
+						
+				);
+				//Si es vacio el arreglo se agrega el id sin maquina
+				if(maquinas.length==0){
+					var maquina={
+							id:2
+						}
+					maquinas.push(maquina)
+				}
+				
 				//Creando variable Inscripcion
 				var Inscricpion= {
 					
 					id:idInscripcion,
-					departamento:departamento,
-					distrito:distrito,
-					provincia:provincia,
 					fechaActual:fechaActual,
 					montoRestante:montoRestante,
 					montoTotal:montoTotal,
@@ -338,9 +355,7 @@ function guardarInstructor(){
 					curso:{
 						id:idCurso
 					},
-					maquina:{
-						id:idMaquina
-					},
+					maquinas:maquinas,
 					estudiante:{
 						dni:dniEstudiante
 					}
@@ -643,6 +658,9 @@ function guardarInstructor(){
 						         $('#txtDate').val(data['fechaNacimiento']);
 						         $('#txtTelefono').val(data['telefono']);
 						         $('#txtDireccion').val(data['direccion']);
+						         $('#txtDepartamento').val(data['departamento']);
+						         $('#txtProvincia').val(data['provincia']);
+						         $('#txtDistrito').val(data['distrito']);
 			        		
 			        		}else{
 			        			
@@ -739,9 +757,109 @@ function guardarInstructor(){
 			});
 	
 
+		
+		
+		/*function prueba(){
+			
+			var data=[];
+			var monto=0;
+			$("#txt_monto").val(0);
+			$('.CheckedAK:checked').each(
+				    function() {
+				    	data.push($(this).val())
+				    	
+				    	$.ajax({
+					        type: 'POST',
+					        url: "ConsultarMontosMaquina",
+					        data: {
+					        	
+					        	idMaquina: $(this).val()	
+					        },
+					        datatype: 'json',
+					        success: function (response) {
+					        		monto=parseFloat($("#txt_monto").val());
+					        		monto+=parseFloat(response);
+					        		$("#txt_monto").val(monto);
+					        		$('#txtxMontoTotal').val(parseFloat($("#txt_monto").val())+50);
+			
+						     }
+						})
+				    	}
+				);
+			
+
+		}*/
+		
+		//CONSULTAR MONTO MAQUINA
+		$(".CheckedAK").change(function() {
+			
+			var idMaquina;
+			var cont=parseFloat(0);
+			var monto=0;
+			$("#txt_monto").val(0);
+			$('#txtxMontoTotal').val("50.0");
+			$('.CheckedAK:checked').each(
+				    function() {
+				    	
+				    	$.ajax({
+					        type: 'POST',
+					        url: "ConsultarMontosMaquina",
+					        data: {
+					        	
+					        	idMaquina: $(this).val()	
+					        },
+					        datatype: 'json',
+					        success: function (response) {
+					        		monto=parseFloat($("#txt_monto").val());
+					        		monto+=parseFloat(response);
+					        		$("#txt_monto").val(monto);
+					        		$('#txtxMontoTotal').val(monto+50);
+					        		$('#txtMontoRestante').val(monto+50);
+			
+						     }
+						});
+				    }
+				);
+			
+		});
+		
+		
+		$("input[type='checkbox'][name='maquina']").change(function(){
+		    
+
+			/*if( $('.CheckedAK').prop('checked') ) {
+				alert('Seleccionado');
+				
+			}
+			/*if(idCurso!=undefined)
+			{
+				$.ajax({
+			        type: 'POST',
+			        url: "ConsultarMontos",
+			        data: {
+			        	idCurso:idCurso,
+			        	idMaquina:idMaquina
+			        	
+			        },
+			        datatype: 'json',
+			        success: function (response) {
+				         
+				        $('#txtxMontoTotal').val(response);
+				        $('#txtMontoRestante').val(response);
+
+				     }
+				})
+			}*/
+
+			
+		});
+		
+
+		
+		
 		//CONSULTAR MONTO CURSO
 		
-		
+		/*
 		$("#lstCursos a").click(function(){
 				
 			 	//alert($('input[name="maquina"]:checked', '#frmInscripcion').val());
@@ -795,7 +913,7 @@ function guardarInstructor(){
 
 			
 		});
-		
+		*/
 		
 		$("#txtxPagoCuota").keyup(function() {
 			
@@ -811,8 +929,54 @@ function guardarInstructor(){
 	    });
 		
 		
+		//Modal
 		
+		function modalMorososMaquina(){
+			$('#modalMorososMaquina').modal('show');
+		}
+		
+		function modalMorososCurso() {
+			$('#modalMorososCurso').modal('show');
+		}
+		
+		//ABRIR REPORTES
+		
+		function reporteMorososMaquina(){
+			
+			var idMaquina=$('#cmbMaquina option:selected').val()
+			
+			if(idMaquina!=""){
+				window.open(
+						  '/Reporte/MorososMaquina/'+idMaquina,
+						  '_blank' 
+						);
+			}else{
+				swal("Advertencia", {
+	        		  title: "Selecciona una maquina por favor...",
+	           	      icon: "warning",
+	           	   	  timer: 1000
+				}).then()
+			}
+			
+			
+		}
 	
+		function reporteMorososCurso()
+		{
+			var idCurso=$('#cmbCurso option:selected').val()
+			if(idCurso!=""){
+				window.open(
+						  '/Reporte/MorososCurso/'+idCurso,
+						  '_blank' 
+						);
+			}else{
+				swal("Advertencia", {
+	        		  title: "Selecciona un curso por favor...",
+	           	      icon: "warning",
+	           	   	  timer: 1000,
+				}).then()
+			}
+		}
 		
 		$(document).ready(function() {
 			
