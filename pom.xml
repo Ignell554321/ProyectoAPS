@@ -15,7 +15,12 @@
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>11</java.version>
+		 <sonar.projectKey>Ignell554321_ProyectoAPS</sonar.projectKey>
+		  <sonar.organization>ignell554321</sonar.organization>
+		  <sonar.host.url>https://sonarcloud.io</sonar.host.url>
 	</properties>
+
+		
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -81,9 +86,8 @@
 		    <artifactId>json</artifactId>
 		    <version>20140107</version>
 		</dependency>
-
-			
 		
+	
 	</dependencies>
 
 	<build>
