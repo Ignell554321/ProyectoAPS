@@ -48,7 +48,7 @@
 from inscripcion i inner join estudiante e on(i.estudiante_dni=e.dni)
 				   inner join maquinas_inscripcion mi on(mi.inscripcion_id=i.id)
                    inner join maquina m on (m.id=mi.maquina_id)
-                   where mi.maquina_id= $P{idMaquina} ]]>
+                   where mi.maquina_id= $P{idMaquina}]]>
 		</queryString>
 		<field name="dni" class="java.lang.String">
 			<property name="com.jaspersoft.studio.field.name" value="dni"/>
@@ -109,7 +109,8 @@ from inscripcion i inner join estudiante e on(i.estudiante_dni=e.dni)
 from inscripcion i inner join estudiante e on(i.estudiante_dni=e.dni)
 				   inner join maquinas_inscripcion mi on(mi.inscripcion_id=i.id)
                    inner join maquina m on (m.id=mi.maquina_id)
-                   where mi.maquina_id= $P{idMaquina}]]>
+                   where mi.maquina_id= $P{idMaquina} and 
+                   i.monto_restante>0]]>
 	</queryString>
 	<field name="dni" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="dni"/>

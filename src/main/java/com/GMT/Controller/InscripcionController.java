@@ -66,7 +66,7 @@ public class InscripcionController {
 		 int page= params.get("page") != null ? (Integer.valueOf(params.get("page").toString()) - 1) : 0; 
 		 int tamanioPaginado= params.get("pageSize") != null ? (Integer.valueOf(params.get("pageSize").toString()) ) : 10; 
 		 
-		 PageRequest pageRequest=PageRequest.of(page, tamanioPaginado); //RECIBE COMO PARAMETROS LA PAGINA Y EL TAMAÑO DE PAGINA
+		 PageRequest pageRequest=PageRequest.of(page, tamanioPaginado); //RECIBE COMO PARAMETROS LA PAGINA Y EL TAMAï¿½O DE PAGINA
 		 
 		 Page<Inscripcion> pageInscripcion=inscripcionServicioImpl.paginado(pageRequest); //OBTENEMOS EL LISTADO DE ESTUDIANTES
 		 int primeraFila=0;
@@ -130,7 +130,7 @@ public class InscripcionController {
 		 } 
 	}
 	
-	@RequestMapping(value= {"/ConsultarMontos"},method=RequestMethod.POST)
+	/*@RequestMapping(value= {"/ConsultarMontos"},method=RequestMethod.POST)
 	public @ResponseBody String ConsultarMontos(HttpServletRequest request) throws JsonParseException, JsonMappingException, IOException{
 		
 		 int idCurso=Integer.parseInt(request.getParameter("idCurso"));
@@ -144,7 +144,7 @@ public class InscripcionController {
 			 
 		 return Obj.writeValueAsString(montoTotal);
 
-	}
+	}*/
 	
 	@RequestMapping(value= {"/ConsultarMontosMaquina"},method=RequestMethod.POST)
 	public @ResponseBody String ConsultarMontosMaquina( HttpServletRequest request) throws JsonParseException, JsonMappingException, IOException{

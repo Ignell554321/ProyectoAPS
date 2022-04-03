@@ -55,7 +55,7 @@ public class CursoController {
 			 int page= params.get("page") != null ? (Integer.valueOf(params.get("page").toString()) - 1) : 0; 
 			 int tamanioPaginado= params.get("pageSize") != null ? (Integer.valueOf(params.get("pageSize").toString()) ) : 10; 
 			 
-			 PageRequest pageRequest=PageRequest.of(page, tamanioPaginado); //RECIBE COMO PARAMETROS LA PAGINA Y EL TAMAÑO DE PAGINA
+			 PageRequest pageRequest=PageRequest.of(page, tamanioPaginado); //RECIBE COMO PARAMETROS LA PAGINA Y EL TAMAï¿½O DE PAGINA
 			 
 			 Page<Curso> pageCurso=cursoServiceImpl.paginado(pageRequest); //OBTENEMOS EL LISTADO DE ESTUDIANTES
 			 int primeraFila=0;

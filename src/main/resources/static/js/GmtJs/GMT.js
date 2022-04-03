@@ -1,31 +1,32 @@
 
 function pageSize(opcion){
 		var pageSize;
+		var urlServer=$('#urlAjax').val();
 
 		switch(opcion){
 			case 1: //Estudiante
 				 pageSize=$('#cmbtamanioPaginaEstudiante').val();
-				 window.location.replace("/Estudiante/Paginado/?pageSize=" + pageSize + "&page=1");
+				 window.location.replace(urlServer+"Estudiante/Paginado/?pageSize=" + pageSize + "&page=1");
 				break;
 			case 2: //Instructor
 				pageSize=$('#cmbtamanioPaginaInstructor').val();
-				 window.location.replace("/Instructor/Paginado/?pageSize=" + pageSize + "&page=1");
+				 window.location.replace(urlServer+"Instructor/Paginado/?pageSize=" + pageSize + "&page=1");
 				break;
 			case 3: //Curso
 				pageSize=$('#cmbtamanioPaginaCurso').val();
-				 window.location.replace("/Curso/Paginado/?pageSize=" + pageSize + "&page=1");
+				 window.location.replace(urlServer+"Curso/Paginado/?pageSize=" + pageSize + "&page=1");
 				break;
 			case 4: //Certificado
 				pageSize=$('#cmbtamanioPaginaCertificado').val();
-				 window.location.replace("/Certificado/Paginado/?pageSize=" + pageSize + "&page=1");
+				 window.location.replace(urlServer+"Certificado/Paginado/?pageSize=" + pageSize + "&page=1");
 				break;
 			case 5: //Maquina
 				pageSize=$('#cmbtamanioPaginaMaquina').val();
-				 window.location.replace("/Maquina/Paginado/?pageSize=" + pageSize + "&page=1");
+				 window.location.replace(urlServer+"Maquina/Paginado/?pageSize=" + pageSize + "&page=1");
 				break;
 			case 6: //Maquina
 				pageSize=$('#cmbtamanioPaginaInscripcion').val();
-				 window.location.replace("/Inscripcion/Paginado/?pageSize=" + pageSize + "&page=1");
+				 window.location.replace(urlServer+"Inscripcion/Paginado/?pageSize=" + pageSize + "&page=1");
 				break;
 		}
 	
@@ -35,6 +36,7 @@ function pageSize(opcion){
 
 function guardarEstudiante(){
 		
+	var urlServer=$('#urlAjax').val();
 	
 		if($("#frmEstudiante").valid())
 		{
@@ -54,7 +56,7 @@ function guardarEstudiante(){
 			
 			$.ajax({
 		        type: 'POST',
-		        url: "/Estudiante/Guardar",
+		        url: urlServer+"Estudiante/Guardar",
 		        data:{
 		        	Estudiante:JSON.stringify(Estudiante)
 		        	},
@@ -70,7 +72,7 @@ function guardarEstudiante(){
 	    				}).then(	
     						function () {
     							  if (true) {
-    								 window.location="/Estudiante/Paginado";
+    								 window.location=urlServer+"Estudiante/Paginado";
     							  }
     						}
 						)
@@ -89,6 +91,8 @@ function guardarEstudiante(){
 	
 function guardarInstructor(){
 		
+	var urlServer=$('#urlAjax').val();
+	
 		if($("#frmInstructor").valid())
 		{
 			var Instructor={
@@ -104,7 +108,7 @@ function guardarInstructor(){
 			
 			$.ajax({
 		        type: 'POST',
-		        url: "/Instructor/Guardar",
+		        url: urlServer+"Instructor/Guardar",
 		        data:{
 		        	Instructor:JSON.stringify(Instructor)
 		        	},
@@ -119,7 +123,7 @@ function guardarInstructor(){
 	    				}).then(	
     						function () {
     							  if (true) {
-    								 window.location="/Instructor/Paginado";
+    								 window.location= urlServer+"Instructor/Paginado";
     							  }
     						}
 						)
@@ -139,6 +143,7 @@ function guardarInstructor(){
 	function guardarCurso(){
 		
 		
+		var urlServer=$('#urlAjax').val();
 		
 		if($("#frmCurso").valid())
 		{
@@ -146,11 +151,11 @@ function guardarInstructor(){
 					
 					id:$('#id').val(),
 					nombre:$('#nombre').val(),
-					nivel:$('#nivel').val(),
-					horas:$('#horas').val(),
+					//nivel:$('#nivel').val(),
+					//horas:$('#horas').val(),
 					tipoDeCurso:$('#tipoDeCurso').val(),
 					descripcion:$('#descripcion').val(),
-					montoCurso:$('#montoCurso').val(),
+					//montoCurso:$('#montoCurso').val(),
 					instructor:{
 						dni:$('#dniInstructor').val(),
 					},
@@ -166,7 +171,7 @@ function guardarInstructor(){
 	
 			$.ajax({
 		        type: 'POST',
-		        url: "/Curso/Guardar",
+		        url: urlServer+"Curso/Guardar",
 		        data:{
 		        	Curso:JSON.stringify(Curso)
 		        	},
@@ -181,7 +186,7 @@ function guardarInstructor(){
 	    				}).then(	
 							function () {
 								  if (true) {
-									 window.location="/Curso/Paginado";
+									 window.location=urlServer+"Curso/Paginado";
 								  }
 							}
 						)
@@ -199,6 +204,8 @@ function guardarInstructor(){
 
 	function guardarCertificado(){
 		
+		var urlServer=$('#urlAjax').val();
+		
 		if($("#frmCertificado").valid())
 		{
 			var Certificado={
@@ -211,7 +218,7 @@ function guardarInstructor(){
 	
 			$.ajax({
 		        type: 'POST',
-		        url: "/Certificado/Guardar",
+		        url: urlServer+"Certificado/Guardar",
 		        data:{
 		        	Certificado:JSON.stringify(Certificado)
 		        	},
@@ -226,7 +233,7 @@ function guardarInstructor(){
 	    				}).then(	
 							function () {
 								  if (true) {
-									 window.location="/Certificado/Paginado";
+									 window.location=urlServer+"Certificado/Paginado";
 								  }
 							}
 						)
@@ -243,6 +250,8 @@ function guardarInstructor(){
 	
 	function guardarMaquina(){
 		
+		var urlServer=$('#urlAjax').val();
+		
 		if($("#frmMaquina").valid())
 		{
 			var Maquina={
@@ -255,7 +264,7 @@ function guardarInstructor(){
 	
 			$.ajax({
 		        type: 'POST',
-		        url: "/Maquina/Guardar",
+		        url: urlServer+"Maquina/Guardar",
 		        data:{
 		        	Maquina:JSON.stringify(Maquina)
 		        	},
@@ -270,7 +279,7 @@ function guardarInstructor(){
 	    				}).then(	
 							function () {
 								  if (true) {
-									 window.location="/Maquina/Paginado";
+									 window.location=urlServer+"Maquina/Paginado";
 								  }
 							}
 						)
@@ -287,6 +296,7 @@ function guardarInstructor(){
 	
 	function guardarInscripcion(){
 		
+		var urlServer=$('#urlAjax').val();
 		
 		if($("#frmInscripcion").valid()){
 			
@@ -307,6 +317,7 @@ function guardarInstructor(){
 			var montoPagado=$('#txtxPagoCuota').val();
 			var montoFinal;
 			var maquinas=[];
+			var turnos=[];
 			
 			if(parseFloat(montoRestante)>0)
 				{
@@ -337,57 +348,80 @@ function guardarInstructor(){
 				//Si es vacio el arreglo se agrega el id sin maquina
 				if(maquinas.length==0){
 					var maquina={
-							id:2
+							id:1
 						}
 					maquinas.push(maquina)
 				}
 				
-				//Creando variable Inscripcion
-				var Inscricpion= {
-					
-					id:idInscripcion,
-					fechaActual:fechaActual,
-					montoRestante:montoRestante,
-					montoTotal:montoTotal,
-					promocion:promocion,
-					turno:turno,
-					fechaActual:fechaActual,	
-					curso:{
-						id:idCurso
-					},
-					maquinas:maquinas,
-					estudiante:{
-						dni:dniEstudiante
-					}
+				
+				//Agregando turnos al arreglo
+				$('.CheckedTrn:checked').each(
+						function() {	
+							turnos.push($(this).val())
+						}
 						
+				);
+				
+				//Si es vacio el arreglo se agrega el id sin maquina
+				if(turnos.length==0){
+					
+					  swal("Verifique por favor...", {
+			    		  title: "No ha seleccionado un turno",
+			       	      icon: "warning"
+						}).then()
+					
+				}else
+				{
+					
+					//Creando variable Inscripcion
+					var Inscricpion= {
+						
+						id:idInscripcion,
+						fechaActual:fechaActual,
+						montoRestante:montoRestante,
+						montoTotal:montoTotal,
+						promocion:promocion,
+						turno:turnos,
+						fechaActual:fechaActual,	
+						curso:{
+							id:idCurso
+						},
+						maquinas:maquinas,
+						estudiante:{
+							dni:dniEstudiante
+						}
+							
+					}
+					
+					$.ajax({
+				        type: 'POST',
+				        url: urlServer+"Inscripcion/Guardar",
+				        data:{
+				        	Inscricpion:JSON.stringify(Inscricpion)
+				        	},
+				        datatype: 'json',
+				        success: function (response) {
+				        	swal({
+			    				  title: "Correcto!",
+			    				  text: "Registro guardado correctamente!",
+			    				  icon: "success",
+			    				  button: "Aceptar",
+			    				  timer: 2000
+			    				}).then(	
+									function () {
+										  if (true) {
+											 window.location=urlServer+"Inscripcion/Paginado";
+										  }
+									}
+								)
+				        	
+						        },
+					            error : function() { }	 
+						 });
+					
 				}
-				
-				$.ajax({
-			        type: 'POST',
-			        url: "/Inscripcion/Guardar",
-			        data:{
-			        	Inscricpion:JSON.stringify(Inscricpion)
-			        	},
-			        datatype: 'json',
-			        success: function (response) {
-			        	swal({
-		    				  title: "Correcto!",
-		    				  text: "Registro guardado correctamente!",
-		    				  icon: "success",
-		    				  button: "Aceptar",
-		    				  timer: 2000
-		    				}).then(	
-								function () {
-									  if (true) {
-										 window.location="/Inscripcion/Paginado";
-									  }
-								}
-							)
-			        	
-					        },
-				            error : function() { }	 
-					 });
-				
+			
+
 			}
 			
 		}else{
@@ -692,10 +726,15 @@ function guardarInstructor(){
 		
 		$(document).on('click', '#borrarInscripcion', function (event) {
 			
+			
 			var idInscripcion='';
 			$(this).parents("tr").find("#idInscripcion").each(function() {
 				idInscripcion = $(this).html();
 		    });
+			
+			var split= idInscripcion.split("GMT-000");
+			idInscripcion=split[1];
+			console.log(split[1]);
 			
 			event.preventDefault();
 			swal({
@@ -943,11 +982,13 @@ function guardarInstructor(){
 		
 		function reporteMorososMaquina(){
 			
+			var urlServer=$('#urlAjax').val();
+			
 			var idMaquina=$('#cmbMaquina option:selected').val()
 			
 			if(idMaquina!=""){
 				window.open(
-						  '/Reporte/MorososMaquina/'+idMaquina,
+						urlServer+'Reporte/MorososMaquina/'+idMaquina,
 						  '_blank' 
 						);
 			}else{
@@ -963,10 +1004,12 @@ function guardarInstructor(){
 	
 		function reporteMorososCurso()
 		{
+			
+			var urlServer=$('#urlAjax').val();
 			var idCurso=$('#cmbCurso option:selected').val()
 			if(idCurso!=""){
 				window.open(
-						  '/Reporte/MorososCurso/'+idCurso,
+						urlServer+'Reporte/MorososCurso/'+idCurso,
 						  '_blank' 
 						);
 			}else{

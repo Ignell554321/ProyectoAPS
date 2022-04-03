@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.Email;
 
 @Entity
 public class Estudiante {
@@ -31,7 +32,8 @@ public class Estudiante {
 	@Column( name = "telefono", nullable = false, length = 9)
 	private String telefono;
 	
-	@Column( name = "correoElectronico", nullable = false, length = 120)
+	@Email
+	@Column( name = "correoElectronico", nullable = false, length = 120 , unique = true)
 	private String correoElectronico;
 	
 	@Column( name = "direccion", nullable = false, length = 140)

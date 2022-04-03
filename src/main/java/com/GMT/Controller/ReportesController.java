@@ -1,5 +1,6 @@
 package com.GMT.Controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -63,7 +64,7 @@ public class ReportesController {
 	  @ResponseBody
 	  public void descargaPDF(HttpServletResponse response) throws  IOException, JRException, SQLException {
 		  
-	    InputStream jasperStream = this.getClass().getResourceAsStream("/Reportes/Invoice.jasper");
+	    InputStream jasperStream = this.getClass().getResourceAsStream("/reportes/Invoice.jasper");
 	    JasperReport jasperReport = (JasperReport) JRLoader.loadObject(jasperStream);
 	    JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, null,datasource.getConnection());
 	    response.setContentType("application/x-pdf");
@@ -78,7 +79,7 @@ public class ReportesController {
     public void vistaPreviaPDF( HttpServletRequest request,HttpServletResponse response) throws  Exception{
 
 
-		InputStream jasperStream = this.getClass().getResourceAsStream("/Reportes/Invoice.jasper");
+		InputStream jasperStream = this.getClass().getResourceAsStream("/reportes/Invoice.jasper");
 	    JasperReport jasperReport = (JasperReport) JRLoader.loadObject(jasperStream);
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, null, datasource.getConnection());
         
@@ -93,8 +94,12 @@ public class ReportesController {
     public void vistaPreviaInscripcionPDF( HttpServletRequest request,HttpServletResponse response,@PathVariable(value="idInscripcion") int idInscripcion) throws  Exception{
 
 
-		InputStream jasperStream = this.getClass().getResourceAsStream("/Reportes/inscripcion.jasper");
+		File fichero = new File("src/main/webapp/reportes");
+		System.out.print("\n ruta :"+fichero.getAbsolutePath()+"\n");
+				
+		InputStream jasperStream = this.getClass().getResourceAsStream("/reportes/inscripcion.jasper");
 		Map<String,Object> params = new HashMap();
+		params.put("path", fichero.getAbsolutePath());
 		params.put("idInscripcion", idInscripcion);
 	    JasperReport jasperReport = (JasperReport) JRLoader.loadObject(jasperStream);
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, datasource.getConnection());
@@ -110,7 +115,7 @@ public class ReportesController {
     public void vistaPreviaMorososMaquinaPDF( HttpServletRequest request,HttpServletResponse response,@PathVariable(value="idMaquina") int idMaquina) throws  Exception{
 
 
-		InputStream jasperStream = this.getClass().getResourceAsStream("/Reportes/EstudiantesPorTipoDeMaquina.jasper");
+		InputStream jasperStream = this.getClass().getResourceAsStream("/reportes/EstudiantesPorTipoDeMaquina.jasper");
 		Map<String,Object> params = new HashMap();
 		params.put("idMaquina", idMaquina);
 	    JasperReport jasperReport = (JasperReport) JRLoader.loadObject(jasperStream);
@@ -127,7 +132,7 @@ public class ReportesController {
     public void vistaPreviaMorososCursoPDF( HttpServletRequest request,HttpServletResponse response,@PathVariable(value="idCurso") int idCurso) throws  Exception{
 
 
-		InputStream jasperStream = this.getClass().getResourceAsStream("/Reportes/EstudiantesPorTipoDeCurso.jasper");
+		InputStream jasperStream = this.getClass().getResourceAsStream("/reportes/EstudiantesPorTipoDeCurso.jasper");
 		Map<String,Object> params = new HashMap();
 		params.put("idCurso", idCurso);
 	    JasperReport jasperReport = (JasperReport) JRLoader.loadObject(jasperStream);
@@ -144,7 +149,10 @@ public class ReportesController {
     public void vistaPreviaMorososPDF( HttpServletRequest request,HttpServletResponse response) throws  Exception{
 
 
-		InputStream jasperStream = this.getClass().getResourceAsStream("/Reportes/EstudiantesMorosos.jasper");
+
+		//InputStream jasperStream = request.getSession().getServletContext().getResourceAsStream("/reportes/ EstudiantesMorosos.jasper");
+		InputStream jasperStream = this.getClass().getResourceAsStream("/reportes/EstudiantesMorosos.jasper");
+		//InputStream jasperStream = this.getClass().getResourceAsStream("/Reportes/EstudiantesMorosos.jasper");
 
 	    JasperReport jasperReport = (JasperReport) JRLoader.loadObject(jasperStream);
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, null, datasource.getConnection());

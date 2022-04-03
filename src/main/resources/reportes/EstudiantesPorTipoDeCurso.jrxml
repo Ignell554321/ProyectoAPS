@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.16.0.final using JasperReports Library version 6.16.0-48579d909b7943b64690c65c71e07e0b80981928  -->
+<!-- Created with Jaspersoft Studio version 6.9.0.final using JasperReports Library version 6.9.0-cb8f9004be492ccc537180b49c026951f4220bf3  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="EstudiantesPorTipoDeCurso" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="62f5fb0a-8743-4687-9233-363257955938">
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
@@ -47,7 +47,7 @@
 			<![CDATA[select e.dni,CONCAT(e.apellidos,' ',e.nombres) as estudiante,c.nombre,i.fecha_actual ,i.monto_total,i.monto_restante  
 from inscripcion i inner join estudiante e on(i.estudiante_dni=e.dni)
 					inner join curso c on (c.id=i.curso_id)
-                   where i.curso_id= $P{idCurso} ]]>
+                   where i.curso_id= $P{idCurso}]]>
 		</queryString>
 		<field name="dni" class="java.lang.String">
 			<property name="com.jaspersoft.studio.field.name" value="dni"/>
@@ -107,7 +107,7 @@ from inscripcion i inner join estudiante e on(i.estudiante_dni=e.dni)
 		<![CDATA[select e.dni,CONCAT(e.apellidos,' ',e.nombres) as estudiante,c.nombre,i.fecha_actual ,i.monto_total,i.monto_restante  
 from inscripcion i inner join estudiante e on(i.estudiante_dni=e.dni)
 					inner join curso c on (c.id=i.curso_id)
-                   where i.curso_id= $P{idCurso} ]]>
+                   where i.curso_id= $P{idCurso}  and   i.monto_restante>0]]>
 	</queryString>
 	<field name="dni" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="dni"/>

@@ -62,15 +62,15 @@
 							                        </div>
 							                      <div class="col-md-3 mb-3">
 							                            <label>Distrito</label>
-							                            <input  type="text"  readonly="readonly" th:field="*{estudiante.distrito}" class="form-control" id="txtDistrito" required="">
+							                            <input  type="text"  readonly="readonly" th:field="*{estudiante.distrito}" class="form-control" id="txtDistrito" >
 							                        </div>
 							                      <div class="col-md-3 mb-3">
 							                            <label>Provincia</label>
-							                            <input  type="text" readonly="readonly" th:field="*{estudiante.provincia}" class="form-control" id="txtProvincia" required="">
+							                            <input  type="text" readonly="readonly" th:field="*{estudiante.provincia}" class="form-control" id="txtProvincia" >
 							                        </div>
 							                      <div class="col-md-2 mb-3">
 							                            <label>Departamento</label>
-							                            <input  type="text" readonly="readonly" th:field="*{estudiante.departamento}" class="form-control" id="txtDepartamento" required="">
+							                            <input  type="text" readonly="readonly" th:field="*{estudiante.departamento}" class="form-control" id="txtDepartamento" >
 							                        </div>
 							                       
 							                    </div>
@@ -125,17 +125,53 @@
 	
 									                    
 									                      <ul class="text-align ml-4" >
+									                      
 									                     	  <div class="form-check">
-										                        <input th:disabled="${edicion}"  th:value="LV"  class="form-check-input" type="radio" name="turno" id="LV" checked>
-										                        <label class="form-check-label" for="LV">
-										                          LUNES A VIERNES
+										                        <input th:disabled="${edicion}" th:field="*{turno}" th:value="L"  class="form-check-input CheckedTrn" type="checkbox" name="turno" id="L" >
+										                        <label class="form-check-label" for="L">
+										                          LUNES
 										                        </label>
 										                      </div>
 									                    
+									                     	  <div class="form-check">
+										                        <input th:disabled="${edicion}" th:field="*{turno}"  th:value="M"  class="form-check-input CheckedTrn" type="checkbox" name="turno" id="M" >
+										                        <label class="form-check-label" for="M">
+										                          MARTES
+										                        </label>
+										                      </div>
+										                      
+										                       <div class="form-check">
+										                        <input th:disabled="${edicion}" th:field="*{turno}"  th:value="X"  class="form-check-input CheckedTrn" type="checkbox" name="turno" id="X" >
+										                        <label class="form-check-label" for="X">
+										                          MIERCOLES
+										                        </label>
+										                      </div>
+										                      
+										                       <div class="form-check">
+										                        <input th:disabled="${edicion}" th:field="*{turno}" th:value="J"  class="form-check-input CheckedTrn" type="checkbox" name="turno" id="J" >
+										                        <label class="form-check-label" for="J">
+										                          JUEVES
+										                        </label>
+										                      </div>
+										                      
+										                       <div class="form-check">
+										                        <input th:disabled="${edicion}" th:field="*{turno}"  th:value="V"  class="form-check-input CheckedTrn" type="checkbox" name="turno" id="V" >
+										                        <label class="form-check-label" for="V">
+										                          VIERNES
+										                        </label>
+										                      </div>
+										                      
+										                       <div class="form-check">
+										                        <input th:disabled="${edicion}" th:field="*{turno}"  th:value="S"  class="form-check-input CheckedTrn" type="checkbox" name="turno" id="S" >
+										                        <label class="form-check-label" for="S">
+										                          SABADO
+										                        </label>
+										                      </div>
+										                      
 										                      <div class="form-check">
-										                        <input th:disabled="${edicion}" th:checked="*{turno}=='D' ? 'checked'" th:value="D"  class="form-check-input " type="radio" name="turno" id="D" >
+										                        <input th:disabled="${edicion}" th:field="*{turno}" th:value="D"  class="form-check-input CheckedTrn" type="checkbox" name="turno" id="D" >
 										                        <label class="form-check-label" for="D">
-										                          DOMINGOS
+										                          DOMINGO
 										                        </label>
 										                      </div>
 									                      
@@ -145,35 +181,34 @@
 									             	
 								             		</div>
 								             		
+								             		
 								             		<div class="col-lg-2 border mt-2">
 								             		
 								             			 <h4 class="mt-2"><b>Promocion</b></h4>
 									                    <div class="form-check">
 									                       
 									                       <div class="list-group" >
-									                       <label class="form-check-label" for="2021-I">
-									                          <input th:disabled="${edicion}" th:value=${promocion} class="form-check-input" type="radio" name="promocion" id="2021-I" checked>
-									                          2021-I
+									                       <label class="form-check-label" th:for="*{anio} + -I">
+									                          <input th:disabled="${edicion}" th:value=${promocion} th:text="' '+*{anio} + -I" class="form-check-input" type="radio" name="promocion" th:id="*{anio}+ -I" checked>
 									                        </label>
-									                        <label  class="form-check-label" for="2021-II">
-									                          <input th:disabled="${edicion}" th:checked="*{promocion}=='2021-II' ? 'checked'" th:value=${promocion} class="form-check-input " type="radio" name="promocion" id="2021-II">
-									                          2021-II
+									                        <label  class="form-check-label" th:for="*{anio} + -II">
+									                          <input th:disabled="${edicion}" th:checked="*{promocion}==*{anio} + '-II' ? 'checked'" th:text="' '+*{anio} + -II" th:value=${promocion} class="form-check-input " type="radio" name="promocion" th:id="*{anio}+ -II">
 									                        </label>
-									                      <label class="form-check-label" for="2021-III">
-									                          <input th:disabled="${edicion}" th:checked="*{promocion}=='2021-III' ? 'checked'" th:value=${promocion} class="form-check-input " type="radio" name="promocion" id="2021-III">
-									                          2021-III
+									                      <label class="form-check-label" th:for="*{anio} + -III">
+									                          <input th:disabled="${edicion}" th:checked="*{promocion}==*{anio} + '-III' ? 'checked'" th:text="' '+*{anio} + -III" th:value=${promocion} class="form-check-input " type="radio" name="promocion" th:id="*{anio}+ -III">
+									                          
 									                        </label>
-									                      <label class="form-check-label" for="2021-IV">
-									                          <input th:disabled="${edicion}" th:checked="*{promocion}=='2021-IV' ? 'checked'" th:value=${promocion} class="form-check-input " type="radio" name="promocion" id="2021-VI">
-									                          2021-IV
+									                      <label class="form-check-label" th:for="*{anio} + -IV">
+									                          <input th:disabled="${edicion}" th:checked="*{promocion}==*{anio} + '-IV' ? 'checked'" th:text="' '+*{anio} + -IV" th:value=${promocion} class="form-check-input " type="radio" name="promocion" th:id="*{anio}+ -IV">
+									                          
 									                        </label>
-									                      <label class="form-check-label" for="2021-V">
-									                          <input th:disabled="${edicion}" th:checked="*{promocion}=='2021-V' ? 'checked'" th:value=${promocion} class="form-check-input " type="radio" name="promocion" id="2021-V">
-									                          2021-V
+									                      <label class="form-check-label" th:for="*{anio} + -V">
+									                          <input th:disabled="${edicion}" th:checked="*{promocion}==*{anio} + '-V' ? 'checked'" th:text="' '+*{anio} + -V" th:value=${promocion} class="form-check-input " type="radio" name="promocion" th:id="*{anio}+ -V">
+									                         
 									                        </label>
-									                      <label class="form-check-label" for="2021-VI">
-									                          <input th:disabled="${edicion}" th:checked="*{promocion}=='2021-VI' ? 'checked'" th:value=${promocion} class="form-check-input " type="radio" name="promocion" id="2021-VI">
-									                          2021-VI
+									                      <label class="form-check-label" th:for="*{anio} + -VI">
+									                          <input th:disabled="${edicion}" th:checked="*{promocion}==*{anio} + '-VI' ? 'checked'" th:text="' '+*{anio} + -VI" th:value=${promocion} class="form-check-input " type="radio" name="promocion" th:id="*{anio}+ -VI">
+									                          
 									                        </label>
 									                        
 									                      </div>

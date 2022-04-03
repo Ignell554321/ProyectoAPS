@@ -9,12 +9,12 @@ import javax.persistence.Id;
 public class Usuario {
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idUsuario;
 	private String apellidos;
 	private String nombres;
 	private String usuario;
-	private String password;
+	private String contraseña;
 	private String autorizacion;
 	private String email;
 	
@@ -42,11 +42,12 @@ public class Usuario {
 	public void setUsuario(String usuario) {
 		this.usuario = usuario;
 	}
-	public String getPassword() {
-		return password;
+
+	public String getContraseña() {
+		return contraseña;
 	}
-	public void setPassword(String password) {
-		this.password = password;
+	public void setContraseña(String contraseña) {
+		this.contraseña = contraseña;
 	}
 	public String getAutorizacion() {
 		return autorizacion;

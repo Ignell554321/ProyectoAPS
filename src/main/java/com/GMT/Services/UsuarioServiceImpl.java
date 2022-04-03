@@ -29,7 +29,7 @@ public class UsuarioServiceImpl implements UserDetailsService {
 	    GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(usuario.getAutorizacion());
 	    grantList.add(grantedAuthority);
 			
-	    return new User(usuario.getUsuario(), usuario.getPassword(), grantList);
+	    return new User(usuario.getUsuario(), usuario.getContraseña(), grantList);
 	}
 
 }

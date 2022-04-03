@@ -1,5 +1,6 @@
 package com.GMT.utils;
 
+/*
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 public class PassGenerator {
@@ -9,3 +10,4 @@ public class PassGenerator {
 	System.out.println(bCryptPasswordEncoder.encode("1234"));
 	}
 }
+*/

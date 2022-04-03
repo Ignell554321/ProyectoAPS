@@ -30,11 +30,11 @@ public class Curso {
 	@Column(name="nombre",nullable = false )
 	private String nombre;
 	
-	@Column(name="nivel",nullable = false)
+	/*@Column(name="nivel",nullable = false)
 	private short nivel;
 	
 	@Column(name = "horas",nullable = false)
-	private short horas;
+	private short horas;*/
 	
 	@Column(name = "descripcion",nullable = false)
 	private String descripcion;
@@ -42,8 +42,8 @@ public class Curso {
 	@Column(name = "tipoDeCurso",nullable = false,length = 45)
 	private String tipoDeCurso;
 	
-	@Column(name = "montoCurso",nullable = false)
-	private float montoCurso;
+	/*@Column(name = "montoCurso",nullable = false)
+	private float montoCurso;*/
 
 	public Curso() {
 		
@@ -93,7 +93,7 @@ public class Curso {
 		this.nombre = nombre;
 	}
 
-	public short getNivel() {
+	/*public short getNivel() {
 		return nivel;
 	}
 
@@ -107,7 +107,7 @@ public class Curso {
 
 	public void setHoras(short horas) {
 		this.horas = horas;
-	}
+	}*/
 
 	public String getDescripcion() {
 		return descripcion;
@@ -125,13 +125,13 @@ public class Curso {
 		this.tipoDeCurso = tipoDeCurso;
 	}
 
-	public float getMontoCurso() {
+	/*public float getMontoCurso() {
 		return montoCurso;
 	}
 
 	public void setMontoCurso(float montoCurso) {
 		this.montoCurso = montoCurso;
-	}
+	}*/
 
 	
 	

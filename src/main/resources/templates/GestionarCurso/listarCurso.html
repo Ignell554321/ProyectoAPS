@@ -35,10 +35,10 @@
 	                                     <thead>
 	                                         <tr>                                                        
 	                                             <th>Nombre</th>
-	                                             <th>Nivel</th>
-	                                             <th>Horas</th>
 	                                             <th>Tipo de Curso</th>
 	                                             <th>Instructor</th>
+												 <th>Dia</th>
+	                                             <th>Turno</th>
 	                                             <th>Opciones</th>
 	                                         </tr>
 	                                     </thead>
@@ -46,10 +46,10 @@
 	                                         <tr th:each="curso: ${lista}">
 	                                         	<td id="idCurso" class="d-none" th:text="${curso.id}"></td>
 	                                         	<td th:text="${curso.nombre}"></td>
-	                                         	<td th:text="${curso.nivel}"></td>
-	                                         	<td th:text="${curso.horas}"></td>
 	                                         	<td th:text="${curso.tipoDeCurso}"></td>
 	                                         	<td th:text="${curso.instructor.apellidos +' '+curso.instructor.nombres}"></td>
+	                                         	<td th:text="${curso.horario.dia}"></td>
+	                                         	<td th:text="${curso.horario.turno}"></td>
 	                                         	<td>
 	                                         	<a class="btn btn-sm btn-warning" th:href="@{/Curso/Editar/{id} (id=${curso.id})}" ><i class="ti-pencil"></i></a>
 	                                         	<button class="btn btn-sm btn-danger" id="borrarCurso"><i class="ti-trash"></i></button>

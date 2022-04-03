@@ -1,11 +1,15 @@
 package com.GMT.Entidad;
 
 
-import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,9 +19,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.Transient;
 
-import org.springframework.format.annotation.DateTimeFormat;
-import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 public class Inscripcion {
@@ -40,7 +43,7 @@ public class Inscripcion {
 	
 	
 	@JoinTable(
-			//Name: Nombre de la tabla que será creada físicamente en la base de datos
+			//Name: Nombre de la tabla que serï¿½ creada fï¿½sicamente en la base de datos
 			//joinColumns: Corresponde al nombre para el ID de la Entidad Inscripcion
 			//inverseJoinColumns: Corresponde al nombre para el ID de la Entidad Maquina
 			name = "MaquinasInscripcion",
@@ -74,9 +77,19 @@ public class Inscripcion {
 	@Column(name="promocion", nullable = false, length = 15)
 	private String promocion;
 	
-	@Column(name="turno", nullable = false, length = 25)
-	private String turno;
+	/*@Column(name="turno", nullable = false, length = 25)
+	private String turno;*/
 	
+	@ElementCollection
+	 @CollectionTable(
+	        name="turnos",
+	        joinColumns=@JoinColumn(name="idInscripcion")
+	  )
+	  @Column(name="turno")
+	private List<String> turno;
+	
+	@Transient
+	private int anio;
 	
 	public Inscripcion() {
 		
@@ -85,7 +98,30 @@ public class Inscripcion {
 		this.estudiante=new Estudiante();
 		this.MontoTotal=50;
 		this.MontoRestante=50;
+		Date date = new Date();
+		Calendar calendar = new GregorianCalendar();
+		calendar.setTime(date);
+		this.anio = calendar.get(Calendar.YEAR);
 		
+	}
+
+	
+	public int getAnio() {
+		return anio;
+	}
+
+
+	public void setAnio(int anio) {
+		this.anio = anio;
+	}
+
+
+	public List<String> getTurno() {
+		return turno;
+	}
+
+	public void setTurno(List<String> turno) {
+		this.turno = turno;
 	}
 
 	public List<Maquina> getMaquinas() {
@@ -164,7 +200,7 @@ public class Inscripcion {
 
 
 
-	public String getTurno() {
+	/*public String getTurno() {
 		return turno;
 	}
 
